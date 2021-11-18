@@ -1,10 +1,8 @@
 import React from "react";
-import "./hero.css";
-
 
 const Hero = () => {
   return (
-    <div className="container text-center margen-top">
+    <div className="container text-center margen-top hero">
       <h1 className=" titulo">MYTINERARY
       </h1>
       <p className=" parrafo">

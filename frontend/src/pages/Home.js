@@ -2,7 +2,8 @@ import React from "react";
 import NavbarHome from "../components/Navbar";
 import Hero from "../components/Hero";
 import BtnA from "../components/CallToAction";
-import PlanTrip from "../components/PlanTrip";
+import Footer from "../components/Footer";
+import CarouselCompo from "../components/Carousel";
 
 export default class Home extends React.Component{
   
@@ -11,12 +12,11 @@ export default class Home extends React.Component{
       <>
         <div  className="fondo-main">
           <NavbarHome />
-          <Hero />
+          <Hero  />
           <BtnA />
         </div>
-        <div className="plan-trip">
-          <PlanTrip />
-          </div>
+          <CarouselCompo/>
+          <Footer/>
       </>
     );
   }

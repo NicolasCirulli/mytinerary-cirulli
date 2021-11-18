@@ -13,16 +13,149 @@ code {
 }
 
 .fondo-main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-image: url("./assets/img/fondo.png");
-  min-height: 100vh;
 }
 
-@media (min-width: 600px) {
-  .plan-trip {
-    display: none;
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 2;
+}
+
+.call_a {
+  margin-bottom: 2rem;
+}
+
+.margen-top {
+  margin-top: 15vh;
+}
+
+.parrafo {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2em;
+  line-height: 28px;
+  text-align: center;
+
+  color: #ffffff;
+
+  mix-blend-mode: normal;
+  opacity: 0.88;
+
+  margin-top: 2rem;
+}
+
+.titulo {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 3.5em;
+  line-height: 78px;
+  text-align: center;
+  letter-spacing: -0.01em;
+
+  color: #ffffff;
+}
+
+.card-hero {
+  max-width: 800px;
+}
+
+.carousel_custom {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.carousel_custom_item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 90vw;
+}
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40vw;
+  margin: 0.5rem 0;
+}
+.tarjeta:hover {
+  box-shadow: 2px 0px 43px -7px rgba(0, 0, 0, 0.95);
+  -webkit-box-shadow: 2px 0px 43px -7px rgba(0, 0, 0, 0.95);
+  -moz-box-shadow: 2px 0px 43px -7px rgba(0, 0, 0, 0.95);
+}
+.tarjeta_imagen {
+  width: 100%;
+}
+.tarjeta_ciudad {
+  font-size: 1.3rem;
+
+  width: 100%;
+  text-align: center;
+  color: rgb(242, 228, 228);
+  background-color: rgb(26, 25, 25);
+}
+.tarjeta_pais {
+  width: 100%;
+  text-align: center;
+  color: rgb(242, 228, 228);
+  background-color: rgb(26, 25, 25);
+}
+
+@media (max-width: 660px) {
+  .carousel_custom {
+    flex-wrap: nowrap;
+  }
+  .tarjeta {
+    width: 80vw;
+  }
+  .tarjeta_imagen {
+    width: 100%;
   }
 }
 
 
+ .footer_main{
+  display: flex;
+  align-items: center;
+  background-color:#5e6577 ;
+}
+
+.footer_links{
+  width: 20vw;
+  display: flex;
+  
+}
+.footer_titulo{
+  width: 60vw;
+  color: #fff;
+  text-align: center;
+}
+.footer_links a{
+  background-color: #fff;
+  padding: .1rem;
+  margin: 0 .5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.footer_iconos{
+  width: 20vw;
+  display: flex;
+  justify-content: space-around;
+}
+.footer_iconos a{
+  font-size: 1.3rem;
+  color: white;
+}
 
 
