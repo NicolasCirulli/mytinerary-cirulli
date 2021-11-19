@@ -100,11 +100,12 @@ const CarouselCompo = () => {
     },
   ];
 
+
   return (
     <>
-        <h2 className="titulo_negro">POPULAR MYTINERARY</h2>
+        <h2 className="titulo_carousel">POPULAR MYTINERARY</h2>
         
-      <Carousel className="carousel_custom" interval={1000}   indicators={false}>
+      <Carousel className="carousel_custom" interval={2000}   indicators={false} >
         <Carousel.Item >
           <div className=" carousel_custom_item ">
             {ciudades.map((ciudad) => {

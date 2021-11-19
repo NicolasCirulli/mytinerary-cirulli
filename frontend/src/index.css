@@ -45,6 +45,7 @@ code {
   background-color: #1e3a8a;
   background-image: linear-gradient(160deg, #1e3a8a 0%, #80D0C7 100%); */
   background-color: rgb(2, 2, 2);
+  padding-bottom: 2em;
   
 
 }
@@ -68,7 +69,7 @@ code {
   font-family: Inter;
   font-style: normal;
   font-weight: 500;
-  font-size: 2em;
+  font-size: 1em;
   line-height: 28px;
   text-align: center;
 
@@ -84,7 +85,7 @@ code {
   font-family: Poppins;
   font-style: normal;
   font-weight: bold;
-  font-size: 3.5em;
+  font-size: 3em;
   line-height: 78px;
   text-align: center;
   letter-spacing: -0.01em;
@@ -104,14 +105,18 @@ code {
 
 
 
-.titulo_negro{
+.titulo_carousel{
   padding: 1rem 0;
-  color: rgb(175, 173, 225);
+  color: var(--blue8);
   text-align: center;
+  background-color: var(--blue3);
+  width: auto;
+  margin: auto auto 1em auto ;
 }
 
 .carousel_custom {
-  width: 100vw;
+  width: 75vw;
+  margin: auto;
   /* padding: 0 11rem; */
 }
 
@@ -119,7 +124,8 @@ code {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100vw;
+  width: 75vw;
+
 }
 .carousel-control-prev, .carousel-control-next{
   width: 5% !important;
@@ -129,10 +135,9 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 40vw;
+  width: 33vw;
   margin: 10px 10px;
   border-radius: 25px;
-  
 }
 .tarjeta:hover {
   filter: drop-shadow(0px 0px 30px #6581ce);
@@ -151,34 +156,26 @@ code {
   color: var(--blue10);
   width: 100%;
   text-align: center;
-  background-color: var(--blue4);
-  font-weight:400
+  background-color: var(--blue3);
+  font-weight: bold;
+
 }
 .tarjeta_pais {
   width: 100%;
   text-align: center;
   color: var(--blue10);
-  background-color: var(--blue4);
+  background-color: var(--blue3);
   border-radius: 0 0 25px 25px;
 }
 
-@media (max-width: 660px) {
-  .carousel_custom {
-    flex-wrap: nowrap;
-  }
-  .tarjeta {
-    width: 80vw;
-  }
-  .tarjeta_imagen {
-    width: 100%;
-  }
-}
+
 
 
  .footer_main{
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
-  height: 15vh;
+  height: 20vh;
   background-color: #0093E9;
   background-image: linear-gradient(-90deg, #0093E9 0%, #80D0C7 100%);
   
@@ -228,4 +225,19 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
   background-color: var(--blue5);
   border-radius: 5px;
+}
+
+@media (max-width: 660px) {
+  .carousel_custom {
+    flex-wrap: nowrap;
+  }
+  .tarjeta {
+    width: 80vw;
+  }
+  .tarjeta_imagen {
+    width: 100%;
+  }
+  .parrafo{
+    font-size: 2rem;
+  }
 }
