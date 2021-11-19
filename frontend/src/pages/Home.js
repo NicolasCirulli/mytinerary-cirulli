@@ -5,18 +5,19 @@ import BtnA from "../components/CallToAction";
 import Footer from "../components/Footer";
 import CarouselCompo from "../components/Carousel";
 
-export default class Home extends React.Component{
-  
+export default class Home extends React.Component {
   render() {
     return (
       <>
-        <div  className="fondo-main">
+        <div className="fondo-main">
           <NavbarHome />
-          <Hero  />
+          <Hero />
           <BtnA />
         </div>
-          <CarouselCompo/>
-          <Footer/>
+        <div className="fondo-carousel">
+          <CarouselCompo />
+        </div>
+        <Footer />
       </>
     );
   }

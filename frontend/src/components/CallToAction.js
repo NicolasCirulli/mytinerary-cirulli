@@ -5,7 +5,7 @@ const BtnA = () => {
   return (
       <>
     <div className="text-center call_a">
-      <Button size="lg">
+      <Button size="lg" className="btn_call_a">
             Choose destination now!
       </Button>{" "}
     </div>

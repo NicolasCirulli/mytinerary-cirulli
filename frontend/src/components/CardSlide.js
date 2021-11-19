@@ -1,16 +1,14 @@
 
 const CardSlide = ( { ciudad } ) => {
-  const {nombre,pais} = ciudad
-  const imagen = `./assets/images/C${nombre}.jpg`;
-  console.log(imagen)
+  const {nombre,pais,nombreImagen} = ciudad
+  const imagen = `./assets/images/C${nombreImagen}.jpg`;
   return (
     <div  className="tarjeta">
       <div >
         <img src={imagen} alt="city" className="tarjeta_imagen"/>
-      <div/>
-        <div className="tarjeta_ciudad">{nombre}</div>
-        <div className="tarjeta_pais">{pais}</div>
       </div>
+        <div className="tarjeta_ciudad montserrat">{nombre} </div>
+        <div className="tarjeta_pais montserrat">{pais}</div>  
     </div>
   );
 };
