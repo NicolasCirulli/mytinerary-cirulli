@@ -2,6 +2,7 @@
 const CardSlide = ( { ciudad } ) => {
   const {nombre,pais,nombreImagen} = ciudad
   const imagen = `./assets/images/C${nombreImagen}.jpg`;
+  console.log(ciudad)
   return (
     <div  className="tarjeta">
       <div >

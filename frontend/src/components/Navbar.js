@@ -19,6 +19,10 @@ const NavbarHome = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
             <Nav>
+              {/* LogoUser en footer */}
+              {/* Arreglar Miami */}
+              {/* cambiar tamaño letra hero */}
+              {/* calltoaction para city */}
               <Nav.Link href="#home" className="active">
                 Home
               </Nav.Link>
