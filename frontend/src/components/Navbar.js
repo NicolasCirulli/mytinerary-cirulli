@@ -1,10 +1,10 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-
+import {Link} from 'react-router-dom'
 const NavbarHome = () => {
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" variant="dark">
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
           <img
                   src='./assets/images/logo.png'
@@ -13,23 +13,24 @@ const NavbarHome = () => {
                   className="d-inline-block align-top"
                   alt="User"
                 />
-          <Navbar.Brand href="#home">MYTINERARY</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">MYTINERARY</Navbar.Brand>
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
+
             <Nav className="me-auto"></Nav>
             <Nav>
               {/* LogoUser en footer */}
               {/* Arreglar Miami */}
               {/* cambiar tamaño letra hero */}
               {/* calltoaction para city */}
-              <Nav.Link href="#home" className="active">
+              <Nav.Link as={Link} to="/" className="active">
                 Home
               </Nav.Link>
-              <Nav.Link eventKey={2} href="#cities">
+              <Nav.Link eventKey={2} as={Link} to="/cities">
                 Cities
               </Nav.Link>
-              <Navbar.Brand href="#home">
+              <Navbar.Brand as={Link} to="/">
                 <img
                   src= './assets/images/profile.png'
                   width="30"
@@ -39,6 +40,7 @@ const NavbarHome = () => {
                 />
               </Navbar.Brand>
             </Nav>
+            
           </Navbar.Collapse>
         </Container>
       </Navbar>
