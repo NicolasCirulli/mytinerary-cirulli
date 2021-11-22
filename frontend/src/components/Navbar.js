@@ -20,14 +20,10 @@ const NavbarHome = () => {
 
             <Nav className="me-auto"></Nav>
             <Nav>
-              {/* LogoUser en footer */}
-              {/* Arreglar Miami */}
-              {/* cambiar tamaño letra hero */}
-              {/* calltoaction para city */}
-              <Nav.Link as={Link} to="/" className="active">
+              <Nav.Link as={Link} to="/" >
                 Home
               </Nav.Link>
-              <Nav.Link eventKey={2} as={Link} to="/cities">
+              <Nav.Link as={Link} to="/cities">
                 Cities
               </Nav.Link>
               <Navbar.Brand as={Link} to="/">

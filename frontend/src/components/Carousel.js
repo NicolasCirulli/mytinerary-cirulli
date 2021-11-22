@@ -103,7 +103,7 @@ const CarouselCompo = () => {
   ];
   return (
     <>
-      <h2 className="titulo_carousel">POPULAR MYTINERARY</h2>
+      <h2 className="titulo_carousel">Popular MyTineraries</h2>
 
       <Carousel className="carousel_custom" interval={2000} indicators={false} touch={true}>
             {ciudades.map((array) => {

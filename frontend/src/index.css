@@ -16,6 +16,9 @@
 .poppins {
   font-family: "Poppins", sans-serif;
 }
+.vh-80{
+  height: 80vh;
+}
 
 body {
   margin: 0;
