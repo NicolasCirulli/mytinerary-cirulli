@@ -5,6 +5,7 @@ const Footer = () => {
     <>
     
       <div className="footer_main">
+
       <div className="footer_iconos">
             <Link to="/"><BsTwitter />     </Link>
             <Link to="/"><BsInstagram/> </Link>
@@ -21,6 +22,7 @@ const Footer = () => {
           <Link to="/cities">cities</Link>
         </div>
       </div>
+      <div className="copyright"><h3 className="text-center ">Copyright © - MYTINERARY All Rights Reserved.</h3></div>
     </>
   );
 };

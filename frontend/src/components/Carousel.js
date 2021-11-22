@@ -21,7 +21,7 @@ const CarouselCompo = () => {
       },
 
       {
-        pais: "Unite State",
+        pais: "United States",
         nombre: "Miami",
         descripcion:
           "Miami, city, seat (1844) of Miami-Dade county, southeastern Florida, U.S. A major transportation and business hub, Miami is a leading resort and Atlantic Ocean port situated on Biscayne Bay at the mouth of the Miami River. The Everglades area is a short distance to the west",
@@ -105,7 +105,7 @@ const CarouselCompo = () => {
     <>
       <h2 className="titulo_carousel">POPULAR MYTINERARY</h2>
 
-      <Carousel className="carousel_custom" interval={2000} indicators={false}>
+      <Carousel className="carousel_custom" interval={2000} indicators={false} touch={true}>
             {ciudades.map((array) => {
               return (
                 
