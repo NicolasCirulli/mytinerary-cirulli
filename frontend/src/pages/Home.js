@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "../components/Hero";
-import BtnA from "../components/CallToAction";
-import CarouselCompo from "../components/Carousel";
+import CallToAction from "../components/CallToAction";
+import CarouselHome from "../components/CarouselHome";
 
 export default class Home extends React.Component {
   render() {
@@ -9,10 +9,10 @@ export default class Home extends React.Component {
       <>
         <div className="fondo-main">
           <Hero />
-          <BtnA />
+          <CallToAction />
         </div>
-        <div className="fondo-carousel">
-          <CarouselCompo />
+        <div className="fondo-carousel bg-oscuro">
+          <CarouselHome />
         </div>
       </>
     );

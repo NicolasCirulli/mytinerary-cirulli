@@ -2,7 +2,7 @@ import React from "react";
 import CardSlide from "./CardSlide";
 import { Carousel, CarouselItem } from "react-bootstrap";
 
-const CarouselCompo = () => {
+const CarouselHome = () => {
   const ciudades = [
     [
       {
@@ -103,13 +103,13 @@ const CarouselCompo = () => {
   ];
   return (
     <>
-      <h2 className="titulo_carousel">Popular MyTineraries</h2>
+      <h2 className="bg-naranja text-center texto-oscuro py-1 ">Popular MyTineraries</h2>
 
       <Carousel className="carousel_custom" interval={2000} indicators={false} touch={true}>
-            {ciudades.map((array) => {
+            {ciudades.map((array,index) => {
               return (
                 
-                <CarouselItem>
+                <CarouselItem key={index}>
                     <div className=" carousel_custom_item ">
                         {array.map((ciudad) => (<CardSlide key={ciudad.nombre} ciudad={ciudad} />))}
                     </div>
@@ -122,4 +122,4 @@ const CarouselCompo = () => {
   );
 };
 
-export default CarouselCompo;
+export default CarouselHome;
