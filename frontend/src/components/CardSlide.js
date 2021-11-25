@@ -1,7 +1,7 @@
 
 const CardSlide = ( { ciudad } ) => {
-  const {nombre,pais,nombreImagen} = ciudad
-  const imagen = `./assets/images/C${nombreImagen}.jpg`;
+  const {nombre,pais,id} = ciudad
+  const imagen = `./assets/images/C${id}.jpg`;
   return (
     <div  className="tarjeta bg-naranja">
       <div >

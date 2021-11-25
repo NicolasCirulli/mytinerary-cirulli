@@ -1,4 +1,6 @@
 import React from "react";
+import CallToAction from "../components/CallToAction";
+
 
 const Hero = () => {
   return (
@@ -9,6 +11,7 @@ const Hero = () => {
         Find your perfect trip, designed by insiders who know and love their
         cities!
       </p>
+      <CallToAction  className="btnC" />
     </div>
   );
 };
