@@ -3,7 +3,7 @@ import NavbarHome from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Cities from "./pages/Cities";
-import City from './components/City'
+import City from './pages/City'
 import { BrowserRouter ,Routes, Route } from "react-router-dom";
 import {withRouter } from './utilities/withRouter'
 

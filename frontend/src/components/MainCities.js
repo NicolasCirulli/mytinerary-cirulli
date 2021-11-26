@@ -4,7 +4,7 @@ import CardCities from "./CardCities"
 
 const MainCities = ( { arrayCiudades } )=>{
     
-   const [ciudades,useCiudades] = useState(arrayCiudades )
+   const [ciudades,setCiudades] = useState(arrayCiudades )
 
     return (
         <>

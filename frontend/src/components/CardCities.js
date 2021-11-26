@@ -1,12 +1,13 @@
-
+import { Link } from "react-router-dom"
 
 const CardCities = ({datos})=>{
 
     const { pais,nombre,descripcion,id } = datos
     const srcImg = `./assets/images/C${id}.jpg`
     return(
+        <>
         <div  className="card-cities">
-            <img className="card-cities-image" src={srcImg}  alt=""/>
+            <img className="card-cities-image" src={srcImg}  alt="img"/>
             <div className="card-cities-description">
                 <p className="card-cities-p">{descripcion}</p>
             </div>
@@ -17,6 +18,8 @@ const CardCities = ({datos})=>{
                 <p className="texto-negro">Idioma: </p>
             </div>
         </div>
+        <Link to={`/cities/${id}`} >Read More</Link>
+        </>
     )
 
 }
