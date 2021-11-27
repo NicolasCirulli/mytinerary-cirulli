@@ -26,8 +26,8 @@ export default class City extends React.Component{
         return(
             <>
                 <div className=" text-center">
-                    {this.state.ciudad && <img src={`/assets/images/C${this.state.ciudad.id}.jpg`} alt={this.state.ciudad.nombre} width="250" />}
-                    { this.state.ciudad && <h1>{this.state.ciudad.nombre}</h1>}
+                    {this.state.ciudad && <img src={`/assets/images/C${this.state.ciudad.imagen}.jpg`} alt={this.state.ciudad.ciudad} width="500" />}
+                    { this.state.ciudad && <h1>{this.state.ciudad.ciudad}</h1>}
                 </div>
                 <h2 className=" text-center">under construction</h2>
                 <Link to="/cities" >cities</Link>

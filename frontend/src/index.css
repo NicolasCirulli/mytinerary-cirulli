@@ -328,3 +328,12 @@ body::-webkit-scrollbar-thumb {
 .card-cities:hover .card-cities-items{
   display: none;
 }
+
+.formulario{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:250px;
+  width: 100%;
+  background-color: var(--naranja);
+}

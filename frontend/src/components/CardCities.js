@@ -2,8 +2,8 @@ import { Link } from "react-router-dom"
 
 const CardCities = ({datos})=>{
 
-    const { pais,nombre,descripcion,id } = datos
-    const srcImg = `./assets/images/C${id}.jpg`
+    const { pais,ciudad,descripcion,imagen, _id} = datos
+    const srcImg = `./assets/images/C${imagen}.jpg`
     return(
         <>
         <div  className="card-cities">
@@ -13,12 +13,12 @@ const CardCities = ({datos})=>{
             </div>
             <div className="card-cities-items">
                 <p className="texto-negro">Pais: {pais}</p>
-                <p className="texto-negro">Ciudad: {nombre}</p>
+                <p className="texto-negro">Ciudad: {ciudad}</p>
                 <p className="texto-negro">Moneda: </p>
-                <p className="texto-negro">Idioma: </p>
+                <p className="texto-negro">imagenioma: </p>
             </div>
         </div>
-        <Link to={`/cities/${id}`} >Read More</Link>
+        <Link to={`/cities/${_id}`} >Read More</Link>
         </>
     )
 
