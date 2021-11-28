@@ -178,6 +178,4 @@ const ciudadesControllers = {
 
 
 }
-
-
 module.exports = ciudadesControllers
