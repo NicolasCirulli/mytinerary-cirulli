@@ -334,7 +334,7 @@ body::-webkit-scrollbar-thumb {
    font-size: 12px;
    padding: 5px;
 }
-.input-ciudades:focus{
+.input-ciudades:active{
   border: 1px solid --var(negro)
 }
 

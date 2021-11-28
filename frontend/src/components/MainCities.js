@@ -1,10 +1,10 @@
-import React, { useState,useEffect,useRef } from 'react'
+import React, { useState,useRef } from 'react'
 import CardCities from "./CardCities"
 
 
 const MainCities = ( { arrayCiudades } )=>{
     
-    const [ciudades,setCiudades] = useState(arrayCiudades )
+     const [ciudades,setCiudades] = useState(arrayCiudades )
     const [ciudadesFiltradas,setCiudadesFiltradas] = useState( {ciudadesFiltradas:arrayCiudades} )
     const filtro = useRef()
 
@@ -17,9 +17,6 @@ const MainCities = ( { arrayCiudades } )=>{
         let arrayFiltrado = ciudades.filter( ciudad => ciudad.ciudad.toLowerCase().startsWith( aux.toLowerCase() ) )
         return arrayFiltrado
     }
-    useEffect(() => {
-        console.log(ciudadesFiltradas)
-    },[ciudadesFiltradas])
 
     return (
         <>
