@@ -26,12 +26,12 @@ const Footer = () => {
           <Link to="/" className="texto-naranja fs-3">Home</Link>
           <Link to="/cities" className="texto-naranja fs-3">Cities</Link>
         </div>
+      
+      
       </div>
-      <div className="copyright">
-        <h3 className="text-center ">
+        <p className="text-center copyright texto-naranja ">
           Copyright © - MYTINERARY All Rights Reserved.
-        </h3>
-      </div>
+        </p>
     </>
   );
 };

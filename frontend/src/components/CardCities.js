@@ -5,15 +5,14 @@ const CardCities = ({ datos }) => {
   const srcImg = `./assets/images/C${imagen}.jpg`;
   return (
     <>
-      <Link to={`/cities/${_id}`}>
-        <div className="card-cities">
+      <Link to={`/cities/${_id}`}  className="card-cities">
           <img className="card-cities-image" src={srcImg} alt="img" />
           <div className="card-cities-texto">
             <p className="texto-negro font-bold">City: {ciudad}</p>
             <p className="texto-negro font-bold">Country: {pais}</p>
           </div>
-        </div>
       </Link>
+        
     </>
   );
 };

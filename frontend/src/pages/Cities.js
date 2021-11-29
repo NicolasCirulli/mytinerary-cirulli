@@ -18,7 +18,7 @@ export default class Cities extends React.Component {
   render() {
     return (
       <>
-            <div className="bg-oscuro">
+            <div className="bg-oscuro ">
                 <HeaderCities/>
                 <div className="container-cities">         
                 { this.state.ciudades && <MainCities arrayCiudades={this.state.ciudades}/>}

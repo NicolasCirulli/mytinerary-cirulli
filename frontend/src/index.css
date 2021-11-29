@@ -213,7 +213,7 @@ code {
   color: white;
 }
 .copyright {
-  background-color: rgb(255, 251, 251);
+  background-color: var(--negro);
   margin: 0;
   padding: 0;
 }
@@ -267,7 +267,7 @@ body::-webkit-scrollbar-thumb {
 /* Header Cities */
 
 .header-cities {
-  width: 100vw;
+  width: 100%;
   height: 40vh;
   background-image: url("./assets/img/headerCities.jpg");
   background-position: center;
@@ -285,20 +285,22 @@ body::-webkit-scrollbar-thumb {
 
 /* Card Cities */
 .container-cities {
-  width: 100vw;
+  width: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+
 .card-cities {
   position: relative;
   width: 80vw;
   height: 30vh;
+  margin-top: 5vh;
   display: flex;
   justify-content: space-between;
-  margin: 2rem 0;
+  margin: 3rem 0;
   transition: all 0.5s;
 }
 .card-cities-image {
@@ -339,6 +341,19 @@ body::-webkit-scrollbar-thumb {
 }
 
 
+.error-ciudades{
+  width: 80vw;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  border-radius: 15px;
+  transition: all 0.5s;
+  background-color: var(--naranja);
+}
+
+
 
 /* FILTRO */
 
@@ -354,7 +369,7 @@ body::-webkit-scrollbar-thumb {
 /* HEADER CITY */
 
 .header-city {
-  width: 100%;
+  width: 100vw;
   height: 30vh;
   position: relative;
 }
@@ -379,5 +394,5 @@ body::-webkit-scrollbar-thumb {
   background-color: var(--naranja);
 }
 .contenedor-city{
-  min-height: 42vh;
+  min-height: 42.5vh;
 }
