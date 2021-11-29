@@ -163,7 +163,7 @@ const ciudadesControllers = {
       let actualizado
 
       try {
-          actualizado = Ciudad.findOneAndUpdate({_id:id},ciudad,{new:true})
+          actualizado = await Ciudad.findOneAndUpdate({_id:id},ciudad)
       } catch (error) {
         console.log(error)
       }

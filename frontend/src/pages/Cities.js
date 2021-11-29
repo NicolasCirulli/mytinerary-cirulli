@@ -11,6 +11,11 @@ export default class Cities extends React.Component {
     }
   }
   componentDidMount(){
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     axios.get('http://localhost:4000/api/ciudades')
     .then( res => this.setState({ciudades : res.data.respuesta}))
   }

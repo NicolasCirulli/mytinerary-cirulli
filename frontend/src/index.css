@@ -335,9 +335,13 @@ body::-webkit-scrollbar-thumb {
    color: var(--naranja);
    font-size: 12px;
    padding: 5px;
+   outline: 0 !important;
+   text-align: center;
 }
-.input-ciudades:active{
-  border: 1px solid --var(negro)
+
+.input-ciudades::placeholder{
+  color: var(--naranja);
+  text-align: center;
 }
 
 

@@ -5,7 +5,7 @@ const ErrorCities = () =>{
     return(
         <>
         <div className="error-ciudades">
-                <h2>Ninguna ciudad coincide con la busqueda realizada</h2>
+                <h2>Any city matches with this search</h2>
         </div>
         </>
     )

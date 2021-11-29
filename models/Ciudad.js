@@ -6,6 +6,8 @@ const ciudadSchema = new mongoose.Schema({
     pais: {type:String, required:true},
     descripcion: {type:String, required:true},
     imagen:{type:String, required:true},
+    divisa: {type:String },
+    idioma: {type:String},
 
 })
 

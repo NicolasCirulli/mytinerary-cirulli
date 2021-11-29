@@ -11,6 +11,11 @@ export default class City extends React.Component {
     this.state = {};
   }
   componentDidMount() {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     axios
       .get(`http://localhost:4000/api/ciudades/${this.props.params.city}`)
       .then((res) => this.setState({ ciudad: res.data.respuesta }));
@@ -28,7 +33,7 @@ export default class City extends React.Component {
 
         <h2 className=" text-center">under construction</h2>
         <Link to="/cities">
-          <div className="text-center"><button className="btn btn-city"> Back to cities</button></div>
+          <div className="text-center"><button className="btn btn-city"> Back to Cities</button></div>
         </Link>
         </div>
         
