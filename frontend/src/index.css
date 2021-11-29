@@ -357,6 +357,13 @@ body::-webkit-scrollbar-thumb {
   background-color: var(--naranja);
 }
 
+.card-cities:hover{
+  width: 90vw;
+  border-radius: 15px;
+  box-shadow: 1px 1px 19px 6px rgba(255,175,52,0.77);
+-webkit-box-shadow: 1px 1px 19px 6px rgba(255,175,52,0.77);
+-moz-box-shadow: 1px 1px 19px 6px rgba(255,175,52,0.77);
+}
 
 
 /* FILTRO */
