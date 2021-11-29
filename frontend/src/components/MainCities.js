@@ -4,29 +4,20 @@ import ErrorCities from "./ErrorCities"
 
 const MainCities = ( { arrayCiudades } )=>{
     
-    const [ciudades,setCiudades] = useState(arrayCiudades )
-    const [ciudadesFiltradas,setCiudadesFiltradas] = useState( {ciudadesFiltradas:arrayCiudades} )
+    const [ciudadesFiltradas,setCiudadesFiltradas] = useState( arrayCiudades )
     const filtro = useRef()
 
-    const filtrando = () => {
-        let ciudadesFiltradas = filtrarCiudades(ciudades, filtro.current.value)
-        setCiudadesFiltradas({ciudadesFiltradas})
-   }
-    const filtrarCiudades = (ciudades , value) => {
-        let aux = value.trim()
-        let arrayFiltrado = ciudades.filter( ciudad => ciudad.ciudad.toLowerCase().startsWith( aux.toLowerCase() ) )
-        return arrayFiltrado 
-    }
+    const filtrando = () => setCiudadesFiltradas(filtrarCiudades(arrayCiudades, filtro.current.value))
+    const filtrarCiudades = (ciudades , value) => ciudades.filter( ciudad => ciudad.ciudad.toLowerCase().startsWith( value.toLowerCase().trim() ) ) 
+    
     return (
         <>
-                <form className="formulario" onChange={filtrando}>
-                    <label>
-                        <input type="text" className="input-ciudades" name="ciudades" ref={filtro} placeholder="Filter by city"></input>
-                    </label>
-                </form>
+              <div className="formulario" >
+                        <input type="text" className="input-ciudades" name="ciudades" ref={filtro} placeholder="Filter by city" onChange={filtrando}></input>
+                </div> 
                 {   
-                ciudadesFiltradas.ciudadesFiltradas.length > 0 
-                ? ciudadesFiltradas.ciudadesFiltradas.map( ciudad => <CardCities key={ciudad.ciudad} datos={ciudad} /> )  
+                ciudadesFiltradas.length > 0 
+                ? ciudadesFiltradas.map( ciudad => <CardCities key={ciudad.ciudad} datos={ciudad} /> )  
                 : <ErrorCities/>
             }   
         </>

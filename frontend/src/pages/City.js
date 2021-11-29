@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import HeaderCity from "../components/HeaderCity";
-
+import Itineraries from "../components/Itineraries";
 export default class City extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ export default class City extends React.Component {
         {this.state.ciudad && <HeaderCity datos={this.state.ciudad} />}
         <div className="contenedor-city">
 
-        <h2 className=" text-center">under construction</h2>
+        <Itineraries />
         <Link to="/cities">
           <div className="text-center"><button className="btn btn-city"> Back to Cities</button></div>
         </Link>
