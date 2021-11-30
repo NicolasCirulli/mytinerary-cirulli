@@ -4,12 +4,14 @@ import ErrorCities from "./ErrorCities"
 
 const MainCities = ( { arrayCiudades } )=>{
     
+    console.log(arrayCiudades);
+
     const [ciudadesFiltradas,setCiudadesFiltradas] = useState( arrayCiudades )
     const filtro = useRef()
 
     const filtrando = () => setCiudadesFiltradas(filtrarCiudades(arrayCiudades, filtro.current.value))
     const filtrarCiudades = (ciudades , value) => ciudades.filter( ciudad => ciudad.ciudad.toLowerCase().startsWith( value.toLowerCase().trim() ) ) 
-    
+
     return (
         <>
               <div className="formulario" >

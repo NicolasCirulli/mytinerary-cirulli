@@ -182,6 +182,7 @@ code {
   align-items: center;
   height: 20vh;
   border-top: 1px solid rgb(87, 86, 86);
+  box-shadow: 0px 0px 71px -24px rgba(0,0,0,1) inset;
 }
 
 .footer_links {
@@ -279,8 +280,9 @@ body::-webkit-scrollbar-thumb {
 .header-cities-titulo {
   font-size: 3rem;
   color: var(--naranja);
-  background-color: #4141418a;
-  border-radius: 5px;
+  background-color: #aeaeae3f;
+  border-radius: 15px;
+  padding: 1rem 1.5rem;
 }
 
 /* Card Cities */
@@ -329,18 +331,21 @@ body::-webkit-scrollbar-thumb {
 }
 
 .input-ciudades{
-  background: var(--negro);
-   border: 1px solid #393939;
+  background: var(--naranja);
+   border: 1px solid var(--naranja);
    border-radius: 5px 5px 5px 5px;
-   color: var(--naranja);
-   font-size: 12px;
+   color: var(--negro);
+   font-size: 1rem;
    padding: 5px;
    outline: 0 !important;
    text-align: center;
+   width:50vw;
+   padding: .5rem;
+   
 }
 
 .input-ciudades::placeholder{
-  color: var(--naranja);
+  color: var(--negro);
   text-align: center;
 }
 
@@ -372,15 +377,15 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 20vh;
-  width: 100%;
-  background-color: var(--naranja);
+  height: 5vh;
+  margin-top: 5vh;
+  box-shadow: 0px 0px 30px 0px rgba(10, 10, 10, 0.549);
 }
 
 /* HEADER CITY */
 
 .header-city {
-  width: 100vw;
+  width: 100%;
   height: 30vh;
   position: relative;
 }
@@ -396,7 +401,7 @@ body::-webkit-scrollbar-thumb {
   right: 0;
   bottom: 0;
   margin: auto;
-  width: calc(100vw / 8);
+  width: 13%;
   height: 2rem;
   font-size: 3rem;
   color: var(--naranja);
@@ -406,4 +411,6 @@ body::-webkit-scrollbar-thumb {
 }
 .contenedor-city{
   min-height: 42.5vh;
+  background-color: var(--negro);
+  padding-top: 5vh;
 }

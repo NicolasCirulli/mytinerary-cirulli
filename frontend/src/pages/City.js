@@ -21,15 +21,28 @@ export default class City extends React.Component {
     console.log(this.state);
   }
 
+  // prueba con array estatico
+    prueba = {
+
+    titulo : "Walking through the center Busan",
+    price : 2,
+    duracion : 2,
+    nombre : "Ricky Fort",
+    hashtags : [
+      "Walk", "CentralPark", "Sublime","CentralPark"
+    ],
+    likes : 1,
+    img : "ricky"
+  }
+
+
   render() {
     return (
       <>
 
         {this.state.ciudad && <HeaderCity datos={this.state.ciudad} />}
         <div className="contenedor-city">
-
-        <Itineraries />
-        <Itineraries />
+         <Itineraries objeto={this.prueba}/>
         <Link to="/cities">
           <div className="text-center"><button className="btn btn-city"> Back to Cities</button></div>
         </Link>

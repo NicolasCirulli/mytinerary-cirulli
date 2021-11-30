@@ -1,10 +1,15 @@
+
+$naranja : #ffaf34;
+$negro : #414141;
+$gris : #9d9d9d;
 .itinerary{
-    width: 80vw;
-    background-color: rgb(106, 107, 107);
+    width: 70vw;
+    background-color: $naranja;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-top: 2rem;
+    margin: auto auto 5vh auto ;
+    border-radius: 15px;
+    
 
     &_title{
         font-size:2.5rem;
@@ -13,14 +18,20 @@
     &_body{
         display: flex;
         justify-content:space-evenly;
-        margin-top: 2rem;
+        flex-wrap: wrap;
+        border: 1px solid $naranja;
     }
     &_activities{
+        width:100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         margin: auto;
+        background-color: $negro;
+        border-left: 1px solid $naranja;
+        border-right: 1px solid $naranja;
+
 
         & > h2{
             text-align: center;
@@ -33,11 +44,72 @@
         margin: auto;
     
         & > img{
+            border-radius: 15px;
         padding: 10px 25px;
         }
         @media(max-width : 768px) {
             flex-direction: column;
         }
     }
+    &_item_uno{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 33%;
+        @media(max-width : 768px) {
+            min-width: 100%;
+        }
+
+    }
+    &_item_dos{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 33%;
+        
+        & > img{
+            border-radius: 15px;
+            object-fit: cover;
+            overflow: hidden;
+        }
+        @media(max-width : 768px) {
+            min-width: 100%;
+        }
+    }
+    &_item_tres{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 33%;
+        @media(max-width : 768px) {
+            min-width: 100%;
+        }
+
+    }
+    &_btn{
+        width:30%;
+        height: 5vh;
+        margin: 15px auto;
+        background-color: $negro;
+        color: $naranja;
+        font-size: 3vh;
+        border-radius: 20px ;
+        border: none;
+        transition:all .5s;
+
+        &:hover{
+            font-size:3vh;
+            width:35%;
+        }
+    }
+}
+
+.under{
+    // width: auto;
+    max-height: 30vh;
+    margin-top: 2rem;
 }
 
