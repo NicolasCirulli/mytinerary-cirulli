@@ -16,10 +16,10 @@ const MainCities = ( { arrayCiudades } )=>{
                         <input type="text" className="input-ciudades" name="ciudades" ref={filtro} placeholder="Filter by city" onChange={filtrando}></input>
                 </div> 
                 {   
-                ciudadesFiltradas.length > 0 
-                ? ciudadesFiltradas.map( ciudad => <CardCities key={ciudad.ciudad} datos={ciudad} /> )  
-                : <ErrorCities/>
-            }   
+                    ciudadesFiltradas.length > 0 
+                    ? ciudadesFiltradas.map( ciudad => <CardCities key={ciudad.ciudad} datos={ciudad} /> )  
+                    : <ErrorCities/>
+                }   
         </>
     )
 }

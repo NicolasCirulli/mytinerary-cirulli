@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/cities" element={<Cities />}></Route>
-        <Route path="/cities/:city" element={<CityD />}></Route>
+        <Route path="/cities/:city" element={<CityD  />}></Route>
 
       </Routes>
       

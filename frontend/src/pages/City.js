@@ -4,12 +4,9 @@ import { Link } from "react-router-dom";
 import HeaderCity from "../components/HeaderCity";
 import Itineraries from "../components/Itineraries";
 export default class City extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log(props);
-
-    this.state = {};
-  }
+  
+  state = { }
+  
   componentDidMount() {
     window.scrollTo({
       top: 0,
@@ -31,6 +28,7 @@ export default class City extends React.Component {
         {this.state.ciudad && <HeaderCity datos={this.state.ciudad} />}
         <div className="contenedor-city">
 
+        <Itineraries />
         <Itineraries />
         <Link to="/cities">
           <div className="text-center"><button className="btn btn-city"> Back to Cities</button></div>
