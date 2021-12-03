@@ -12,6 +12,11 @@ const citiesActions = {
                 dispatch( { type:'obtenerUnaCiudad', payload: { city } } )    
         }
     }
+    // pasarValue: ( value )=>{
+    //     return(dispatch,getState)=>{
+    //         dispatch({ type:'pasarValue', payload: { value }})
+    //     }
+    // }
 }
 
 export default citiesActions

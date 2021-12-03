@@ -20,7 +20,9 @@ const MainCities = ( { arrayCiudades } )=>{
                     ciudadesFiltradas.length > 0 
                     ? ciudadesFiltradas.map( ciudad => <CardCities key={ciudad.ciudad} datos={ciudad} /> )  
                     : <ErrorCities/>
-                }   
+                }  
+                
+               
         </>
     )
 }

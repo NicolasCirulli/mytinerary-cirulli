@@ -21,11 +21,10 @@ class City extends React.Component {
       left: 0,
       behavior: 'smooth'
     })
-    console.log(this.props.params.city);
     this.props.fetchearItinerarios( this.props.params.city )
     this.props.ciudades.length > 0 
-    ?  this.setState( {ciudad : this.props.obtenerUnaCiudad( this.props.params.city ) } )
-    :   this.setState( {ciudades : this.props.obtenerTodas() } )
+    ?  this.props.obtenerUnaCiudad( this.props.params.city ) 
+    :  this.props.obtenerTodas() 
   }
   
   componentDidUpdate(prevProps,prevState) {
