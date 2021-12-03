@@ -1,15 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import  'bootstrap/dist/css/bootstrap.min.css'
-import 'animate.css';
-import './index.css';
-import './style.scss';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "animate.css";
+import "./index.css";
+import "./style.scss";
+import App from "./App";
+import { createStore, applyMiddleware,compose } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import mainReducer from "./redux/reducers/mainReducer";
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const reduxStore = createStore(mainReducer,composeEnhancer(applyMiddleware(thunk)));
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={reduxStore}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
-

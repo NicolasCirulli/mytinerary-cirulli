@@ -1,7 +1,8 @@
 const Router = require('express').Router()
 const ciudadesControllers = require('../controllers/ciudadesControllers')
-
-const { cargarUnaCiudad,obtenerTodas,obtenerUnaCiudad,modifarCiudad,borrarCiudad } = ciudadesControllers
+const itinerariosControllers = require('../controllers/itinerariosControllers')
+const {cargarUnaCiudad,obtenerTodas,obtenerUnaCiudad,modifarCiudad,borrarCiudad } = ciudadesControllers
+const {obtenerTodosIt,agregarItinerario,obtenerUnIt,borrarItinerario,modificarItinerario,obtenerItinerariosPorCiudad} = itinerariosControllers
 
 
 Router.route('/ciudades')
@@ -13,6 +14,17 @@ Router.route('/ciudades/:id')
 .delete(borrarCiudad)
 .put(modifarCiudad)
 
+Router.route('/itinerarios')
+.get(obtenerTodosIt)
+.post(agregarItinerario)
+
+Router.route('/itinerario/:idCiudad')
+.get(obtenerItinerariosPorCiudad)
+
+Router.route('/itinerarios/:id')
+.get(obtenerUnIt)
+.delete(borrarItinerario)
+.put(modificarItinerario)
 
 module.exports = Router
 

@@ -1,11 +1,19 @@
 import React from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import HeaderCity from "../components/HeaderCity";
 import Itineraries from "../components/Itineraries";
-export default class City extends React.Component {
+import {connect} from "react-redux"
+import citiesActions from '../redux/actions/citiesActions'
+import itinerariesActions from "../redux/actions/itinerariesActions"
+
+
+
+class City extends React.Component {
   
-  state = { }
+  state = {
+    ciudades : [],
+    itinerarios:[]
+  }
   
   componentDidMount() {
     window.scrollTo({
@@ -13,42 +21,56 @@ export default class City extends React.Component {
       left: 0,
       behavior: 'smooth'
     })
-    axios
-      .get(`http://localhost:4000/api/ciudades/${this.props.params.city}`)
-      .then((res) => this.setState({ ciudad: res.data.respuesta }));
+    console.log(this.props.params.city);
+    this.props.fetchearItinerarios( this.props.params.city )
+    this.props.ciudades.length > 0 
+    ?  this.setState( {ciudad : this.props.obtenerUnaCiudad( this.props.params.city ) } )
+    :   this.setState( {ciudades : this.props.obtenerTodas() } )
   }
-  componentDidUpdate() {
-    console.log(this.state);
+  
+  componentDidUpdate(prevProps,prevState) {
+    if(prevProps.ciudades !== this.props.ciudades){
+         this.props.obtenerUnaCiudad( this.props.params.city ) 
+    }
+    if(prevState.ciudad !== this.props.ciudad){
+      this.setState( {ciudad : this.props.ciudad } )
+    }
+    if(prevProps.itinerarios !== this.props.itinerarios){
+      this.setState({itinerarios:this.props.itinerarios})
+    }
   }
-
-  // prueba con array estatico
-    prueba = {
-
-    titulo : "Walking through the center Busan",
-    price : 2,
-    duracion : 2,
-    nombre : "Ricky Fort",
-    hashtags : [
-      "Walk", "CentralPark", "Sublime","CentralPark"
-    ],
-    likes : 1,
-    img : "ricky"
-  }
-
 
   render() {
     return (
       <>
-
         {this.state.ciudad && <HeaderCity datos={this.state.ciudad} />}
         <div className="contenedor-city">
-         <Itineraries objeto={this.prueba}/>
+         { 
+         this.state.itinerarios.length > 0 && 
+         this.state.itinerarios.map( itinerario => {
+          return <Itineraries key={itinerario.titulo} datos={itinerario}/>
+         })
+         }
         <Link to="/cities">
           <div className="text-center"><button className="btn btn-city"> Back to Cities</button></div>
         </Link>
         </div>
-        
       </>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    ciudad : state.citiesReducer.ciudad,
+    ciudades : state.citiesReducer.ciudades,
+    itinerarios : state.itinerariesReducer.itinerariosCiudad
+  };
+};
+
+const mapDispatchToProps = {
+ obtenerUnaCiudad: citiesActions.obtenerUnaCiudad,
+ obtenerTodas: citiesActions.obtenerTodas,
+ fetchearItinerarios : itinerariesActions.obtenerItinerariosPorCiudad
+};
+export default connect(mapStateToProps, mapDispatchToProps)(City);
