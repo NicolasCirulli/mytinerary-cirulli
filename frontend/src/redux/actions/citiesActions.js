@@ -4,7 +4,7 @@ const citiesActions = {
     obtenerTodas: ()=>{
         return async(dispatch,getState)=>{
            const res = await axios.get('http://localhost:4000/api/ciudades')
-           dispatch({type:'obtenerTodas', payload:{ciudades : res.data.respuesta}})
+           dispatch({type:'obtenerTodas', payload:res.data.respuesta})
         }
     },
     obtenerUnaCiudad: ( city )=>{
@@ -12,9 +12,9 @@ const citiesActions = {
                 dispatch( { type:'obtenerUnaCiudad', payload: { city } } )    
         }
     },
-    filtrarCiudades: ( value )=>{
+    filtrarCiudades: ( value , select )=>{
         return(dispatch,getState)=>{
-            dispatch({ type:'filtrarCiudades', payload:  value })
+            dispatch({ type:'filtrarCiudades', payload:  { value:value, select:select } })
          }
     }
 }

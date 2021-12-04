@@ -4,31 +4,33 @@ import ErrorCities from "./ErrorCities"
 import {connect} from "react-redux"
 import citiesActions from '../redux/actions/citiesActions'
 const MainCities = ( props )=>{
+
+    // estado
+    const [valueSelect,setvalueSelect]=useState('City')
+
+    // funciones
+    const filtrando = () => props.filtrarCiudades(input.current.value,select.current.value)
+    const seleccionado = ()=> setvalueSelect(select.current.value)
+    // valores
+    const input = useRef()
+    const select = useRef()
     
-    const [ciudadesFiltradas,setCiudadesFiltradas] = useState( props.arrayCiudades )
-    const filtro = useRef()
-
-    useEffect(()=>{
-        if(ciudadesFiltradas !== props.ciudadesFiltradas ){
-            setCiudadesFiltradas(props.ciudadesFiltradas)
-        }
-    },[props.ciudadesFiltradas])
-   
-    useEffect(()=>{
-        props.filtrarCiudades(  filtro.current.value  )
-    },[])
-   
-
-    const filtrando = () => props.filtrarCiudades(filtro.current.value)
    
     return (
         <>
               <div className="formulario" >
-                        <input type="text" className="input-ciudades" name="ciudades" ref={filtro} placeholder="Filter by city" onChange={filtrando}></input>
+                    <input type="text" className="input-ciudades" name="ciudades" ref={input} placeholder={`Filter by ${valueSelect}`} onChange={filtrando}></input>
+                    
+                        <div>
+                            <select className="select-filtro" required ref={select} onChange={seleccionado}>
+                                    <option value="City" className="input-ciudades">City</option>
+                                    <option value="Country" className="input-ciudades">Country</option>
+                            </select>
+                        </div>
                 </div>
                 {   
-                    ciudadesFiltradas.length > 0 
-                    ? ciudadesFiltradas.map( ciudad => <CardCities key={ciudad.ciudad} datos={ciudad} /> )  
+                    props.ciudadesFiltradas.length > 0 
+                    ? props.ciudadesFiltradas.map( ciudad => <CardCities key={ciudad.ciudad} datos={ciudad} /> )  
                     : <ErrorCities/>
                 }   
         </>

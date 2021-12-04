@@ -1,6 +1,6 @@
 const initialState = {
     ciudades: [],
-    ciudad: {},
+    ciudad: null,
     ciudadesFiltradas: []
 }
 
@@ -9,7 +9,8 @@ const citiesReducer = (state = initialState, action)=>{
         case 'obtenerTodas':
                 return{
                     ...state,
-                    ...action.payload
+                    ciudades:action.payload,
+                    ciudadesFiltradas : action.payload
                 }
         case 'obtenerUnaCiudad':
                 const buscarUna = state.ciudades.find(ciudad => ciudad._id  === action.payload.city) 
@@ -18,7 +19,9 @@ const citiesReducer = (state = initialState, action)=>{
                     ciudad: buscarUna
                 }
         case 'filtrarCiudades':
-            const filtrarCiudades = state.ciudades.filter( ciudad => ciudad.ciudad.toLowerCase().startsWith( action.payload.toLowerCase().trim() ) ) 
+            let { value, select} = action.payload
+            select === 'City' ? select = 'ciudad' : select = 'pais' 
+            const filtrarCiudades = state.ciudades.filter( ciudad => ciudad[select].toLowerCase().startsWith( value.toLowerCase().trim() ) ) 
             return{
                 ...state,
                 ciudadesFiltradas : filtrarCiudades

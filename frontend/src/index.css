@@ -42,6 +42,12 @@ code {
     monospace;
 }
 
+.loader{
+  width: 100vw;
+  height: 75vh;
+  background-color: var(--negro);
+}
+
 .fondo-main {
   height: 95vh;
   display: flex;
@@ -330,24 +336,7 @@ body::-webkit-scrollbar-thumb {
   margin-bottom: 0 !important;
 }
 
-.input-ciudades{
-  background: var(--naranja);
-   border: 1px solid var(--naranja);
-   border-radius: 5px 5px 5px 5px;
-   color: var(--negro);
-   font-size: 1rem;
-   padding: 5px;
-   outline: 0 !important;
-   text-align: center;
-   width:50vw;
-   padding: .5rem;
-   
-}
 
-.input-ciudades::placeholder{
-  color: var(--negro);
-  text-align: center;
-}
 
 
 .error-ciudades{
@@ -375,12 +364,44 @@ body::-webkit-scrollbar-thumb {
 
 .formulario {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 5vh;
   margin-top: 5vh;
   box-shadow: 0px 0px 30px 0px rgba(10, 10, 10, 0.549);
 }
+.select-filtro{
+  background: var(--naranja);
+   border: 1px solid var(--naranja);
+   border-radius: 5px 5px 5px 5px;
+   color: var(--negro);
+   font-size: 1rem;
+   margin: 5px;
+   outline: 0 !important;
+   width:15vw;
+}
+
+.input-ciudades{
+  background: var(--naranja);
+   border: 1px solid var(--naranja);
+   border-radius: 5px 5px 5px 5px;
+   color: var(--negro);
+   font-size: 1rem;
+   padding: 5px;
+   outline: 0 !important;
+   text-align: center;
+   width:50vw;
+   padding: .5rem;
+   
+}
+
+.input-ciudades::placeholder{
+  color: var(--negro);
+  text-align: center;
+}
+
+
 
 /* HEADER CITY */
 
