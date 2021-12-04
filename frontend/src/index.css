@@ -46,6 +46,20 @@ code {
   width: 100vw;
   height: 75vh;
   background-color: var(--negro);
+  position: relative;
+}
+.loader-body{
+  width:30vw;
+  height: 30vh;
+  position:absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .fondo-main {

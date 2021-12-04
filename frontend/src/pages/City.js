@@ -14,21 +14,20 @@ class City extends React.Component {
       behavior: "smooth",
     });
     this.props.fetchearItinerarios(this.props.params.city);
+
     this.props.ciudades.length > 0
       ? this.props.obtenerUnaCiudad(this.props.params.city)
       : this.props.obtenerTodas();
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.ciudades !== this.props.ciudades) {
-      this.props.obtenerUnaCiudad(this.props.params.city);
-    }
+    (prevProps.ciudades !== this.props.ciudades) && this.props.obtenerUnaCiudad(this.props.params.city)
   }
 
   render() {
     return (
       <>
-        {this.props.ciudad && this.props.itinerarios.length > 0 ? (
+        {this.props.ciudad ? (
           <div>
             <HeaderCity datos={this.props.ciudad} />
             <div className="contenedor-city">
