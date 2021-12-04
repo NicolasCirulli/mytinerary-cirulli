@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
+
+
 const Itineraries = ({datos}) => {
   const [display, setDisplay] = useState(false);
   const HandleDisplay = () => setDisplay(!display);

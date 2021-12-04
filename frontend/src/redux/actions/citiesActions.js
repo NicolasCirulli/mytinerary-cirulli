@@ -11,12 +11,12 @@ const citiesActions = {
         return (dispatch,getState)=>{
                 dispatch( { type:'obtenerUnaCiudad', payload: { city } } )    
         }
+    },
+    filtrarCiudades: ( value )=>{
+        return(dispatch,getState)=>{
+            dispatch({ type:'filtrarCiudades', payload:  value })
+         }
     }
-    // pasarValue: ( value )=>{
-    //     return(dispatch,getState)=>{
-    //         dispatch({ type:'pasarValue', payload: { value }})
-    //     }
-    // }
 }
 
 export default citiesActions

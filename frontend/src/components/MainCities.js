@@ -1,16 +1,26 @@
-import React, { useState,useRef } from 'react'
+import React, { useState,useRef,useEffect } from 'react'
 import CardCities from "./CardCities"
 import ErrorCities from "./ErrorCities"
-
-const MainCities = ( { arrayCiudades } )=>{
+import {connect} from "react-redux"
+import citiesActions from '../redux/actions/citiesActions'
+const MainCities = ( props )=>{
     
-
-    const [ciudadesFiltradas,setCiudadesFiltradas] = useState( arrayCiudades )
+    const [ciudadesFiltradas,setCiudadesFiltradas] = useState( props.arrayCiudades )
     const filtro = useRef()
 
-    const filtrando = () => setCiudadesFiltradas( filtrarCiudades(arrayCiudades, filtro.current.value)  )
-    const filtrarCiudades = (ciudades , value)=> ciudades.filter( ciudad => ciudad.ciudad.toLowerCase().startsWith( value.toLowerCase().trim() ) ) 
+    useEffect(()=>{
+        if(ciudadesFiltradas !== props.ciudadesFiltradas ){
+            setCiudadesFiltradas(props.ciudadesFiltradas)
+        }
+    },[props.ciudadesFiltradas])
+   
+    useEffect(()=>{
+        props.filtrarCiudades(  filtro.current.value  )
+    },[])
+   
 
+    const filtrando = () => props.filtrarCiudades(filtro.current.value)
+   
     return (
         <>
               <div className="formulario" >
@@ -20,10 +30,17 @@ const MainCities = ( { arrayCiudades } )=>{
                     ciudadesFiltradas.length > 0 
                     ? ciudadesFiltradas.map( ciudad => <CardCities key={ciudad.ciudad} datos={ciudad} /> )  
                     : <ErrorCities/>
-                }  
-                
-               
+                }   
         </>
     )
 }
-export default MainCities
+const mapStateToProps = (state) => {
+    return {
+      ciudadesFiltradas: state.citiesReducer.ciudadesFiltradas,
+    };
+  };
+  
+  const mapDispatchToProps = {
+   filtrarCiudades: citiesActions.filtrarCiudades
+  };
+export default connect(mapStateToProps, mapDispatchToProps)(MainCities)
