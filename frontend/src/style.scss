@@ -4,16 +4,19 @@ $negro : #414141;
 $gris : #9d9d9d;
 
 .itinerary{
-    width: 70vw;
+    width: 90vw;
     background-color: $naranja;
     display: flex;
     flex-direction: column;
     margin: auto auto 5vh auto ;
     border-radius: 15px;
     
+    @media (min-width:1110px) {
+        width: 70vw;
+    }
 
     &_title{
-        font-size:2.5rem;
+        font-size:1.5rem;
         text-align: center;
     }
     &_body{
@@ -58,6 +61,8 @@ $gris : #9d9d9d;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        flex: 1;
+       
         min-width: 33%;
         @media(max-width : 768px) {
             min-width: 100%;
@@ -69,6 +74,8 @@ $gris : #9d9d9d;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        flex: 1;
+        
         min-width: 33%;
         
         & > img{
@@ -85,6 +92,8 @@ $gris : #9d9d9d;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        flex: 1;
+       
         min-width: 33%;
         @media(max-width : 768px) {
             min-width: 100%;
@@ -92,20 +101,21 @@ $gris : #9d9d9d;
 
     }
     &_btn{
-        width:30%;
-        height: 5vh;
         margin: 15px auto;
         background-color: $negro;
         color: $naranja;
         font-size: 3vh;
-        border-radius: 20px ;
+        border-radius: 5px ;
         border: none;
         transition:all .5s;
+        padding:0 5px;
 
-        &:hover{
-            font-size:3vh;
-            width:35%;
-        }
+    }
+    &_hastag{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
     }
 }
 

@@ -1,4 +1,4 @@
-import React, { useState,useRef,useEffect } from 'react'
+import React, { useState,useRef } from 'react'
 import CardCities from "./CardCities"
 import ErrorCities from "./ErrorCities"
 import {connect} from "react-redux"
@@ -10,7 +10,11 @@ const MainCities = ( props )=>{
 
     // funciones
     const filtrando = () => props.filtrarCiudades(input.current.value,select.current.value)
-    const seleccionado = ()=> setvalueSelect(select.current.value)
+    const seleccionado = ()=>{
+        setvalueSelect(select.current.value)
+        input.current.value = ""
+        filtrando()
+    }
     // valores
     const input = useRef()
     const select = useRef()
@@ -21,7 +25,7 @@ const MainCities = ( props )=>{
               <div className="formulario" >
                     <input type="text" className="input-ciudades" name="ciudades" ref={input} placeholder={`Filter by ${valueSelect}`} onChange={filtrando}></input>
                     
-                        <div>
+                        <div >
                             <select className="select-filtro" required ref={select} onChange={seleccionado}>
                                     <option value="City" className="input-ciudades">City</option>
                                     <option value="Country" className="input-ciudades">Country</option>

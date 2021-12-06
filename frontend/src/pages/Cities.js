@@ -3,6 +3,7 @@ import HeaderCities from "../components/HeaderCities";
 import MainCities from "../components/MainCities";
 import { connect } from 'react-redux'
 import citiesActions from '../redux/actions/citiesActions'
+import Loader from "../components/Loader";
 
 class Cities extends React.Component {
 
@@ -24,7 +25,11 @@ class Cities extends React.Component {
             <div className="bg-oscuro ">
                 <HeaderCities/>
                 <div className="container-cities">         
-                { this.props.ciudades.length > 0 && <MainCities arrayCiudades={this.props.ciudades}/>}
+                { 
+                this.props.ciudades.length > 0 
+                ? <MainCities arrayCiudades={this.props.ciudades}/>
+                : <Loader/>
+              }
                 </div>
             </div>
       </>

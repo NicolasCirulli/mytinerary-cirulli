@@ -8,10 +8,10 @@ const CardCities = ({ datos }) => {
       <Link to={`/cities/${_id}`}  className="card-cities">
           <img className="card-cities-image" src={srcImg} alt="img" />
           <div className="card-cities-texto">
-            <p className="texto-negro font-bold">City: {ciudad}</p>
-            <p className="texto-negro font-bold">Country: {pais}</p>
-            <p className="texto-negro font-bold">Currency: {divisa}</p>
-            <p className="texto-negro font-bold">Language: {idioma}</p>
+            <p className="texto-negro font-bold mx-2">City: {ciudad}</p>
+            <p className="texto-negro font-bold mx-2">Country: {pais}</p>
+            <p className="texto-negro font-bold mx-2">Currency: {divisa}</p>
+            <p className="texto-negro font-bold mx-2">Language: {idioma}</p>
           </div>
       </Link>
         
