@@ -65,7 +65,6 @@ const itinerariosControllers = {
   obtenerItinerariosPorCiudad: async (req, res) => {
     try{
       const itinerariosDeCiudad = await Itinerario.find({ciudadRelacionada: req.params.idCiudad})
-      // console.log(itinerariosDeCiudad);
       res.json({respuesta: itinerariosDeCiudad})
     }catch (err) {
       console.log(err);

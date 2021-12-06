@@ -12,6 +12,11 @@ const itinerariesActions = {
             const res = await axios.get('http://localhost:4000/api/itinerario/'+ city)
             dispatch({type:'obtenerItinerariosPorCiudad', payload:{ itinerariosCiudad : res.data.respuesta}})
          }
+    },
+    resetear:()=>{
+        return (dispatch,getState)=>{
+            dispatch({type:'resetear', payload:{itinerariosCiudad: null }})
+        }
     }
 }
 

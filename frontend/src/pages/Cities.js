@@ -16,7 +16,8 @@ class Cities extends React.Component {
       left: 0,
       behavior: 'smooth'
     })
-    this.props.obtenerTodas()
+    
+     this.props.obtenerTodas()
   }
 
   render() {

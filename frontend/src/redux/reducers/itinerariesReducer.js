@@ -1,6 +1,5 @@
 const initialState = {
     itinerarios: [],
-    itinerariosCiudad: [],
     itinerario: {}
 }
 
@@ -15,6 +14,11 @@ const itinerariesReducer = (state = initialState, action)=>{
                 return{
                     ...state,
                     ...action.payload 
+                }
+        case 'resetear':
+                return{
+                    ...state,
+                    ...action.payload
                 }
         default: 
             return state

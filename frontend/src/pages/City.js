@@ -7,6 +7,11 @@ import citiesActions from "../redux/actions/citiesActions";
 import itinerariesActions from "../redux/actions/itinerariesActions";
 import Loader from "../components/Loader";
 class City extends React.Component {
+  constructor(props) {
+    super(props);
+    this.resetear = this.props.borrarItinerarios()
+     
+  }
   componentDidMount() {
     window.scrollTo({
       top: 0,
@@ -19,24 +24,37 @@ class City extends React.Component {
       ? this.props.obtenerUnaCiudad(this.props.params.city)
       : this.props.obtenerTodas();
   }
-
   componentDidUpdate(prevProps) {
-    (prevProps.ciudades !== this.props.ciudades) && this.props.obtenerUnaCiudad(this.props.params.city)
+    prevProps.ciudades !== this.props.ciudades &&
+      this.props.obtenerUnaCiudad(this.props.params.city);
   }
 
   render() {
     return (
       <>
-        {this.props.ciudad ? (
-          <div>
+        {this.props.ciudad
+        ? (<div>
             <HeaderCity datos={this.props.ciudad} />
             <div className="contenedor-city">
-              {this.props.itinerarios.map((itinerario) => (
-                <Itineraries key={itinerario.titulo} datos={itinerario} />
-              ))}
+              {this.props.itinerarios ? (
+                this.props.itinerarios.length > 0 ? (
+                  this.props.itinerarios.map((itinerario) => (
+                    <Itineraries key={itinerario.titulo} datos={itinerario} />
+                  ))
+                ) : (
+                  <h2 className="text-center font-bold texto-naranja my-5 mx-auto">
+                    We don't have any itineraries yet for this city
+                  </h2>
+                )
+              ) : (
+                <Loader />
+              )}
               <Link to="/cities">
                 <div className="text-center">
-                  <button className="btn btn-city"> Back to Cities</button>
+                  <button className="btn btn-city" onclick={this.resetear}>
+                    {" "}
+                    Back to Cities
+                  </button>
                 </div>
               </Link>
             </div>
@@ -61,5 +79,7 @@ const mapDispatchToProps = {
   obtenerUnaCiudad: citiesActions.obtenerUnaCiudad,
   obtenerTodas: citiesActions.obtenerTodas,
   fetchearItinerarios: itinerariesActions.obtenerItinerariosPorCiudad,
+  borrarItinerarios: itinerariesActions.resetear,
+  borrarCiudad: citiesActions.resetear,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(City);

@@ -79,6 +79,8 @@ $gris : #9d9d9d;
         min-width: 33%;
         
         & > img{
+            width: 150px;
+            height: 150px;
             border-radius: 15px;
             object-fit: cover;
             overflow: hidden;

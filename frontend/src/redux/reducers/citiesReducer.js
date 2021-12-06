@@ -26,6 +26,11 @@ const citiesReducer = (state = initialState, action)=>{
                 ...state,
                 ciudadesFiltradas : filtrarCiudades
             }
+        case 'resetear':
+            return {
+                ...state,
+                ...action.payload
+            }
         default: 
             return state
     }

@@ -18,7 +18,7 @@ const Itineraries = ({datos}) => {
         <div className="itinerary_body bg-oscuro">
           <div className="itinerary_item_uno">
           <div className="itinerary_item_dos mt-2">
-            <img src={`/assets/images/${datos.guiaImg}.jpg`} alt="img" width="150" height="150" />
+            <img src={`/assets/images/${datos.guiaImg}.jpg`} alt="img"  />
             <h2 className="font-bold texto-naranja"> {datos.guia} </h2>
           </div>
             <span> <span className="font-bold texto-naranja">Price :</span> {precio.map( e =>  e)}</span>
@@ -32,17 +32,14 @@ const Itineraries = ({datos}) => {
               : <>  <FcLikePlaceholder/> <span className="font-bold">{datos.likes}</span></> }</div>
 
             <div className="itinerary_hastag">
-          { datos.hashtags.map( hastag => <span className="font-bold texto-naranja">{hastag} </span> ) }
+          { datos.hashtags.map( hastag => <span className="font-bold texto-naranja mx-1">{hastag} </span> ) }
             </div>
           </div>
         </div>
 
         {display && (
           <div className="itinerary_activities">
-        
             <img src="/assets/images/under.png" alt="" className="under"/>
-           
-            
           </div>
           
         )}

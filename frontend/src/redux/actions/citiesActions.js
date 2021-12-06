@@ -16,7 +16,13 @@ const citiesActions = {
         return(dispatch,getState)=>{
             dispatch({ type:'filtrarCiudades', payload:  { value:value, select:select } })
          }
+    },
+    resetear: ( )=>{
+        return(dispatch,getState)=>{
+            dispatch({ type:'resetear', payload:  {ciudad: null  } })
+         }
     }
+
 }
 
 export default citiesActions

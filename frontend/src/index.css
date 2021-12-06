@@ -426,21 +426,12 @@ body::-webkit-scrollbar-thumb {
 .header-city {
   width: 100%;
   height: 30vh;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.header-city-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+
 .header-city-titulo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 13%;
   height: 2rem;
   font-size: 3rem;
   color: var(--naranja);
