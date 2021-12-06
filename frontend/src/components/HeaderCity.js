@@ -2,12 +2,7 @@
 const HeaderCity = ({datos}) => {
 
     const estilos = {
-        background: 'url(/assets/images/C'+datos.imagen+'.jpg )',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat : 'no-repeat',
-        objetFit:'cover',
-
+        background: 'url(/assets/images/C'+datos.imagen+'.jpg )', 
     };
 
     return (
