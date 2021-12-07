@@ -1,7 +1,6 @@
 const FormSignIn = () => {
     return (
       <>
-   
         <input type="text" name="" placeholder="Email" />
         <input type="text" name="" placeholder="Password" />
         <button>Log in</button>
