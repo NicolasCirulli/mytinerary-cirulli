@@ -326,12 +326,20 @@ body::-webkit-scrollbar-thumb {
   margin: 3rem 0;
   transition: all 0.5s;
 }
+.card-cities:hover{
+  width: 90vw;
+  border-radius: 15px;
+  box-shadow: 1px 1px 19px 6px rgba(255,175,52,0.77);
+-webkit-box-shadow: 1px 1px 19px 6px rgba(255,175,52,0.77);
+-moz-box-shadow: 1px 1px 19px 6px rgba(255,175,52,0.77);
+}
 .card-cities-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 15px;
 }
+
 .card-cities-texto {
   display: flex;
   justify-content: space-around;
@@ -367,13 +375,7 @@ body::-webkit-scrollbar-thumb {
   background-color: var(--naranja);
 }
 
-.card-cities:hover{
-  width: 90vw;
-  border-radius: 15px;
-  box-shadow: 1px 1px 19px 6px rgba(255,175,52,0.77);
--webkit-box-shadow: 1px 1px 19px 6px rgba(255,175,52,0.77);
--moz-box-shadow: 1px 1px 19px 6px rgba(255,175,52,0.77);
-}
+
 
 
 /* FILTRO */

@@ -10,7 +10,6 @@ const NavbarHome = () => {
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-
             <Nav className="me-auto"></Nav>
             <Nav>
               <Nav.Link  eventKey={1}  as={Link} to="/" >
@@ -18,6 +17,12 @@ const NavbarHome = () => {
               </Nav.Link>
               <Nav.Link  eventKey={2}  as={Link} to="/cities">
               <span className="texto-naranja">Cities</span> 
+              </Nav.Link>
+              <Nav.Link  eventKey={3}  as={Link} to="/Signup">
+              <span className="texto-naranja">Sing Up</span> 
+              </Nav.Link>
+              <Nav.Link  eventKey={4}  as={Link} to="/Signin">
+              <span className="texto-naranja">Sing In</span> 
               </Nav.Link>
               <Navbar.Brand as={Link} to="/">
                 <img

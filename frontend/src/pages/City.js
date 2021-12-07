@@ -51,7 +51,7 @@ class City extends React.Component {
               )}
               <Link to="/cities">
                 <div className="text-center">
-                  <button className="btn btn-city" onclick={this.resetear}>
+                  <button className="btn btn-city" onClick={this.resetear}>
                     {" "}
                     Back to Cities
                   </button>

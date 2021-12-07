@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
+import useDisplay from "../hooks/useDisplay"
 
 
 const Itineraries = ({datos}) => {
-  const [display, setDisplay] = useState(false);
-  const HandleDisplay = () => setDisplay(!display);
-  
+  const boton = useDisplay();
+
   let precio = []
   for (let i = 0; i < datos.precio; i++) {
     precio.push(<span>💵</span>);
@@ -37,16 +37,16 @@ const Itineraries = ({datos}) => {
           </div>
         </div>
 
-        {display && (
+        {boton.display && (
           <div className="itinerary_activities">
             <img src="/assets/images/under.png" alt="" className="under"/>
           </div>
           
         )}
 
-        <button onClick={HandleDisplay} className="itinerary_btn" >
+        <button onClick={boton.HandleDisplay} className="itinerary_btn" >
           {" "}
-          {display ? "view less" : "view more"}
+          {boton.display ? "view less" : "view more"}
         </button>
       </div >
      
