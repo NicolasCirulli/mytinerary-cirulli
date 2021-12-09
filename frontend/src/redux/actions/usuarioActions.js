@@ -4,7 +4,12 @@ const usuarioActions = {
     nuevoUsuario: ( primerNombre, apellido,email,contraseña,fotoPerfil,pais)=>{
         return async(dispatch,getState)=>{
            const usuario = await axios.post('http://localhost:4000/api/usuario/registro',{primerNombre, apellido,  email, contraseña, fotoPerfil, pais})
-           return usuario
+           if(!usuario.data.success){
+               return usuario
+               
+           }
+            return usuario
+           
         }
     },
     iniciarSesion : (email, contraseña)=>{

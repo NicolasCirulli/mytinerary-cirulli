@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 const useAlerts = () => {
-  const alerta = (tipo, mensaje) => {
+  const alerta = (tipo, mensaje,array) => {
     if (tipo === "error") {
       Swal.fire({
         icon: "error",
@@ -19,6 +19,17 @@ const useAlerts = () => {
         background: "#414141",
         backdrop: true,
         timer: 2000,
+        timerProgressBar: true,
+        confirmButtonColor: "#414141",
+      });
+    }
+    if (tipo === "errores") {
+      Swal.fire({
+        icon: "error",
+        html:array.map(e => `<p class='font-bold texto-naranja'>${e.message}</p>`),
+        background: "#414141",
+        backdrop: true,
+        timer: 3000,
         timerProgressBar: true,
         confirmButtonColor: "#414141",
       });

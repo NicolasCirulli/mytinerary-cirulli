@@ -7,7 +7,7 @@ const usuarioControllers = {
         try{
             const emailExiste = await Usuario.findOne({email})
             if(emailExiste){
-                res.json({success: false, error: "The email is already in use.", response:null })
+                res.json({success: false, response:[{message: "The email is already in use."}]})
             }else{
                 const encryptedPassword = bcryptjs.hashSync(contraseña, 10)
 

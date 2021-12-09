@@ -19,7 +19,7 @@ const validator = (req, res, next) => {
             'string.empty' : 'The password is required',
             'string.min': 'The password must have more than three characters',
             'string.max': 'The password must have less than sixteen characters',
-            'string.pattern.base':'The password can only contain letters, numbers'
+            'string.pattern.base':'The password can only have letters or numbers'
         }),
         email: joi.string().email().trim().required().messages({
             'string.empty': 'The Email is required',

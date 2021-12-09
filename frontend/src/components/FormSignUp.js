@@ -36,6 +36,7 @@ const FormSignUp = (props) => {
     if( validacion.formularioEstado.nombre === 'check' && validacion.formularioEstado.apellido === 'check' && validacion.formularioEstado.email === 'check' && validacion.formularioEstado.password === 'check' && validacion.formularioEstado.urlFoto === 'check' && paisSeleccionado !== 'null' ){
 
      const nuevoUsuario = await props.nuevoUsuario(nombre.current.value,apellido.current.value,email.current.value,password.current.value,urlFoto.current.value,paisSeleccionado)
+      console.log(nuevoUsuario);
 
       nombre.current.value = ""
       apellido.current.value = ""
@@ -47,7 +48,14 @@ const FormSignUp = (props) => {
       validacion.resetFormulario()
       setPaisSeleccionado('null')
 
-      !nuevoUsuario.data.success ? alertas.alerta('error', nuevoUsuario.data.error ) : alertas.alerta('success', 'Successful sign up')
+      if(!nuevoUsuario.data.success){
+        return alertas.alerta('errores',null,nuevoUsuario.data.response)
+      }
+      alertas.alerta('success','Successful sign up')
+      
+
+
+      // !nuevoUsuario.data.success ? alertas.alerta('error', nuevoUsuario.data.error ) : alertas.alerta('success', 'Successful sign up')
     }
     else{ alertas.alerta('error', 'Check the form fields and try again' ) }
   }
@@ -56,12 +64,12 @@ const FormSignUp = (props) => {
     <>
     <form className="d-flex flex-column" onSubmit={submitForm}>
       <div className="input_form">
-        <input type="text" name="firstName" placeholder="First name" ref={nombre} onChange={() => validacion.validarInput('nombre',{nombre:nombre.current.value})}/>
+        <input type="text" name="firstName" placeholder="First name - letters - min 3 max 12 " ref={nombre} onChange={() => validacion.validarInput('nombre',{nombre:nombre.current.value})}/>
         {validacion.formularioEstado.nombre === 'check'&& <FcCheckmark className="input_form_icono" />}
         {validacion.formularioEstado.nombre === 'error'&&<FcCancel className="input_form_icono"  />}
       </div>
       <div className="input_form">
-      <input type="text" name="lastName" placeholder="Last name" ref={apellido} onChange={() => validacion.validarInput('apellido',{apellido: apellido.current.value})}/>
+      <input type="text" name="lastName" placeholder="Last name - letters - min 3 max 16" ref={apellido} onChange={() => validacion.validarInput('apellido',{apellido: apellido.current.value})}/>
         {validacion.formularioEstado.apellido === 'check'&& <FcCheckmark className="input_form_icono" />}
         {validacion.formularioEstado.apellido === 'error'&&<FcCancel className="input_form_icono"  />}
       </div>
@@ -71,7 +79,7 @@ const FormSignUp = (props) => {
         {validacion.formularioEstado.email === 'error'&&<FcCancel className="input_form_icono"  />}
       </div>
       <div className="input_form">
-        <input type="password" name="password" placeholder="Password" ref={password} onChange={() => validacion.validarInput('password',{password:password.current.value})}/>
+        <input type="password" name="password" placeholder="Password - letters & numbers - min 8 max 16" ref={password} onChange={() => validacion.validarInput('password',{password:password.current.value})}/>
         {validacion.formularioEstado.password === 'check'&& <FcCheckmark className="input_form_icono" />}
         {validacion.formularioEstado.password === 'error'&&<FcCancel className="input_form_icono"  />}
       </div>
