@@ -2,12 +2,14 @@ import React from "react";
 import {Link} from 'react-router-dom'
 import FormSignUp from "./FormSignUp"
 import FormSignIn from "./FormSignIn"
+
+
 const ContenedorSign = ({singup})=>{
     // Recibe un booleano y dependiendo si es true o false determina el texto, btn, ruta
     let texto =  singup ?  'Already have an account?' :  "Don't you have an account yet?"
     let btn =  singup ?  'Log in here' :  'Sign up here'
     let ruta = singup ?   '/Signin' :  '/Signup'
-   
+
     return (
        <div className="contenedor_inputs">
            <div className="contenedor_inputs_card">
@@ -21,8 +23,9 @@ const ContenedorSign = ({singup})=>{
                 </div>
                 <div className="contenedor_inputs_card_derecha">
                     {singup 
-                    ?<FormSignUp />
-                     :<FormSignIn/>}
+                     ?<FormSignUp />
+                     :<FormSignIn />
+                     }
                 </div>
            </div>
        </div>
@@ -30,4 +33,5 @@ const ContenedorSign = ({singup})=>{
 
 }
 
-export default ContenedorSign
+
+export default ContenedorSign;

@@ -19,10 +19,10 @@ const Itineraries = ({datos}) => {
           <div className="itinerary_item_uno">
           <div className="itinerary_item_dos mt-2">
             <img src={`/assets/images/${datos.guiaImg}.jpg`} alt="img"  />
-            <h2 className="font-bold texto-naranja"> {datos.guia} </h2>
+            <h2 className="font-bold texto-negro"> {datos.guia} </h2>
           </div>
-            <span> <span className="font-bold texto-naranja">Price :</span> {precio.map( e =>  e)}</span>
-            <span className="font-bold texto-naranja">Duration :  {datos.duracion}</span>
+            <span> <span className="font-bold texto-negro">Price :</span> {precio.map( e =>  e)}</span>
+            <span className="font-bold texto-negro">Duration :  {datos.duracion} hs</span>
           </div>
 
           <div className="itinerary_item_tres">
@@ -32,7 +32,7 @@ const Itineraries = ({datos}) => {
               : <>  <FcLikePlaceholder/> <span className="font-bold">{datos.likes}</span></> }</div>
 
             <div className="itinerary_hastag">
-          { datos.hashtags.map( hastag => <span className="font-bold texto-naranja mx-1">{hastag} </span> ) }
+          { datos.hashtags.map( hastag => <span className="font-bold texto-negro mx-1">{hastag} </span> ) }
             </div>
           </div>
         </div>
@@ -41,7 +41,6 @@ const Itineraries = ({datos}) => {
           <div className="itinerary_activities">
             <img src="/assets/images/under.png" alt="" className="under"/>
           </div>
-          
         )}
 
         <button onClick={boton.HandleDisplay} className="itinerary_btn" >
@@ -49,9 +48,6 @@ const Itineraries = ({datos}) => {
           {boton.display ? "view less" : "view more"}
         </button>
       </div >
-     
-
-      
     </>
   );
 };

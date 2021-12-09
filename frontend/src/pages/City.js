@@ -80,6 +80,5 @@ const mapDispatchToProps = {
   obtenerTodas: citiesActions.obtenerTodas,
   fetchearItinerarios: itinerariesActions.obtenerItinerariosPorCiudad,
   borrarItinerarios: itinerariesActions.resetear,
-  borrarCiudad: citiesActions.resetear,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(City);

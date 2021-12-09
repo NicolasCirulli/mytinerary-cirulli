@@ -11,7 +11,7 @@ $gris: #9d9d9d;
   border-radius: 15px;
 
   @media (min-width: 1110px) {
-    width: 70vw;
+    width: 50vw;
   }
 
   &_title {
@@ -31,10 +31,10 @@ $gris: #9d9d9d;
     align-items: center;
     justify-content: center;
     margin: auto;
-    background-color: $negro;
+    background-color: $naranja;
     border-left: 1px solid $naranja;
     border-right: 1px solid $naranja;
-
+    
     & > h2 {
       text-align: center;
     }
@@ -59,6 +59,7 @@ $gris: #9d9d9d;
     align-items: center;
     justify-content: center;
     flex: 1;
+    background-color: $naranja;
 
     min-width: 33%;
     @media (max-width: 768px) {
@@ -71,6 +72,7 @@ $gris: #9d9d9d;
     align-items: center;
     justify-content: center;
     flex: 1;
+
 
     min-width: 33%;
 
@@ -91,6 +93,8 @@ $gris: #9d9d9d;
     align-items: center;
     justify-content: center;
     flex: 1;
+    background-color: $naranja;
+
 
     min-width: 33%;
     @media (max-width: 768px) {
@@ -150,7 +154,6 @@ $gris: #9d9d9d;
 
     &_izquierda {
       width: 50%;
-      // background-color:#2d32c9;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
@@ -192,9 +195,10 @@ $gris: #9d9d9d;
       justify-content: center;
       margin: 2rem 0;
 
-      input, select {
+      input,
+      select {
         margin: 10px 5px;
-        background: $negro;
+        background-color: $negro;
         border: 1px solid $naranja;
         border-radius: 5px 5px 5px 5px;
         color: $naranja;
@@ -202,23 +206,23 @@ $gris: #9d9d9d;
         padding: 5px;
         outline: 0 !important;
         text-align: center;
-        width: 95%;
+        width: 90%;
         padding: 0.5rem;
 
-        option{
-            color: $naranja;
+        option {
+          color: $naranja;
         }
-        option::placeholder{
-            color: $naranja;
+        option::placeholder {
+          color: $naranja;
         }
-        
       }
-      input::placeholder, select::placeholder{
+      input::placeholder,
+      select::placeholder {
         color: $naranja;
         text-align: center;
       }
-      button {
-        width:50%;
+      .btn-form {
+        width: 50%;
         border: 1px solid $naranja;
         border-radius: 5px;
         background-color: $negro;
@@ -234,5 +238,14 @@ $gris: #9d9d9d;
         height: 45%;
       }
     }
+  }
+}
+.input_form{
+  display: flex;
+  align-items: center;
+
+  &_icono{
+    font-size:2rem;
+    transition: all 0.5s;
   }
 }

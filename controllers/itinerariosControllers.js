@@ -47,7 +47,6 @@ const itinerariosControllers = {
     } catch (err) {
       console.log(err);
     }
-
     res.json({ respuesta: itinerario, success: true });
   },
   modificarItinerario: async (req, res) => {
