@@ -28,21 +28,15 @@ const FormSignUp = (props) => {
   const password = useRef()
   const urlFoto = useRef()
   const pais = useRef()
- 
+
   const HandleSelect = (e)=> e.target.value !== 'null' ? setPaisSeleccionado(e.target.value) : setPaisSeleccionado('null')
 
   const submitForm = async(e)=> {
     e.preventDefault()
     if( validacion.formularioEstado.nombre === 'check' && validacion.formularioEstado.apellido === 'check' && validacion.formularioEstado.email === 'check' && validacion.formularioEstado.password === 'check' && validacion.formularioEstado.urlFoto === 'check' && paisSeleccionado !== 'null' ){
 
-     const nuevoUsuario = await props.nuevoUsuario(
-      nombre.current.value,
-      apellido.current.value,
-      email.current.value,
-      password.current.value,
-      urlFoto.current.value,
-      paisSeleccionado
-    )
+     const nuevoUsuario = await props.nuevoUsuario(nombre.current.value,apellido.current.value,email.current.value,password.current.value,urlFoto.current.value,paisSeleccionado)
+
       nombre.current.value = ""
       apellido.current.value = ""
       email.current.value= ""
@@ -58,10 +52,6 @@ const FormSignUp = (props) => {
     else{ alertas.alerta('error', 'Check the form fields and try again' ) }
   }
 
-
-  
-
-
   return (
     <>
     <form className="d-flex flex-column" onSubmit={submitForm}>
@@ -76,7 +66,7 @@ const FormSignUp = (props) => {
         {validacion.formularioEstado.apellido === 'error'&&<FcCancel className="input_form_icono"  />}
       </div>
       <div className="input_form">
-        <input type="email" name="email" placeholder="Email" ref={email} onChange={() => validacion.validarInput('email',{email: email.current.value})}/>
+        <input type="email" name="email" placeholder="Email" ref={email} autoComplete="new-email" onChange={() => validacion.validarInput('email',{email: email.current.value})}/>
         {validacion.formularioEstado.email === 'check'&& <FcCheckmark className="input_form_icono" />}
         {validacion.formularioEstado.email === 'error'&&<FcCancel className="input_form_icono"  />}
       </div>

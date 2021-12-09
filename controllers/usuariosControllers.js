@@ -25,6 +25,25 @@ const usuarioControllers = {
         }catch(error){ 
             res.json({success:false, response: null})
         }        
+    },
+    iniciarSesion: async(req, res)=>{
+        let {email, contraseña} = req.body
+        try{
+            const usarioEncontrado = await Usuario.findOne({email})
+            
+            if(usarioEncontrado){
+                let contraseñaCoincide = bcryptjs.compareSync(contraseña, usarioEncontrado.contraseña)
+                if(contraseñaCoincide){
+                    res.json({success: true, response:{email}, error: null})
+                }else{
+                    res.json({success:false, response: null, error: "The email/password is incorrect"})
+                }
+            }else{
+                res.json({success:false, response: null, error: "The email/password is incorrect"})
+            }
+        }catch(error){
+            console.log(error);
+        }
     }
 }
 

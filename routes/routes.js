@@ -7,7 +7,7 @@ const usuariosControllers = require('../controllers/usuariosControllers')
 
 const {cargarUnaCiudad,obtenerTodas,obtenerUnaCiudad,modifarCiudad,borrarCiudad } = ciudadesControllers
 const {obtenerTodosIt,agregarItinerario,obtenerUnIt,borrarItinerario,modificarItinerario,obtenerItinerariosPorCiudad} = itinerariosControllers
-const {nuevoUsuario} = usuariosControllers;
+const {nuevoUsuario,iniciarSesion} = usuariosControllers;
 
 Router.route('/ciudades')
 .get(obtenerTodas)
@@ -32,6 +32,8 @@ Router.route('/itinerarios/:id')
 
 Router.route('/usuario/registro')
 .post(validator, nuevoUsuario)
+Router.route('/usuario/iniciarSesion')
+.post(iniciarSesion)
 
 module.exports = Router
 

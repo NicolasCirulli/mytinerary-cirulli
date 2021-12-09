@@ -2,8 +2,6 @@ import {useState} from 'react';
 
 const useValidacion = (inicial) =>{
     
-    
-
       const [formularioEstado, setFormularioEstado] = useState(inicial);  
       const resetFormulario = ()=> setFormularioEstado(inicial)
       const validarInput = (tipo,inputs)=>{
@@ -23,7 +21,7 @@ const useValidacion = (inicial) =>{
         }
         if(tipo === "email") {
           if(inputs.email !== ''){
-            let re = /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+            let re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
             let validacion = re.exec( inputs.email ) 
             validacion ? setFormularioEstado({...formularioEstado, email: 'check'}) : setFormularioEstado({...formularioEstado, email: 'error'})
           }else {setFormularioEstado({...formularioEstado, email: ''})}
