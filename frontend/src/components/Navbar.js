@@ -1,13 +1,22 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import {Link} from 'react-router-dom'
+import { useSelector } from "react-redux";
+
 const NavbarHome = () => {
+
+  const usuario = useSelector(store => store.usuariosReducer.usuario)
+  let mail = null
+  if(usuario.length > 0){
+    mail = usuario
+  }
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="bg-oscuro" variant="dark" fixed="top">
         <Container>
           <Navbar.Brand as={Link} to="/"> <span className="texto-naranja">MyTinerary</span></Navbar.Brand>
-
+          
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
@@ -33,6 +42,7 @@ const NavbarHome = () => {
                   alt="User"
                 />
               </Navbar.Brand>
+              <Navbar.Brand><span className="texto-naranja">{mail && mail}</span></Navbar.Brand>
             </Nav>
             
           </Navbar.Collapse>

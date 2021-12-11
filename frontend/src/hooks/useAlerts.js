@@ -34,6 +34,19 @@ const useAlerts = () => {
         confirmButtonColor: "#414141",
       });
     }
+    if (tipo === "errores-front") {
+      const filtrado = array.filter(e => e !== 'check').filter(e => e !== '')
+      filtrado.length === 0 && filtrado.push('Check the form fields and try again')
+      Swal.fire({
+        icon: "error",
+        html:filtrado.map(e => `<p class='font-bold texto-naranja'>${e}</p>`),
+        background: "#414141",
+        backdrop: true,
+        timer: 3000,
+        timerProgressBar: true,
+        confirmButtonColor: "#414141",
+      });
+    }
   };
 
   return { alerta };

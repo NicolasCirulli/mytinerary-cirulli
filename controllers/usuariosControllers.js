@@ -1,6 +1,6 @@
 const Usuario =  require('../models/Usuarios')
 const bcryptjs = require('bcryptjs')
-
+const jwt = require('jsonwebtoken')
 const usuarioControllers = {
     nuevoUsuario: async (req, res) => {
         let {primerNombre,apellido,email, contraseña,fotoPerfil,pais } = req.body
@@ -19,8 +19,9 @@ const usuarioControllers = {
                     fotoPerfil,
                     pais
                 })
+                const token = jwt.sign({...nuevoUsuario},process.env.SECRET_KEY)
                 await nuevoUsuario.save()
-                res.json({success: true, response: nuevoUsuario, error:null})
+                res.json({success: true, response: {token,nuevoUsuario}, error:null})
             }
         }catch(error){ 
             res.json({success:false, response: null})
@@ -34,15 +35,18 @@ const usuarioControllers = {
             if(usarioEncontrado){
                 let contraseñaCoincide = bcryptjs.compareSync(contraseña, usarioEncontrado.contraseña)
                 if(contraseñaCoincide){
-                    res.json({success: true, response:{email}, error: null})
+                    const token = jwt.sign({...usarioEncontrado},process.env.SECRET_KEY)
+                    console.log(token);
+                    res.json({success: true, response:{token,email}, error: null})
                 }else{
-                    res.json({success:false, response: null, error: "The email/password is incorrect"})
+                    res.json({success:false, response: [{message: "The email/password is incorrect"}],error:true})
                 }
             }else{
-                res.json({success:false, response: null, error: "The email/password is incorrect"})
+                res.json({success:true, response: [{message: "The email/password is incorrect"}],error:true})
             }
         }catch(error){
             console.log(error);
+            res.json({success:false, response:null})
         }
     }
 }

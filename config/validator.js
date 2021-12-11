@@ -3,16 +3,16 @@ const joi = require('joi')
 const validator = (req, res, next) => {
 
     const schema = joi.object({
-        primerNombre: joi.string().max(20).min(3).trim().pattern(new RegExp('[a-zA-Z]')).required().messages({
+        primerNombre: joi.string().max(12).min(3).trim().pattern(new RegExp('[a-zA-Z]')).required().messages({
             'string.min': 'The name must have more than three letters',
-            'string.max': 'The name must have less than twenty letters',
+            'string.max': 'The name must have less than twelve letters',
             'string.empty':'The name is required',
-            'string.pattern.base':'the name can only contain letters'
+            'string.pattern.base':'the name can only have letters'
         }),
-       apellido: joi.string().max(20).min(3).trim().pattern(new RegExp('[a-zA-Z]')).required().messages({
+       apellido: joi.string().max(16).min(3).trim().pattern(new RegExp('[a-zA-Z]')).required().messages({
            'string.empty' : 'The last name is required',
-            'string.min': 'The last last name must have more than three letters',
-            'string.max': 'The last last name must have less than twenty letters',
+            'string.min': 'The last name must have more than three letters',
+            'string.max': 'The last name must have less than twenty letters',
             'string.pattern.base':'the last name can only contain letters'
         }),
         contraseña: joi.string().max(16).min(8).trim().pattern(new RegExp('^[a-zA-Z0-9]{8,16}$')).required().messages({

@@ -8,11 +8,12 @@ import useAlerts from '../hooks/useAlerts'
 
 const FormSignUp = (props) => {
 
-  const formulario = {nombre : "",apellido : "",email : "",password :"",urlFoto : "",}
+  const formulario = {Name : "",LastName : "",Email : "",Password :"",UrlPicture : "",Country:""}
   // Estados
   const [paises, setPaises] = useState([]);
-  const validacion = useValidacion(formulario) 
+  const validacion = useValidacion(formulario)
   const [paisSeleccionado, setPaisSeleccionado] = useState('null');
+
   // Trae los paises de la api cuando monta el componente
   useEffect(() => {
     axios.get("https://restcountries.com/v2/all?fields=name")
@@ -21,7 +22,7 @@ const FormSignUp = (props) => {
   
   const alertas = useAlerts()
 
-  // inputs 
+  // ref para los inputs
   const nombre = useRef()
   const apellido = useRef()
   const email = useRef()
@@ -29,11 +30,16 @@ const FormSignUp = (props) => {
   const urlFoto = useRef()
   const pais = useRef()
 
-  const HandleSelect = (e)=> e.target.value !== 'null' ? setPaisSeleccionado(e.target.value) : setPaisSeleccionado('null')
+
+  const HandleSelect = (e)=> e.target.value !== 'null' 
+  ? setPaisSeleccionado(e.target.value) 
+  : setPaisSeleccionado('null')
 
   const submitForm = async(e)=> {
     e.preventDefault()
-    if( validacion.formularioEstado.nombre === 'check' && validacion.formularioEstado.apellido === 'check' && validacion.formularioEstado.email === 'check' && validacion.formularioEstado.password === 'check' && validacion.formularioEstado.urlFoto === 'check' && paisSeleccionado !== 'null' ){
+    validacion.detectarErrores()
+    
+    if( validacion.formularioEstado.Name === 'check' && validacion.formularioEstado.LastName === 'check' && validacion.formularioEstado.Email === 'check' && validacion.formularioEstado.Password === 'check' && validacion.formularioEstado.UrlPicture === 'check' && paisSeleccionado !== 'null' ){
 
      const nuevoUsuario = await props.nuevoUsuario(nombre.current.value,apellido.current.value,email.current.value,password.current.value,urlFoto.current.value,paisSeleccionado)
       console.log(nuevoUsuario);
@@ -51,47 +57,38 @@ const FormSignUp = (props) => {
       if(!nuevoUsuario.data.success){
         return alertas.alerta('errores',null,nuevoUsuario.data.response)
       }
-      alertas.alerta('success','Successful sign up')
-      
-
-
-      // !nuevoUsuario.data.success ? alertas.alerta('error', nuevoUsuario.data.error ) : alertas.alerta('success', 'Successful sign up')
-    }
-    else{ alertas.alerta('error', 'Check the form fields and try again' ) }
+      alertas.alerta('success','Successful sign up ' + nuevoUsuario.data.response.email)
+    }else alertas.alerta('errores-front', null, validacion.errores )
+    // 'Check the form fields and try again'
   }
 
   return (
     <>
     <form className="d-flex flex-column" onSubmit={submitForm}>
       <div className="input_form">
-        <input type="text" name="firstName" placeholder="First name - letters - min 3 max 12 " ref={nombre} onChange={() => validacion.validarInput('nombre',{nombre:nombre.current.value})}/>
-        {validacion.formularioEstado.nombre === 'check'&& <FcCheckmark className="input_form_icono" />}
-        {validacion.formularioEstado.nombre === 'error'&&<FcCancel className="input_form_icono"  />}
+        <input type="text" name="firstName" placeholder="First name - letters - min 3 max 12 " ref={nombre} onChange={() => validacion.validarInput('Name',nombre.current.value)}/>
+        {validacion.formularioEstado.Name === 'check'&& <FcCheckmark className="input_form_icono" />}
       </div>
       <div className="input_form">
-      <input type="text" name="lastName" placeholder="Last name - letters - min 3 max 16" ref={apellido} onChange={() => validacion.validarInput('apellido',{apellido: apellido.current.value})}/>
-        {validacion.formularioEstado.apellido === 'check'&& <FcCheckmark className="input_form_icono" />}
-        {validacion.formularioEstado.apellido === 'error'&&<FcCancel className="input_form_icono"  />}
+      <input type="text" name="lastName" placeholder="Last name - letters - min 3 max 16" ref={apellido} onChange={() => validacion.validarInput('LastName',apellido.current.value)}/>
+        {validacion.formularioEstado.LastName === 'check'&& <FcCheckmark className="input_form_icono" />}
       </div>
       <div className="input_form">
-        <input type="email" name="email" placeholder="Email" ref={email} autoComplete="new-email" onChange={() => validacion.validarInput('email',{email: email.current.value})}/>
-        {validacion.formularioEstado.email === 'check'&& <FcCheckmark className="input_form_icono" />}
-        {validacion.formularioEstado.email === 'error'&&<FcCancel className="input_form_icono"  />}
+        <input type="email" name="email" placeholder="Email" ref={email} autoComplete="new-email" onChange={() => validacion.validarInput('Email',email.current.value)}/>
+        {validacion.formularioEstado.Email === 'check'&& <FcCheckmark className="input_form_icono" />}
       </div>
       <div className="input_form">
-        <input type="password" name="password" placeholder="Password - letters & numbers - min 8 max 16" ref={password} onChange={() => validacion.validarInput('password',{password:password.current.value})}/>
-        {validacion.formularioEstado.password === 'check'&& <FcCheckmark className="input_form_icono" />}
-        {validacion.formularioEstado.password === 'error'&&<FcCancel className="input_form_icono"  />}
+        <input type="password" name="password" placeholder="Password - letters & numbers - min 8 max 16" ref={password} onChange={() => validacion.validarInput('Password',password.current.value)}/>
+        {validacion.formularioEstado.Password === 'check'&& <FcCheckmark className="input_form_icono" />}
       </div>
       <div className="input_form">
-        <input type="text" name="urlFoto" placeholder="Url profile picture" ref={urlFoto} onChange={() => validacion.validarInput('foto',{urlFoto:urlFoto.current.value})}/>
-        {validacion.formularioEstado.urlFoto === 'check'&& <FcCheckmark className="input_form_icono" />}
-        {validacion.formularioEstado.urlFoto === 'error'&&<FcCancel className="input_form_icono"  />}
+        <input type="text" name="urlFoto" placeholder="Url profile picture" ref={urlFoto} onChange={() => validacion.validarInput('UrlPicture',urlFoto.current.value)}/>
+        {validacion.formularioEstado.UrlPicture === 'check'&& <FcCheckmark className="input_form_icono" />}
       </div>
       {paises.length > 0 
       ? (
           <div className="input_form">
-            <select placeholder="Choose your country" onChange={HandleSelect} ref={pais} required>
+            <select placeholder="Choose your country" onChange={HandleSelect} ref={pais} defaultValue="-" required>
             <option value="null">Choose your country</option>
             {paises.map((pais) => (
               <option key={pais.name} value={pais.name}>{pais.name}</option>
