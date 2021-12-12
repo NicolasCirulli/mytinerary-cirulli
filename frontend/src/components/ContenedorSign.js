@@ -4,11 +4,11 @@ import FormSignUp from "./FormSignUp"
 import FormSignIn from "./FormSignIn"
 
 
-const ContenedorSign = ({singup})=>{
+const ContenedorSign = ({signup})=>{
     // Recibe un booleano y dependiendo si es true o false determina el texto, btn, ruta
-    let texto =  singup  ?  'Already have an account?' :  "Don't you have an account yet?"
-    let btn =  singup  ?  'Log in here' :  'Sign up here'
-    let ruta = singup  ?   '/Signin' :  '/Signup'
+    let texto =  signup  ?  'Already have an account?' :  "Don't you have an account yet?"
+    let btn =  signup  ?  'Log in here' :  'Sign up here'
+    let ruta = signup  ?   '/Signin' :  '/Signup'
 
     return (
        <div className="contenedor_inputs">
@@ -22,7 +22,7 @@ const ContenedorSign = ({singup})=>{
                     </div>
                 </div>
                 <div className="contenedor_inputs_card_derecha">
-                    {singup 
+                    {signup 
                      ?<FormSignUp />
                      :<FormSignIn />
                      }

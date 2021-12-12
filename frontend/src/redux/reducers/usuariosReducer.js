@@ -8,7 +8,12 @@ const usuariosReducer = (state = initialState, action)=>{
                 return{
                     ...state,
                     ...action.payload
-                }
+                }   
+
+        case 'cerrar':
+            return{
+            ...initialState
+            }
         
         default: 
             return state

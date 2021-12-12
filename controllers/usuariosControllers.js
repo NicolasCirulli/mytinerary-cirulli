@@ -7,15 +7,14 @@ const usuarioControllers = {
         try{
             const emailExiste = await Usuario.findOne({email})
             if(emailExiste){
-                res.json({success: false, response:[{message: "The email is already in use."}]})
+                res.json({success: false, response:[{message: "This email is already in use."}]})
             }else{
-                const encryptedPassword = bcryptjs.hashSync(contraseña, 10)
-
+                const contraseñaEncriptada = bcryptjs.hashSync(contraseña, 10)
                 const nuevoUsuario = new Usuario({ 
                     primerNombre,
                     apellido,
                     email,
-                    contraseña: encryptedPassword,
+                    contraseña: contraseñaEncriptada,
                     fotoPerfil,
                     pais
                 })
@@ -30,14 +29,14 @@ const usuarioControllers = {
     iniciarSesion: async(req, res)=>{
         let {email, contraseña} = req.body
         try{
-            const usarioEncontrado = await Usuario.findOne({email})
+            const usuarioEncontrado = await Usuario.findOne({email})
             
-            if(usarioEncontrado){
-                let contraseñaCoincide = bcryptjs.compareSync(contraseña, usarioEncontrado.contraseña)
+            if(usuarioEncontrado){
+                console.log(usuarioEncontrado);
+                let contraseñaCoincide = bcryptjs.compareSync(contraseña, usuarioEncontrado.contraseña)
                 if(contraseñaCoincide){
-                    const token = jwt.sign({...usarioEncontrado},process.env.SECRET_KEY)
-                    console.log(token);
-                    res.json({success: true, response:{token,email}, error: null})
+                    const token = jwt.sign({...usuarioEncontrado},process.env.SECRET_KEY)
+                    res.json({success: true, response:{token,email,fotoPerfil:usuarioEncontrado.fotoPerfil,primerNombre:usuarioEncontrado.primerNombre}, error: null})
                 }else{
                     res.json({success:false, response: [{message: "The email/password is incorrect"}],error:true})
                 }
@@ -48,6 +47,9 @@ const usuarioControllers = {
             console.log(error);
             res.json({success:false, response:null})
         }
+    },
+    iniciarConToken: async(req, res)=>{
+        res.json({success:true, response:{email: req.user.email, fotoPerfil:req.user.fotoPerfil}})
     }
 }
 

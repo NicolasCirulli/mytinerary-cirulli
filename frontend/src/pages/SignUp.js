@@ -1,5 +1,7 @@
 import React from "react";
 import ContenedorSign from "../components/ContenedorSign";
+
+
 export default class SignUp extends React.Component {
   render() {
     window.scrollTo({
@@ -9,7 +11,7 @@ export default class SignUp extends React.Component {
     })
     return (
       <>
-            <ContenedorSign singup={true}/>
+            <ContenedorSign signup={true}/>
       </>
     );
   }

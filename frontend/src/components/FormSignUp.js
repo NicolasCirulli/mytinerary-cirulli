@@ -17,7 +17,7 @@ const FormSignUp = (props) => {
   // Trae los paises de la api cuando monta el componente
   useEffect(() => {
     axios.get("https://restcountries.com/v2/all?fields=name")
-    .then((respuesta) => setPaises(respuesta.data));
+    .then((respuesta) => setPaises(respuesta.data))
   }, []);
   
   const alertas = useAlerts()

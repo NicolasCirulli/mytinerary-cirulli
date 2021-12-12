@@ -1,18 +1,22 @@
 import React from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, } from "react-bootstrap";
 import {Link} from 'react-router-dom'
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import usuarioActions from "../redux/actions/usuarioActions"
 
 const NavbarHome = () => {
 
+  const dispatch = useDispatch()
   const usuario = useSelector(store => store.usuariosReducer.usuario)
-  let mail = null
-  if(usuario.length > 0){
-    mail = usuario
-  }
+  const fotoPerfil = useSelector(store => store.usuariosReducer.fotoPerfil)
+  let mail = null;
+  let foto = null
+  usuario.length > 0 && (mail = usuario)
+  fotoPerfil && (foto = fotoPerfil)
 
   return (
     <>
+      
       <Navbar collapseOnSelect expand="lg" className="bg-oscuro" variant="dark" fixed="top">
         <Container>
           <Navbar.Brand as={Link} to="/"> <span className="texto-naranja">MyTinerary</span></Navbar.Brand>
@@ -27,22 +31,32 @@ const NavbarHome = () => {
               <Nav.Link  eventKey={2}  as={Link} to="/cities">
               <span className="texto-naranja">Cities</span> 
               </Nav.Link>
-              <Nav.Link  eventKey={3}  as={Link} to="/Signup">
+             {!mail && <Nav.Link  eventKey={3}  as={Link} to="/Signup">
               <span className="texto-naranja">Sing Up</span> 
-              </Nav.Link>
-              <Nav.Link  eventKey={4}  as={Link} to="/Signin">
+              </Nav.Link> }
+              {!mail && <Nav.Link  eventKey={4}  as={Link} to="/Signin">
               <span className="texto-naranja">Sing In</span> 
-              </Nav.Link>
+              </Nav.Link> }
               <Navbar.Brand as={Link} to="/">
-                <img
+                {!mail && <img
                   src= '/assets/images/profile.png'
                   width="30"
                   height="30"
                   className="d-inline-block align-top"
                   alt="User"
-                />
+                />}
+                {foto && <img
+                  src={foto}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                  alt="User"
+                />}
               </Navbar.Brand>
-              <Navbar.Brand><span className="texto-naranja">{mail && mail}</span></Navbar.Brand>
+              {mail &&<Navbar.Brand><span className="texto-naranja">{mail}</span></Navbar.Brand>}
+              {mail && <Nav.Item onClick={() => dispatch(usuarioActions.cerrarSesion()) }>
+                  <span className="texto-naranja"> Log out </span>
+              </Nav.Item>}
             </Nav>
             
           </Navbar.Collapse>

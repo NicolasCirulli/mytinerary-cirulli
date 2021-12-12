@@ -1,14 +1,11 @@
 import {connect} from 'react-redux'
 import usuariosActions from "../redux/actions/usuarioActions"
-import {useState,useRef} from 'react'
-import useValidacion from '../hooks/useValidacion'
+import {useRef} from 'react'
 import useAlerts from '../hooks/useAlerts'
-import { FcCheckmark,FcCancel } from "react-icons/fc";
+
 
 const FormSignIn = (props) => {
-  const formulario = {Email : "",Password :""}
-  const validacion = useValidacion(formulario) 
-
+  
   const alertas = useAlerts()
 
   const email = useRef()
@@ -19,9 +16,6 @@ const FormSignIn = (props) => {
 
       const loguearUsuario = await props.iniciarSesion(email.current.value,password.current.value)
       console.log(loguearUsuario);
-
-      email.current.value= ""
-      password.current.value= ""
 
       if(loguearUsuario.data.error){
         return alertas.alerta('errores',null,loguearUsuario.data.response)
