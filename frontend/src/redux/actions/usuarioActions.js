@@ -19,7 +19,7 @@ const usuarioActions = {
                 return usuario
             }else{
                 localStorage.setItem('token',usuario.data.response.token)
-                dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.email,urlFoto: usuario.data.response.fotoPerfil}})
+                dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre,urlFoto: usuario.data.response.fotoPerfil}})
                 return usuario
             }
         }
@@ -33,14 +33,12 @@ const usuarioActions = {
     loggearDesdeStorage: (token) =>{
         return async(dispatch,getState) =>{
             try{
-                console.log(token);
                 const usuario = await axios.post('http://localhost:4000/api/usuario/iniciarSesion/token',{} ,{
                     headers:{
                         'Authorization':'Bearer '+token 
                     }
                 })
-                console.log(usuario.data);
-                usuario.data.success && dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.email, fotoPerfil: usuario.data.response.fotoPerfil}})
+                usuario.data.success && dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre, fotoPerfil: usuario.data.response.fotoPerfil}})
             }catch(err){console.log(err)}
         }
     }

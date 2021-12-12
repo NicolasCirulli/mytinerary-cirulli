@@ -2,6 +2,10 @@ $naranja: #ffaf34;
 $negro: #414141;
 $gris: #9d9d9d;
 
+
+
+
+
 .itinerary {
   width: 90vw;
   background-color: $naranja;
@@ -197,13 +201,12 @@ $gris: #9d9d9d;
 
       input,
       select {
-        margin: 10px 5px;
+        margin: .5rem 0rem 1.3rem 5px;
         background-color: $negro;
         border: 1px solid $naranja;
         border-radius: 5px 5px 5px 5px;
         color: $naranja;
         font-size: 1rem;
-        padding: 5px;
         outline: 0 !important;
         text-align: center;
         width: 90%;
@@ -243,9 +246,22 @@ $gris: #9d9d9d;
 .input_form{
   display: flex;
   align-items: center;
+  position: relative;
 
   &_icono{
-    font-size:2rem;
+    font-size:1rem;
     transition: all 0.5s;
+  }
+}
+.warning-input{
+  position: absolute;
+  bottom: 0;
+  left:0;
+  right:0;
+  color:rgb(255, 0, 0);
+  font-size: 13px;
+
+  @media (max-width: 660px) {
+    font-size:12px;
   }
 }

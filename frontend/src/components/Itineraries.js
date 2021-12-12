@@ -5,7 +5,6 @@ import useDisplay from "../hooks/useDisplay"
 
 const Itineraries = ({datos}) => {
   const boton = useDisplay();
-
   let precio = []
   for (let i = 0; i < datos.precio; i++) {
     precio.push(<span>💵</span>);
@@ -13,7 +12,7 @@ const Itineraries = ({datos}) => {
 
   return (
     <>
-      <div className="itinerary">
+      <div key={datos.titulo} className="itinerary">
         <h2 className="itinerary_title">{datos.titulo}</h2>
         <div className="itinerary_body bg-oscuro">
           <div className="itinerary_item_uno">

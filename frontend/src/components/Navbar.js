@@ -9,10 +9,9 @@ const NavbarHome = () => {
   const dispatch = useDispatch()
   const usuario = useSelector(store => store.usuariosReducer.usuario)
   const fotoPerfil = useSelector(store => store.usuariosReducer.fotoPerfil)
-  let mail = null;
-  let foto = null
-  usuario.length > 0 && (mail = usuario)
-  fotoPerfil && (foto = fotoPerfil)
+  
+  
+  
 
   return (
     <>
@@ -31,32 +30,32 @@ const NavbarHome = () => {
               <Nav.Link  eventKey={2}  as={Link} to="/cities">
               <span className="texto-naranja">Cities</span> 
               </Nav.Link>
-             {!mail && <Nav.Link  eventKey={3}  as={Link} to="/Signup">
+             {!usuario && <Nav.Link  eventKey={3}  as={Link} to="/Signup">
               <span className="texto-naranja">Sing Up</span> 
               </Nav.Link> }
-              {!mail && <Nav.Link  eventKey={4}  as={Link} to="/Signin">
+              {!usuario && <Nav.Link  eventKey={4}  as={Link} to="/Signin">
               <span className="texto-naranja">Sing In</span> 
               </Nav.Link> }
               <Navbar.Brand as={Link} to="/">
-                {!mail && <img
+                {!usuario && <img
                   src= '/assets/images/profile.png'
                   width="30"
                   height="30"
                   className="d-inline-block align-top"
                   alt="User"
                 />}
-                {foto && <img
-                  src={foto}
+                {usuario && <img
+                  src={fotoPerfil}
                   width="30"
                   height="30"
-                  className="d-inline-block align-top"
-                  alt="User"
+                  className="d-inline-block align-top ms-4 rounded"
+                  alt="Img_user"
                 />}
               </Navbar.Brand>
-              {mail &&<Navbar.Brand><span className="texto-naranja">{mail}</span></Navbar.Brand>}
-              {mail && <Nav.Item onClick={() => dispatch(usuarioActions.cerrarSesion()) }>
+              {usuario &&<Navbar.Brand><span className="texto-naranja">{usuario}</span></Navbar.Brand>}
+              {usuario && <Navbar.Brand onClick={() => dispatch(usuarioActions.cerrarSesion()) }>
                   <span className="texto-naranja"> Log out </span>
-              </Nav.Item>}
+              </Navbar.Brand>}
             </Nav>
             
           </Navbar.Collapse>

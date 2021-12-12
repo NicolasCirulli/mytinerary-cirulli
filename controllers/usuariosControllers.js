@@ -32,7 +32,6 @@ const usuarioControllers = {
             const usuarioEncontrado = await Usuario.findOne({email})
             
             if(usuarioEncontrado){
-                console.log(usuarioEncontrado);
                 let contraseñaCoincide = bcryptjs.compareSync(contraseña, usuarioEncontrado.contraseña)
                 if(contraseñaCoincide){
                     const token = jwt.sign({...usuarioEncontrado},process.env.SECRET_KEY)
@@ -49,7 +48,8 @@ const usuarioControllers = {
         }
     },
     iniciarConToken: async(req, res)=>{
-        res.json({success:true, response:{email: req.user.email, fotoPerfil:req.user.fotoPerfil}})
+        let {primerNombre,email,fotoPerfil} = req.user
+        res.json({success:true, response:{primerNombre ,email, fotoPerfil}})
     }
 }
 

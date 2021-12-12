@@ -21,23 +21,22 @@ function App() {
      dispatch(usuarioActions.loggearDesdeStorage(token))
   },[])
   const usuario = useSelector(store => store.usuariosReducer.usuario)
-  let mail = null
-  if(usuario.length > 0){
-    mail = usuario
-  }
+  // let mail = null
+  // if(usuario.length > 0){
+  //   mail = usuario
+  // }
 
   return (
     <>
     <BrowserRouter>
     
       <NavbarHome />
-
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/cities" element={<Cities />}></Route>
         <Route path="/cities/:city" element={<CityD  />}></Route>
-        {!mail &&<Route path="/Signup" element={<SignUp />}></Route>}
-        {!mail &&<Route path="/Signin" element={<SignIn />}></Route>}
+        {!usuario &&<Route path="/Signup" element={<SignUp />}></Route>}
+        {!usuario &&<Route path="/Signin" element={<SignIn />}></Route>}
         <Route path="*" element={<Home />}></Route>
       </Routes>
       

@@ -1,5 +1,5 @@
 const initialState = {
-    usuario: '' 
+    usuario: false 
 }
 
 const usuariosReducer = (state = initialState, action)=>{
