@@ -1,7 +1,31 @@
 import {useState,useEffect} from 'react';
 
 const useValidacion = (inicial) =>{
-    
+      // inputs : creo un modelo de inputs que recibe por parametro los valores que necesita
+      const crearInput = (input,ref,tipo,placeholder,mensaje,mensajeError)=>{
+        return (
+            <div className="input_form">
+            <input
+              type={tipo}
+              placeholder={placeholder}
+              ref={ref}
+              onChange={() =>validarInput(input, ref.current.value)}
+            />
+            {formularioEstado[input] === "check" && (
+              <span className="text-center font-bold warning-input">
+                {mensaje} <span className="color-verde">✔</span>{" "}
+              </span>
+            )}
+            {formularioEstado[input] !== "check" &&
+              formularioEstado[input] !== "" && (
+                <span className="text-center font-bold warning-input">
+                  {mensajeError}
+                  <span className="color-rojo">❌</span>
+                </span>
+              )}
+          </div>
+        )
+      }
     
       // recibe desde la props un objeto con los campos del formulario
 
@@ -43,7 +67,7 @@ const useValidacion = (inicial) =>{
         setFormularioEstado({...formularioEstado, [tipo]:''})
         
       }
-      return {formularioEstado, validarInput,resetFormulario,errores,detectarErrores}
+      return {formularioEstado, validarInput,resetFormulario,errores,detectarErrores,crearInput}
 }
 
 export default useValidacion

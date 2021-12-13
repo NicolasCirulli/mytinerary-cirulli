@@ -15,10 +15,9 @@ const validator = (req, res, next) => {
             'string.max': 'The last name must have less than sixteen letters',
             'string.pattern.base':'the last name can only contain letters'
         }),
-        contraseña: joi.string().max(16).min(8).trim().pattern(new RegExp('^[a-zA-Z0-9]{8,16}$')).required().messages({
+        contraseña: joi.string().min(8).trim().pattern(new RegExp('^[a-zA-Z0-9]')).required().messages({
             'string.empty' : 'The password is required',
             'string.min': 'The password must have more than three characters',
-            'string.max': 'The password must have less than sixteen characters',
             'string.pattern.base':'The password can only have letters or numbers' 
         }),
         email: joi.string().email().trim().required().messages({
@@ -26,7 +25,8 @@ const validator = (req, res, next) => {
             'string.email':'The mail requires a valid format',
         }),
         fotoPerfil: joi.required(),
-        pais: joi.required()
+        pais: joi.required(),
+        google:joi.boolean(),
     })
 
     const validate = schema.validate(req.body, { abortEarly: false })

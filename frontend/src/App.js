@@ -17,14 +17,10 @@ const CityD = withRouter(City)
 function App() {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
+  const usuario = useSelector(store => store.usuariosReducer.usuario)
   useEffect(() => {
      dispatch(usuarioActions.loggearDesdeStorage(token))
   },[])
-  const usuario = useSelector(store => store.usuariosReducer.usuario)
-  // let mail = null
-  // if(usuario.length > 0){
-  //   mail = usuario
-  // }
 
   return (
     <>

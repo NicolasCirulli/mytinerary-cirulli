@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Navbar, Nav, Container, } from "react-bootstrap";
 import {Link} from 'react-router-dom'
 import { useSelector,useDispatch } from "react-redux";
@@ -6,10 +6,12 @@ import usuarioActions from "../redux/actions/usuarioActions"
 
 const NavbarHome = () => {
 
+  
+
+
   const dispatch = useDispatch()
   const usuario = useSelector(store => store.usuariosReducer.usuario)
   const fotoPerfil = useSelector(store => store.usuariosReducer.fotoPerfil)
-  
   
   
 
@@ -44,7 +46,7 @@ const NavbarHome = () => {
                   className="d-inline-block align-top"
                   alt="User"
                 />}
-                {usuario && <img
+                {fotoPerfil && <img
                   src={fotoPerfil}
                   width="30"
                   height="30"

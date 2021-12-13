@@ -18,7 +18,7 @@ const useAlerts = () => {
         html: `<span class='font-bold texto-naranja'>${mensaje}</span>`,
         background: "#414141",
         backdrop: true,
-        timer: 2000,
+        timer: 600,
         timerProgressBar: true,
         confirmButtonColor: "#414141",
       });

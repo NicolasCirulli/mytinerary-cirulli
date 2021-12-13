@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { FcCheckmark, FcCancel } from "react-icons/fc";
 import usuariosActions from "../redux/actions/usuarioActions";
 import { connect } from "react-redux";
 import useValidacion from "../hooks/useValidacion";
 import useAlerts from "../hooks/useAlerts";
+import { GoogleLogin } from "react-google-login";
+import { FcGoogle } from "react-icons/fc";
 
 const FormSignUp = (props) => {
   const formulario = {
@@ -13,7 +14,6 @@ const FormSignUp = (props) => {
     Email: "",
     Password: "",
     UrlPicture: "",
-    Country: "",
   };
   // Estados
   const [paises, setPaises] = useState([]);
@@ -45,7 +45,6 @@ const FormSignUp = (props) => {
   const submitForm = async (e) => {
     e.preventDefault();
     validacion.detectarErrores();
-
     if (
       validacion.formularioEstado.Name === "check" &&
       validacion.formularioEstado.LastName === "check" &&
@@ -55,26 +54,20 @@ const FormSignUp = (props) => {
       paisSeleccionado !== "null"
     ) {
       const nuevoUsuario = await props.nuevoUsuario(
-        nombre.current.value,
-        apellido.current.value,
-        email.current.value,
-        password.current.value,
-        urlFoto.current.value,
-        paisSeleccionado
+          {
+          primerNombre:nombre.current.value,
+          apellido:apellido.current.value,
+          email:email.current.value,
+          contraseña:password.current.value,
+          fotoPerfil:urlFoto.current.value,
+          pais:paisSeleccionado
+          }
       );
       console.log(nuevoUsuario);
-
-      nombre.current.value = "";
-      apellido.current.value = "";
-      email.current.value = "";
-      password.current.value = "";
-      urlFoto.current.value = "";
-      pais.current.value = "null";
-
       validacion.resetFormulario();
-      setPaisSeleccionado("null");
 
       if (!nuevoUsuario.data.success) {
+        console.log(nuevoUsuario.data.success);
         return alertas.alerta("errores", null, nuevoUsuario.data.response);
       }
       alertas.alerta(
@@ -82,7 +75,35 @@ const FormSignUp = (props) => {
         "Successful sign up " + nuevoUsuario.data.response.email
       );
     } else alertas.alerta("errores-front", null, validacion.errores);
-    // 'Check the form fields and try again'
+  };
+
+  const responseGoogle = (response) => {
+    let googleUser = {
+      primerNombre: response.profileObj.givenName,
+      apellido: response.profileObj.familyName,
+      contraseña: response.profileObj.googleId,
+      email: response.profileObj.email,
+      fotoPerfil:response.profileObj.imageUrl,
+      pais: "Undefined",
+      google: true,
+    };
+    props
+      .nuevoUsuario(googleUser)
+      .then((response) => {
+        if (!response.data.success) {
+          console.log(response.data.success);
+          alertas.alerta("errores", null, response.data.response);
+        }else{
+          console.log(response.data);
+          alertas.alerta(
+            "success",
+            "Successful sign up " + response.data.response.nuevoUsuario.email
+          );
+        }
+      } )
+      .catch((error) => console.log(error));
+
+      
   };
 
   return (
@@ -92,82 +113,11 @@ const FormSignUp = (props) => {
         autoComplete="off"
         onSubmit={submitForm}
       >
-        <div className="input_form">
-          <input
-            type="text"
-            name="firstName"
-            placeholder="First name"
-            ref={nombre}
-            onChange={() =>
-              validacion.validarInput("Name", nombre.current.value)
-            }
-          />
-          {validacion.formularioEstado.Name === "check" 
-          && <span className="text-center font-bold warning-input text-success">Valid name</span>}
-          {validacion.formularioEstado.Name !== "check" &&
-            validacion.formularioEstado.Name !== "" && (
-              <span className="text-center font-bold warning-input">
-                Invalid first name letters - min 3 max 16{" "}
-              </span>
-            )}
-        </div>
-        <div className="input_form">
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Last name - letters - min 3 max 16"
-            ref={apellido}
-            onChange={() =>
-              validacion.validarInput("LastName", apellido.current.value)
-            }
-          />
-          {validacion.formularioEstado.LastName === "check" && (
-            <FcCheckmark className="input_form_icono" />
-          )}
-        </div>
-        <div className="input_form">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            ref={email}
-            autoComplete="new-email"
-            onChange={() =>
-              validacion.validarInput("Email", email.current.value)
-            }
-          />
-          {validacion.formularioEstado.Email === "check" && (
-            <FcCheckmark className="input_form_icono" />
-          )}
-        </div>
-        <div className="input_form">
-          <input
-            type="password"
-            name="password"
-            placeholder="Password - letters & numbers - min 8 max 16"
-            ref={password}
-            onChange={() =>
-              validacion.validarInput("Password", password.current.value)
-            }
-          />
-          {validacion.formularioEstado.Password === "check" && (
-            <FcCheckmark className="input_form_icono" />
-          )}
-        </div>
-        <div className="input_form">
-          <input
-            type="text"
-            name="urlFoto"
-            placeholder="Url profile picture"
-            ref={urlFoto}
-            onChange={() =>
-              validacion.validarInput("UrlPicture", urlFoto.current.value)
-            }
-          />
-          {validacion.formularioEstado.UrlPicture === "check" && (
-            <FcCheckmark className="input_form_icono" />
-          )}
-        </div>
+        {validacion.crearInput('Name',nombre,'text','First name','Valid name','Invalid first name letters - min 3 max 12')}
+        {validacion.crearInput('LastName',apellido,'text','Last name','Valid last name','Invalid last name letters - min 3 max 16')}
+        {validacion.crearInput('Email',email,'email','Email','Valid email','Invalid email')}
+        {validacion.crearInput('Password',password,'password','password','Valid password','Invalid password letters or numbers min:8 max:16')}
+        {validacion.crearInput('UrlPicture',urlFoto,'text','Url profile picture','Valid url','Invalid url')}
         {paises.length > 0 ? (
           <div className="input_form">
             <select
@@ -184,9 +134,7 @@ const FormSignUp = (props) => {
                 </option>
               ))}
             </select>
-            {paisSeleccionado !== "null" && (
-              <FcCheckmark className="input_form_icono" />
-            )}
+            
           </div>
         ) : (
           <select>
@@ -200,8 +148,25 @@ const FormSignUp = (props) => {
           className="btn-form"
           value="Create account"
         />
-        <button className="btn-form">Sign in with google</button>
       </form>
+      <GoogleLogin
+        clientId="46061314994-265078hfe23i87j6ueugsc8lmh9vs4ii.apps.googleusercontent.com"
+        render={(renderProps) => (
+          <button
+            onClick={renderProps.onClick}
+            className="btn-form"
+            disabled={renderProps.disabled}
+          >
+            Sign up whit google
+            <FcGoogle className="mx-3"/>
+          </button>
+        )}
+        buttonText="Login"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={"single_host_origin"}
+      />
+      , ,
     </>
   );
 };

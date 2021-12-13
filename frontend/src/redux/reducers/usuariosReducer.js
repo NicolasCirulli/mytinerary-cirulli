@@ -1,5 +1,6 @@
 const initialState = {
-    usuario: false 
+    usuario: false,
+    fotoPerfil: false
 }
 
 const usuariosReducer = (state = initialState, action)=>{
@@ -7,7 +8,8 @@ const usuariosReducer = (state = initialState, action)=>{
         case 'iniciarSesion':
                 return{
                     ...state,
-                    ...action.payload
+                    ...action.payload,
+                    
                 }   
 
         case 'cerrar':

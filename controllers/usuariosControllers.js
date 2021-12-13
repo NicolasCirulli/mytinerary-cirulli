@@ -3,7 +3,7 @@ const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const usuarioControllers = {
     nuevoUsuario: async (req, res) => {
-        let {primerNombre,apellido,email, contraseña,fotoPerfil,pais } = req.body
+        let {primerNombre,apellido,email, contraseña,fotoPerfil,pais,google } = req.body
         try{
             const emailExiste = await Usuario.findOne({email})
             if(emailExiste){
@@ -16,7 +16,8 @@ const usuarioControllers = {
                     email,
                     contraseña: contraseñaEncriptada,
                     fotoPerfil,
-                    pais
+                    pais,
+                    google
                 })
                 const token = jwt.sign({...nuevoUsuario},process.env.SECRET_KEY)
                 await nuevoUsuario.save()
@@ -27,9 +28,12 @@ const usuarioControllers = {
         }        
     },
     iniciarSesion: async(req, res)=>{
-        let {email, contraseña} = req.body
+        let {email, contraseña, google} = req.body
         try{
             const usuarioEncontrado = await Usuario.findOne({email})
+            if(usuarioEncontrado.google && !google){
+                res.json({success:false, response:[{message:"The email/password is incorrect"}]})
+            }
             
             if(usuarioEncontrado){
                 let contraseñaCoincide = bcryptjs.compareSync(contraseña, usuarioEncontrado.contraseña)
@@ -43,7 +47,6 @@ const usuarioControllers = {
                 res.json({success:true, response: [{message: "The email/password is incorrect"}],error:true})
             }
         }catch(error){
-            console.log(error);
             res.json({success:false, response:null})
         }
     },
