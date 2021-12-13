@@ -4,10 +4,11 @@ const jwt = require('jsonwebtoken')
 const usuarioControllers = {
     nuevoUsuario: async (req, res) => {
         let {primerNombre,apellido,email, contraseña,fotoPerfil,pais,google } = req.body
+        console.log(google);
         try{
             const emailExiste = await Usuario.findOne({email})
             if(emailExiste){
-                res.json({success: false, response:[{message: "This email is already in use."}]})
+                res.json({success: false, response:[{message: "This email is already in use."}],error:true})
             }else{
                 const contraseñaEncriptada = bcryptjs.hashSync(contraseña, 10)
                 const nuevoUsuario = new Usuario({ 
@@ -24,33 +25,47 @@ const usuarioControllers = {
                 res.json({success: true, response: {token,nuevoUsuario}, error:null})
             }
         }catch(error){ 
-            res.json({success:false, response: null})
+            res.json({success:false, response: null,error:true})
         }        
     },
     iniciarSesion: async(req, res)=>{
         let {email, contraseña, google} = req.body
+        console.log(req.body);
+        
         try{
             const usuarioEncontrado = await Usuario.findOne({email})
-            if(usuarioEncontrado.google && !google){
-                res.json({success:false, response:[{message:"The email/password is incorrect"}]})
-            }
+            console.log('busqueda de usuario');
+            console.log(usuarioEncontrado)
+
             
             if(usuarioEncontrado){
+                
+                if(usuarioEncontrado.google && !google){
+                    res.json({success:true, response:[{message:"The email/password is incorrect"}],error:null})
+                }
+                console.log('entre al if de usuario encontrado');
+
                 let contraseñaCoincide = bcryptjs.compareSync(contraseña, usuarioEncontrado.contraseña)
                 if(contraseñaCoincide){
+
+                    console.log('entre al if de contraseña coincide');
+                    
                     const token = jwt.sign({...usuarioEncontrado},process.env.SECRET_KEY)
                     res.json({success: true, response:{token,email,fotoPerfil:usuarioEncontrado.fotoPerfil,primerNombre:usuarioEncontrado.primerNombre}, error: null})
                 }else{
+                    console.log('entre al if de contraseña erronea');
                     res.json({success:false, response: [{message: "The email/password is incorrect"}],error:true})
                 }
             }else{
-                res.json({success:true, response: [{message: "The email/password is incorrect"}],error:true})
+                console.log('entre en el ultimo else');
+                return res.json({success:true, response: [{message: "The email/password is incorrect"}],error:true})
             }
+            
         }catch(error){
-            res.json({success:false, response:null})
+            res.json({success:false, response:[{message: ""}],error:true})
         }
     },
-    iniciarConToken: async(req, res)=>{
+    iniciarConToken:(req, res)=>{
         let {primerNombre,email,fotoPerfil} = req.user
         res.json({success:true, response:{primerNombre ,email, fotoPerfil}})
     }

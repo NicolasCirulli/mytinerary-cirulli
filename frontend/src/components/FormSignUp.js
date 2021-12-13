@@ -2,10 +2,10 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import usuariosActions from "../redux/actions/usuarioActions";
 import { connect } from "react-redux";
-import useValidacion from "../hooks/useValidacion";
-import useAlerts from "../hooks/useAlerts";
 import { GoogleLogin } from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
+import useValidacion from "../hooks/useValidacion";
+import useAlerts from "../hooks/useAlerts";
 
 const FormSignUp = (props) => {
   const formulario = {
@@ -63,18 +63,18 @@ const FormSignUp = (props) => {
           pais:paisSeleccionado
           }
       );
-      console.log(nuevoUsuario);
-      validacion.resetFormulario();
 
       if (!nuevoUsuario.data.success) {
-        console.log(nuevoUsuario.data.success);
-        return alertas.alerta("errores", null, nuevoUsuario.data.response);
+        console.log(nuevoUsuario.data.response);
+        return alertas.tostadas('back',nuevoUsuario.data.response)
       }
       alertas.alerta(
         "success",
-        "Successful sign up " + nuevoUsuario.data.response.email
+        "Successful sign up " + nuevoUsuario.data.response.nuevoUsuario.primerNombre
       );
-    } else alertas.alerta("errores-front", null, validacion.errores);
+    } else alertas.tostadas('front',validacion.errores);
+
+    
   };
 
   const responseGoogle = (response) => {
@@ -85,7 +85,7 @@ const FormSignUp = (props) => {
       email: response.profileObj.email,
       fotoPerfil:response.profileObj.imageUrl,
       pais: "Undefined",
-      google: true,
+      google: true
     };
     props
       .nuevoUsuario(googleUser)
@@ -136,7 +136,7 @@ const FormSignUp = (props) => {
             </select>
             
           </div>
-        ) : (
+        ):(
           <select>
             <option value="null">Loading...</option>
           </select>

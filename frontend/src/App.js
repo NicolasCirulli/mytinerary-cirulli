@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useState} from "react";
 import NavbarHome from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -10,6 +10,8 @@ import { BrowserRouter ,Routes, Route } from "react-router-dom";
 import {withRouter } from './utilities/withRouter'
 import { useSelector,useDispatch } from "react-redux";
 import usuarioActions from "./redux/actions/usuarioActions"
+import Loader from './components/Loader'
+import { ToastContainer } from "react-toastify";
 
 const CityD = withRouter(City)
 
@@ -18,9 +20,25 @@ function App() {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
   const usuario = useSelector(store => store.usuariosReducer.usuario)
+  
+  const [loader,setLoader] = useState(true)
+
   useEffect(() => {
-     dispatch(usuarioActions.loggearDesdeStorage(token))
+    token && (
+      dispatch(usuarioActions.loggearDesdeStorage(token))
+      && setLoader(false)
+      )
   },[])
+
+  // if(loader){
+  //   return (
+  //     <>
+  //     <Loader/>
+  //     </>
+  //   )
+  // }
+
+  
 
   return (
     <>
@@ -35,6 +53,12 @@ function App() {
         {!usuario &&<Route path="/Signin" element={<SignIn />}></Route>}
         <Route path="*" element={<Home />}></Route>
       </Routes>
+      <ToastContainer
+          newestOnTop={false}
+          rtl={false}
+          pauseOnFocusLoss
+        />
+        <ToastContainer />
       
       <Footer />
 

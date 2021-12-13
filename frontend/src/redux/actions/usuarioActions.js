@@ -1,28 +1,27 @@
 import axios from "axios"
 
 const usuarioActions = {
-    nuevoUsuario: ( {primerNombre, apellido,email,contraseña,fotoPerfil,pais})=>{
+    nuevoUsuario: ( {primerNombre, apellido,email,contraseña,fotoPerfil,pais,google})=>{
         return async(dispatch,getState)=>{
-           const usuario = await axios.post('http://localhost:4000/api/usuario/registro',{primerNombre, apellido,  email, contraseña, fotoPerfil, pais})
+           const usuario = await axios.post('http://localhost:4000/api/usuario/registro',{primerNombre, apellido,  email, contraseña, fotoPerfil, pais,google})
            if(usuario.data.success){
-               console.log('llegue aca en el action');
+               console.log(usuario.data)
                 localStorage.setItem('token',usuario.data.response.token)
                 dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.nuevoUsuario.primerNombre,urlFoto: usuario.data.response.nuevoUsuario.fotoPerfil}})
                 return usuario
            }else{
-               console.log(usuario);
+            
                return usuario
            }
         }
     },
-    iniciarSesion : ({email, contraseña})=>{
+    iniciarSesion : ({email, contraseña,google})=>{
         return async(dispatch,getState)=>{
-            const usuario = await axios.post('http://localhost:4000/api/usuario/iniciarSesion',{email, contraseña})
-            if(usuario.data.error){
-                console.log('if action linea 23');
+            console.log(email, contraseña,google);
+            const usuario = await axios.post('http://localhost:4000/api/usuario/iniciarSesion',{email,contraseña,google})
+            if(!usuario.data.success){
                 return usuario
             }else{
-                console.log(usuario.data);
                 localStorage.setItem('token',usuario.data.response.token)
                  dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre,urlFoto: usuario.data.response.fotoPerfil}})
                 return usuario
