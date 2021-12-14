@@ -10,7 +10,6 @@ import { BrowserRouter ,Routes, Route } from "react-router-dom";
 import {withRouter } from './utilities/withRouter'
 import { useSelector,useDispatch } from "react-redux";
 import usuarioActions from "./redux/actions/usuarioActions"
-import Loader from './components/Loader'
 import { ToastContainer } from "react-toastify";
 
 const CityD = withRouter(City)
@@ -21,25 +20,12 @@ function App() {
   const token = localStorage.getItem('token')
   const usuario = useSelector(store => store.usuariosReducer.usuario)
   
-  const [loader,setLoader] = useState(true)
-
   useEffect(() => {
-    token && (
-      dispatch(usuarioActions.loggearDesdeStorage(token))
-      && setLoader(false)
-      )
-  },[])
-
-  // if(loader){
-  //   return (
-  //     <>
-  //     <Loader/>
-  //     </>
-  //   )
-  // }
-
+    if(!usuario && localStorage.getItem('token')){
+      token &&  dispatch(usuarioActions.loggearDesdeStorage(token))}
+    },[])
   
-
+  
   return (
     <>
     <BrowserRouter>

@@ -4,9 +4,18 @@ import { useRef } from "react";
 import useAlerts from "../hooks/useAlerts";
 import { GoogleLogin } from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
-
+import useValidacion from "../hooks/useValidacion";
 const FormSignIn = (props) => {
   const alertas = useAlerts();
+
+
+  const formulario = {
+    Email: "",
+    Password: "",
+  };
+
+  const validacion = useValidacion(formulario);
+
 
   const email = useRef();
   const password = useRef();
@@ -39,31 +48,16 @@ const FormSignIn = (props) => {
     };
     props
       .iniciarSesion(googleUser)
-      .then((response) => response.data.success)
+      .then((response) => alertas.alerta('success',response.data.response.email))
       .catch((error) => console.error(error));
+      // alertas.alerta('success',response.data.response.email)
   };
 
   return (
     <>
       <form className="d-flex flex-column" onSubmit={submitForm}>
-        <div className="input_form">
-          <input
-            type="email"
-            name=""
-            placeholder="Email"
-            autoComplete="new-email"
-            ref={email}
-            auto
-          />
-        </div>
-        <div className="input_form">
-          <input
-            type="password"
-            name=""
-            placeholder="Password"
-            ref={password}
-          />
-        </div>
+        {validacion.crearInput('Email',email,'email','Email','Valid email','Invalid email')}
+        {validacion.crearInput('Password',password,'password','password','Valid password','Invalid password letters or numbers min:8 max:16')}
         <input
           type="submit"
           name="Sign In"

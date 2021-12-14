@@ -43,6 +43,7 @@ const usuarioActions = {
                     }
                 })
                 usuario.data.success && dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre, fotoPerfil: usuario.data.response.fotoPerfil}})
+                return usuario.data.success ? usuario.data : null
             }catch(err){console.log(err)}
         }
     }
