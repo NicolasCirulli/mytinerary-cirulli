@@ -64,7 +64,6 @@ const useAlerts = () => {
         .filter((e) => e !== "check")
         .filter((e) => e !== "");
       const mapeado = filtrado.map(e => e = {'message': e})
-        console.log(mapeado);
         mapeado.map(e => toast.error(e.message, {
         theme:'dark',
         position: "top-right",

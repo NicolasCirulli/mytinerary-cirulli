@@ -7,7 +7,7 @@ const usuarioActions = {
            if(usuario.data.success){
                console.log(usuario.data)
                 localStorage.setItem('token',usuario.data.response.token)
-                dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.nuevoUsuario.primerNombre,urlFoto: usuario.data.response.nuevoUsuario.fotoPerfil}})
+                dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.nuevoUsuario.primerNombre,fotoPerfil: usuario.data.response.nuevoUsuario.fotoPerfil}})
                 return usuario
            }else{
             
@@ -19,11 +19,12 @@ const usuarioActions = {
         return async(dispatch,getState)=>{
             console.log(email, contraseña,google);
             const usuario = await axios.post('http://localhost:4000/api/usuario/iniciarSesion',{email,contraseña,google})
+            console.log(usuario.data);
             if(!usuario.data.success){
                 return usuario
             }else{
                 localStorage.setItem('token',usuario.data.response.token)
-                 dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre,urlFoto: usuario.data.response.fotoPerfil}})
+                 dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre,fotoPerfil: usuario.data.response.fotoPerfil}})
                 return usuario
             }
         }

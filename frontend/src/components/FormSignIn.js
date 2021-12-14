@@ -33,14 +33,17 @@ const FormSignIn = (props) => {
     if (loguearUsuario.data.error) {
       return alertas.alerta("errores", null, loguearUsuario.data.response);
     }
-    alertas.alerta(
-      "success",
-      "Successful sign in " + loguearUsuario.data.response.email
-    );
+    if(loguearUsuario.success && loguearUsuario.error){
+      return alertas.alerta(
+        "success",
+        "Successful sign in " + loguearUsuario.data.response.email
+      );
+    }else{
+      return alertas.alerta("errores", null, loguearUsuario.data.response);
+    }
   };
 
   const responseGoogle = (response) => {
-    console.log(response);
     let googleUser = {
       email: response.profileObj.email,
       contraseña: response.profileObj.googleId,
@@ -48,9 +51,15 @@ const FormSignIn = (props) => {
     };
     props
       .iniciarSesion(googleUser)
-      .then((response) => alertas.alerta('success',response.data.response.email))
+      .then((response) => {
+        console.log(response);
+        if(response.data.success){
+          alertas.alerta('success',response.data.response.email)
+        }else{
+          alertas.tostadas('back',response.data.response)
+        } 
+      })
       .catch((error) => console.error(error));
-      // alertas.alerta('success',response.data.response.email)
   };
 
   return (

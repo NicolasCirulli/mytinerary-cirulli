@@ -74,7 +74,6 @@ const FormSignUp = (props) => {
       );
     } else alertas.tostadas('front',validacion.errores);
 
-    
   };
 
   const responseGoogle = (response) => {

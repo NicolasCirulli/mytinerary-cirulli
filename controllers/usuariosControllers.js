@@ -35,7 +35,7 @@ const usuarioControllers = {
         try{
             const usuarioEncontrado = await Usuario.findOne({email})
             console.log('busqueda de usuario');
-            console.log(usuarioEncontrado)
+            console.log(usuarioEncontrado.fotoPerfil)
 
             
             if(usuarioEncontrado){
@@ -62,7 +62,7 @@ const usuarioControllers = {
             }
             
         }catch(error){
-            res.json({success:false, response:[{message: ""}],error:true})
+            res.json({success:false, response:[{message: "The email is not registered"}],error:true})
         }
     },
     iniciarConToken:(req, res)=>{
