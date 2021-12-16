@@ -1,7 +1,9 @@
 import React from "react";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import useDisplay from "../hooks/useDisplay"
-
+import {useSelector, useDispatch} from 'react-redux'
+import itinerariesActions from "../redux/actions/itinerariesActions";
+import comentariosActions from "../redux/actions/comentariosActions";
 
 const Itineraries = ({datos}) => {
   const boton = useDisplay();
@@ -9,6 +11,21 @@ const Itineraries = ({datos}) => {
   for (let i = 0; i < datos.precio; i++) {
     precio.push(<span>💵</span>);
   }  
+
+  const simularActualizacion = {
+    'titulo' : 'probando un titulo nuevo'
+  }
+
+  const dispatch = useDispatch()
+  const token = localStorage.getItem('token')
+
+  const borrarItinerario = () => dispatch(itinerariesActions.borrarItinerario(token,datos._id))
+  const modificarItinerario = () => dispatch(itinerariesActions.modificarItinerario(token,datos._id,{...simularActualizacion}))
+
+
+  const agregarComentario = () => dispatch(comentariosActions.agregarComentarios(token,datos._id,'comentario'))
+  const modificar = ()=> dispatch(comentariosActions.modificarComentario(token,datos._id,'comentario actualizado'))
+  const borrar = ()=> dispatch(comentariosActions.borrarComentario(token,datos._id))
 
   return (
     <>
@@ -39,6 +56,19 @@ const Itineraries = ({datos}) => {
         {boton.display && (
           <div className="itinerary_activities">
             <img src="/assets/images/under.png" alt="" className="under"/>
+            <div className="d-flex flex-column text-center bg-oscuro ">
+          { datos.comentarios.length > 0 && datos.comentarios.map(e=> {
+            return (
+              <>
+              <div>
+                <p>{e}</p>
+                <button onClick={modificar} >Modificar</button>
+                <button onClick={borrar} >Borrar</button>
+              </div>
+              </>
+            )
+          } )}
+            </div>
           </div>
         )}
 
@@ -46,6 +76,9 @@ const Itineraries = ({datos}) => {
           {" "}
           {boton.display ? "view less" : "view more"}
         </button>
+        <button onClick={agregarComentario}>Agregar comentario</button>
+        <button onClick={borrarItinerario}>Borrar Itinerario</button>
+        <button onClick={modificarItinerario}>Modificar Itinerario</button>
       </div >
     </>
   );

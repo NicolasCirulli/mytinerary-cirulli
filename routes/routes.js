@@ -6,11 +6,11 @@ const itinerariosControllers = require('../controllers/itinerariosControllers')
 const usuariosControllers = require('../controllers/usuariosControllers')
 
 const {cargarUnaCiudad,obtenerTodas,obtenerUnaCiudad,modifarCiudad,borrarCiudad } = ciudadesControllers
-const {obtenerTodosIt,agregarItinerario,obtenerUnIt,borrarItinerario,modificarItinerario,obtenerItinerariosPorCiudad} = itinerariosControllers
-const {nuevoUsuario,iniciarSesion,iniciarConToken} = usuariosControllers;
+const {obtenerTodosIt,agregarItinerario,obtenerUnIt,borrarItinerario,modificarItinerario,obtenerItinerariosPorCiudad,borrarComentario,modificarComentario,agregarComentarios} = itinerariosControllers
+const {nuevoUsuario,iniciarSesion,iniciarConToken,borrarCuenta} = usuariosControllers;
 
 
-
+// Ciudades
 Router.route('/ciudades')
 .get(obtenerTodas)
 .post(cargarUnaCiudad)
@@ -20,18 +20,30 @@ Router.route('/ciudades/:id')
 .delete(borrarCiudad)
 .put(modifarCiudad)
 
+
+
+// ITinerarios
 Router.route('/itinerarios')
 .get(obtenerTodosIt)
-.post(agregarItinerario)
+.post(passport.authenticate('jwt',{session:false}),agregarItinerario)
 
 Router.route('/itinerario/:idCiudad')
 .get(obtenerItinerariosPorCiudad)
 
 Router.route('/itinerarios/:id')
 .get(obtenerUnIt)
-.delete(borrarItinerario)
-.put(modificarItinerario)
+.delete(passport.authenticate('jwt',{session:false}),borrarItinerario)
+.put(passport.authenticate('jwt',{session:false}),modificarItinerario)
 
+
+// Comentarios en los itinerarios
+Router.route('/itinerarios/comentarios/:id')
+.post(passport.authenticate('jwt',{session:false}),agregarComentarios)
+.delete(passport.authenticate('jwt',{session:false}),borrarComentario)
+.put(passport.authenticate('jwt',{session:false}),modificarComentario)
+
+
+// Usuarios
 Router.route('/usuario/registro')
 .post(validator, nuevoUsuario)
 
@@ -41,6 +53,8 @@ Router.route('/usuario/iniciarSesion')
 Router.route('/usuario/iniciarSesion/token')
 .post(passport.authenticate('jwt',{session:false}),iniciarConToken)
 
+Router.route('/usuario/borrar')
+.post(passport.authenticate('jwt',{session:false}),borrarCuenta)
 
 module.exports = Router
 

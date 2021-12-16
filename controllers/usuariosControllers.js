@@ -3,7 +3,7 @@ const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const usuarioControllers = {
     nuevoUsuario: async (req, res) => {
-        let {primerNombre,apellido,email, contraseña,fotoPerfil,pais,google } = req.body
+        let {primerNombre,apellido,email, contraseña,fotoPerfil,pais,google,rol } = req.body
         console.log(google);
         try{
             const emailExiste = await Usuario.findOne({email})
@@ -18,7 +18,8 @@ const usuarioControllers = {
                     contraseña: contraseñaEncriptada,
                     fotoPerfil,
                     pais,
-                    google
+                    google,
+                    rol
                 })
                 const token = jwt.sign({...nuevoUsuario},process.env.SECRET_KEY)
                 await nuevoUsuario.save()
@@ -68,6 +69,11 @@ const usuarioControllers = {
     iniciarConToken:(req, res)=>{
         let {primerNombre,email,fotoPerfil} = req.user
         res.json({success:true, response:{primerNombre ,email, fotoPerfil}})
+    },
+    borrarCuenta:async(req,res)=>{
+        let {_id : id } = req.user
+        await Usuario.deleteOne({_id: id })
+        res.json({success:true, response:[{mensaje:'Cuenta borrada con exito'}]})
     }
 }
 

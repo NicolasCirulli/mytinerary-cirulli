@@ -19,7 +19,6 @@ function App() {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
   const usuario = useSelector(store => store.usuariosReducer.usuario)
-  
   useEffect(() => {
     if(!usuario && localStorage.getItem('token')){
       token &&  dispatch(usuarioActions.loggearDesdeStorage(token))}
@@ -44,7 +43,7 @@ function App() {
           rtl={false}
           pauseOnFocusLoss
         />
-        <ToastContainer />
+      <ToastContainer />
       
       <Footer />
 

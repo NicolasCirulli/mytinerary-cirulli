@@ -19,55 +19,156 @@ const itinerariosControllers = {
     });
   },
   agregarItinerario: (req, res) => {
-    const { titulo, guia, guiaImg, precio, duracion, likes, hashtags, comentarios, ciudadRelacionada } =
-      req.body;
-    new Itinerario({ titulo, guia, guiaImg, precio, duracion, likes, hashtags, comentarios, ciudadRelacionada })
-      .save()
-      .then((respuesta) => res.json({ respuesta }))
-      .catch((err) => { console.log(err) })
+    const {
+      titulo,
+      precio,
+      duracion,
+      likes,
+      hashtags,
+      ciudadRelacionada,
+    } = req.body;
+    let { _id: id, primerNombre: guia, fotoPerfil: guiaImg } = req.user;
+    if (req.user.rol === "guia") {
+      new Itinerario({
+        titulo,
+        guia,
+        guiaImg,
+        precio,
+        duracion,
+        likes,
+        hashtags,
+        ciudadRelacionada,
+        idGuia: id,
+      })
+        .save()
+        .then((respuesta) => res.json({ respuesta }))
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // Nunca debería llegar a este else, si llega aca revisar las condiciones del front
+      res.json({
+        success: false,
+        error: [
+          { message: "Esta funcion solo esta disponible para los guias" },
+        ],
+      });
+    }
   },
   obtenerUnIt: async (req, res) => {
     let itinerario;
     const id = req.params.id;
 
     try {
-      itinerario = await Itinerario.findOne({ _id: id }).populate("ciudadRelacionada");
+      itinerario = await Itinerario.findOne({ _id: id }).populate(
+        "ciudadRelacionada"
+      );
     } catch (err) {
       console.log(err);
     }
 
     res.json({ respuesta: itinerario, success: true });
   },
+
   borrarItinerario: async (req, res) => {
     const id = req.params.id;
-    let itinerario;
-    try {
-      await Itinerario.findOneAndDelete({ _id: id });
-      itinerario = await Itinerary.find();
-    } catch (err) {
-      console.log(err);
+    let { _id: guia } = req.user;
+    if (req.user.rol === "guia") {
+      try {
+        const itinerarioABorrar = await Itinerario.findOne({ _id: id });
+        if (itinerarioABorrar.idGuia) {
+          const borrado = await Itinerario.findOneAndDelete({ idGuia: guia });
+          if (borrado) {
+            res.json({
+              respuesta: {
+                itenerarioABorrar: itinerarioABorrar,
+                borrado: borrado,
+              },
+              success: true,
+            });
+          } else {
+            res.json({
+              respuesta: [{ message: "solo podes borrar tus itinerarios" }],
+              success: true,
+            });
+          }
+        } else {
+          res.json({
+            respuesta: [{ message: "solo podes borrar tus itinerarios" }],
+            success: true,
+          });
+        }
+      } catch (err) {
+        res.json({ respuesta: { err }, success: false });
+      }
     }
-    res.json({ respuesta: itinerario, success: true });
   },
+
   modificarItinerario: async (req, res) => {
+    console.log("Llegue al controller");
     let id = req.params.id;
     let itinerario = req.body;
-    let actualizacion;
+    let { _id: guia } = req.user;
     try {
-      actualizacion = await Itinerario.findOneAndUpdate({ _id: id }, itinerario, { new: true });
-      console.log(actualizacion);
+      const itinerarioAActualizar = await Itinerario.findOne({ _id: id });
+
+      if (itinerarioAActualizar.idGuia) {
+        console.log("entre al if");
+        console.log(itinerario.body);
+        const actualizacion = await Itinerario.findOneAndUpdate(
+          { idGuia: guia },
+          itinerario.body,
+          { new: true }
+        );
+        if (actualizacion) {
+          res.json({ success: true, response: actualizacion, error: null });
+        } else {
+          res.json({
+            respuesta: [{ message: "solo podes modificar tus itinerarios" }],
+            success: true,
+            error: true,
+          });
+        }
+      }
+    } catch (err) {
+      res.json({
+        respuesta: [{ message: "Cayo en el catch del controller" }],
+        success: false,
+        error: true,
+      });
+    }
+  },
+  obtenerItinerariosPorCiudad: async (req, res) => {
+    try {
+      const itinerariosDeCiudad = await Itinerario.find({
+        ciudadRelacionada: req.params.idCiudad,
+      });
+      res.json({ respuesta: itinerariosDeCiudad });
     } catch (err) {
       console.log(err);
     }
-    res.json({ success: actualizacion ? true : false });
   },
-  obtenerItinerariosPorCiudad: async (req, res) => {
+
+  
+  agregarComentarios:async (req, res) => {
+    console.log(req.user);
+    console.log(req.body);
+    console.log(req.params.id);
     try{
-      const itinerariosDeCiudad = await Itinerario.find({ciudadRelacionada: req.params.idCiudad})
-      res.json({respuesta: itinerariosDeCiudad})
-    }catch (err) {
-      console.log(err);
-    }
+
+      const prueba = await Itinerario.findOne({_id : req.params.id})
+      console.log(prueba);
+
+    }catch(err){
+      console.log(err)}
+  },
+  borrarComentario:async (req, res) => {
+    console.log(req);
+    
+  },
+  modificarComentario:async (req, res) => {
+    console.log(req);
+
   }
 };
 

@@ -47,6 +47,18 @@ const usuarioActions = {
                 return usuario.data.success ? usuario.data : null
             }catch(err){console.log(err)}
         }
+    },
+    borrarCuenta: (token)=>{
+        return async(dispatch,getState) =>{
+            try{
+                const usuario = await axios.post('http://localhost:4000/api/usuario/borrar',{} ,{
+                    headers:{
+                        'Authorization':'Bearer '+token 
+                    }
+                })
+                console.log(usuario);
+            }catch(err){console.log(err)}
+        }
     }
 }
 

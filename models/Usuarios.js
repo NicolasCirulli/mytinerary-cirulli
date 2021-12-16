@@ -7,7 +7,9 @@ const usuarioSchema = new mongoose.Schema({
   contraseña: { type: String, required: true },
   fotoPerfil: { type: String, required: true },
   pais: {type: String, required: true },
-  google:{type:Boolean, default:false}
+  google:{type:Boolean, default:false},
+  rol: { type: String, default:'usuario' },
+
 });
 
 const Usuario = mongoose.model("usuario", usuarioSchema);

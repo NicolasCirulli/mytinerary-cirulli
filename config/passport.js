@@ -13,8 +13,10 @@ module.exports = passport.use(new jwtStrategy({
     .then(usuario =>{
         
         if(usuario){
+            console.log('Pase la autenticacion del token');
             return done(null,usuario)
         }else{
+            console.log('No pase la autenticacion del token');
             return done(null, false)
         }
     })

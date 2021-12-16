@@ -53,27 +53,25 @@ const FormSignUp = (props) => {
       validacion.formularioEstado.UrlPicture === "check" &&
       paisSeleccionado !== "null"
     ) {
-      const nuevoUsuario = await props.nuevoUsuario(
-          {
-          primerNombre:nombre.current.value,
-          apellido:apellido.current.value,
-          email:email.current.value,
-          contraseña:password.current.value,
-          fotoPerfil:urlFoto.current.value,
-          pais:paisSeleccionado
-          }
-      );
+      const nuevoUsuario = await props.nuevoUsuario({
+        primerNombre: nombre.current.value,
+        apellido: apellido.current.value,
+        email: email.current.value,
+        contraseña: password.current.value,
+        fotoPerfil: urlFoto.current.value,
+        pais: paisSeleccionado,
+      });
 
       if (!nuevoUsuario.data.success) {
         console.log(nuevoUsuario.data.response);
-        return alertas.tostadas('back',nuevoUsuario.data.response)
+        return alertas.tostadas("back", nuevoUsuario.data.response);
       }
       alertas.alerta(
         "success",
-        "Successful sign up " + nuevoUsuario.data.response.nuevoUsuario.primerNombre
+        "Successful sign up " +
+          nuevoUsuario.data.response.nuevoUsuario.primerNombre
       );
-    } else alertas.tostadas('front',validacion.errores);
-
+    } else alertas.tostadas("front", validacion.errores);
   };
 
   const responseGoogle = (response) => {
@@ -82,9 +80,9 @@ const FormSignUp = (props) => {
       apellido: response.profileObj.familyName,
       contraseña: response.profileObj.googleId,
       email: response.profileObj.email,
-      fotoPerfil:response.profileObj.imageUrl,
+      fotoPerfil: response.profileObj.imageUrl,
       pais: "Undefined",
-      google: true
+      google: true,
     };
     props
       .nuevoUsuario(googleUser)
@@ -92,17 +90,15 @@ const FormSignUp = (props) => {
         if (!response.data.success) {
           console.log(response.data.success);
           alertas.alerta("errores", null, response.data.response);
-        }else{
+        } else {
           console.log(response.data);
           alertas.alerta(
             "success",
             "Successful sign up " + response.data.response.nuevoUsuario.email
           );
         }
-      } )
+      })
       .catch((error) => console.log(error));
-
-      
   };
 
   return (
@@ -112,11 +108,46 @@ const FormSignUp = (props) => {
         autoComplete="off"
         onSubmit={submitForm}
       >
-        {validacion.crearInput('Name',nombre,'text','First name','Valid name','Invalid first name letters - min 3 max 12')}
-        {validacion.crearInput('LastName',apellido,'text','Last name','Valid last name','Invalid last name letters - min 3 max 16')}
-        {validacion.crearInput('Email',email,'email','Email','Valid email','Invalid email')}
-        {validacion.crearInput('Password',password,'password','password','Valid password','Invalid password letters or numbers min:8 max:16')}
-        {validacion.crearInput('UrlPicture',urlFoto,'text','Url profile picture','Valid url','Invalid url')}
+        {validacion.crearInput(
+          "Name",
+          nombre,
+          "text",
+          "First name",
+          "Valid name",
+          "Invalid first name letters - min 3 max 12"
+        )}
+        {validacion.crearInput(
+          "LastName",
+          apellido,
+          "text",
+          "Last name",
+          "Valid last name",
+          "Invalid last name letters - min 3 max 16"
+        )}
+        {validacion.crearInput(
+          "Email",
+          email,
+          "email",
+          "Email",
+          "Valid email",
+          "Invalid email"
+        )}
+        {validacion.crearInput(
+          "Password",
+          password,
+          "password",
+          "password",
+          "Valid password",
+          "Invalid password letters or numbers min:8 max:16"
+        )}
+        {validacion.crearInput(
+          "UrlPicture",
+          urlFoto,
+          "text",
+          "Url profile picture",
+          "Valid url",
+          "Invalid url"
+        )}
         {paises.length > 0 ? (
           <div className="input_form">
             <select
@@ -133,9 +164,8 @@ const FormSignUp = (props) => {
                 </option>
               ))}
             </select>
-            
           </div>
-        ):(
+        ) : (
           <select>
             <option value="null">Loading...</option>
           </select>
@@ -157,7 +187,7 @@ const FormSignUp = (props) => {
             disabled={renderProps.disabled}
           >
             Sign up whit google
-            <FcGoogle className="mx-3"/>
+            <FcGoogle className="mx-3" />
           </button>
         )}
         buttonText="Login"

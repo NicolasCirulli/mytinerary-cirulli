@@ -7,12 +7,11 @@ import usuarioActions from "../redux/actions/usuarioActions"
 const NavbarHome = () => {
 
   
-
+  const token = localStorage.getItem('token')
 
   const dispatch = useDispatch()
   const usuario = useSelector(store => store.usuariosReducer.usuario)
   const fotoPerfil = useSelector(store => store.usuariosReducer.fotoPerfil)
-  
   
 
   return (

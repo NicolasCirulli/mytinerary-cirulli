@@ -27,6 +27,7 @@ const validator = (req, res, next) => {
         fotoPerfil: joi.required(),
         pais: joi.required(),
         google:joi.boolean(),
+        rol: joi.string()
     })
 
     const validate = schema.validate(req.body, { abortEarly: false })

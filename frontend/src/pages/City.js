@@ -6,11 +6,11 @@ import { connect } from "react-redux";
 import citiesActions from "../redux/actions/citiesActions";
 import itinerariesActions from "../redux/actions/itinerariesActions";
 import Loader from "../components/Loader";
+import BotonCrearItinerario from '../components/BotonCrearItinerario'
 class City extends React.Component {
   constructor(props) {
     super(props);
-    this.resetear = this.props.borrarItinerarios()
-     
+    this.resetear = this.props.borrarItinerarios();
   }
   componentDidMount() {
     window.scrollTo({
@@ -32,9 +32,10 @@ class City extends React.Component {
   render() {
     return (
       <>
-        {this.props.ciudad
-        ? (<div>
+        {this.props.ciudad ? (
+          <div>
             <HeaderCity datos={this.props.ciudad} />
+            <BotonCrearItinerario ciudad={this.props.ciudad}/>
             <div className="contenedor-city">
               {this.props.itinerarios ? (
                 this.props.itinerarios.length > 0 ? (
@@ -52,7 +53,6 @@ class City extends React.Component {
               <Link to="/cities">
                 <div className="text-center">
                   <button className="btn btn-city" onClick={this.resetear}>
-                    {" "}
                     Back to Cities
                   </button>
                 </div>
