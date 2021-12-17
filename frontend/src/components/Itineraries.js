@@ -23,9 +23,9 @@ const Itineraries = ({datos}) => {
   const modificarItinerario = () => dispatch(itinerariesActions.modificarItinerario(token,datos._id,{...simularActualizacion}))
 
 
-  const agregarComentario = () => dispatch(comentariosActions.agregarComentarios(token,datos._id,'comentario'))
-  const modificar = ()=> dispatch(comentariosActions.modificarComentario(token,datos._id,'comentario actualizado'))
-  const borrar = ()=> dispatch(comentariosActions.borrarComentario(token,datos._id))
+  const agregarComentario = () => dispatch(comentariosActions.agregarComentarios(token,datos._id,'segundo comentario de prueba'))
+  const modificar = ()=> dispatch(comentariosActions.modificarComentario(token,datos._id,datos.comentarios[0]._id,'comentario actualizado'))
+  const borrar = ()=> dispatch(comentariosActions.borrarComentario(token,datos._id,datos.comentarios[3]._id))
 
   return (
     <>
@@ -77,6 +77,8 @@ const Itineraries = ({datos}) => {
           {boton.display ? "view less" : "view more"}
         </button>
         <button onClick={agregarComentario}>Agregar comentario</button>
+        <button onClick={borrar}>Borrar comentario</button>
+        <button onClick={modificar}>Modificar comentario</button>
         <button onClick={borrarItinerario}>Borrar Itinerario</button>
         <button onClick={modificarItinerario}>Modificar Itinerario</button>
       </div >

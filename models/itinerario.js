@@ -10,7 +10,12 @@ const itinerarioSchema = new mongoose.Schema({
     duracion: {type: Number, required: true},
     likes: {type: Number, required: true},
     hashtags: [{type: String, required: true}],
-    comentarios: [{comentario:{type:String, required:true}, creador:{type:mongoose.Types.ObjectId, required:true, ref:'Usuario'}}],
+    comentarios: [
+        {
+            comentario:{type:String, required:true},
+            idUsuario:{ type:mongoose.Types.ObjectId, ref:'Usuario' }
+        }
+    ],
     ciudadRelacionada: { type:mongoose.Types.ObjectId, ref:'Ciudad' },
     idGuia : { type:mongoose.Types.ObjectId, ref:'Usuario' }
 });

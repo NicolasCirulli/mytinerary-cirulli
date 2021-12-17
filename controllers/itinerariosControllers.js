@@ -153,21 +153,80 @@ const itinerariosControllers = {
   agregarComentarios:async (req, res) => {
     console.log(req.user);
     console.log(req.body);
-    console.log(req.params.id);
+    const id = req.params.id
     try{
+      const agregarComentario = await Itinerario.findOneAndUpdate(
+        {_id:id}, // id del itinerario
+        {
+          $push:{comentarios:{ // Propiedad a la que voy a pushear dentro del itinerario
 
-      const prueba = await Itinerario.findOne({_id : req.params.id})
-      console.log(prueba);
-
+            comentario : req.body.comentario, // Comentario que me llega en el body
+            idUsuario : req.user._id // Id del usuario
+          }
+        }            
+        }, 
+        {new:true}
+      )
+      if(agregarComentario){
+        res.json({success:true, response: agregarComentario, error:false })
+      }else{
+        res.json({success:false, response: [{message:'Itinerario no encontrado'}], error:true })
+      }
     }catch(err){
       console.log(err)}
   },
   borrarComentario:async (req, res) => {
-    console.log(req);
+    console.log(req.body);
+    const idComentario = req.body.idComentario
+    const id = req.params.id
+    
+    try{
+      const itinerario = await Itinerario.findOneAndUpdate(
+        {_id : id},
+        {
+          $pull: {
+             comentarios:{
+               idUsuario : req.user._id,
+              _id: idComentario
+             }
+          }
+        },(err, data)=> console.log(err, data)
+        
+        )
+      if(itinerario){
+        res.json({success:true, response:itinerario, error:false })
+      }else{
+        res.json({success:false, response:[{message:'No se pudo eliminar el comentario'}], error:true })
+
+      }
+    }catch(err){
+      console.log(err)}
+
+
     
   },
   modificarComentario:async (req, res) => {
-    console.log(req);
+    console.log(req.body);
+    const idComentario = req.body.idComentario
+    const actualizacion = req.body.actualizacion
+    const id = req.params.id
+    
+    try{
+      const itinerario = await Itinerario.findOneAndUpdate(
+        {_id : id},
+
+        { $set: { comentario: idComentario} },
+        { arrayFilters: [ { idComentario: { $gte: actualizacion } } ] }
+        
+        )
+      if(itinerario){
+        res.json({success:true, response:itinerario, error:false })
+      }else{
+        res.json({success:false, response:[{message:'No se pudo eliminar el comentario'}], error:true })
+
+      }
+    }catch(err){
+      console.log(err)}
 
   }
 };
