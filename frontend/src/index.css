@@ -27,7 +27,12 @@
 .font-bold{
   font-weight: bold;
 }
-
+.btn-red{
+  color: red;
+}
+.blue{
+  color: rgb(81, 123, 247);
+}
 body {
   margin: 5vh 0 0 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -448,4 +453,15 @@ body::-webkit-scrollbar-thumb {
   min-height: 42.5vh;
   background-color: var(--negro);
   padding-top: 5vh;
+}
+
+.btn-comentario{
+  padding: .5rem;
+  font-size: 1rem;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
 }

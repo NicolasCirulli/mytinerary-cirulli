@@ -18,12 +18,12 @@ const itinerariesActions = {
             dispatch({type:'resetear', payload:{itinerariosCiudad: null }})
         }
     },
-    crearItinerario: (token,titulo,precio,duracion,likes,hashtags,comentarios,ciudadRelacionada)=>{
+    crearItinerario: (token,titulo,precio,duracion,hashtags,ciudadRelacionada)=>{
         return async (dispatch,getState)=>{
             try{
                 const usuario = await axios.post('http://localhost:4000/api/itinerarios',
 
-                {titulo,precio,duracion,likes,hashtags,comentarios,ciudadRelacionada}
+                {titulo,precio,duracion,hashtags,ciudadRelacionada}
                 ,
                 {
                     headers:{

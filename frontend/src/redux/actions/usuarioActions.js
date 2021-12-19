@@ -7,7 +7,7 @@ const usuarioActions = {
            if(usuario.data.success){
                console.log(usuario.data)
                 localStorage.setItem('token',usuario.data.response.token)
-                dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.nuevoUsuario.primerNombre,fotoPerfil: usuario.data.response.nuevoUsuario.fotoPerfil}})
+                dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.nuevoUsuario.primerNombre,fotoPerfil: usuario.data.response.nuevoUsuario.fotoPerfil,email:usuario.data.response.nuevoUsuario.email}})
                 return usuario
            }else{
             
@@ -24,7 +24,7 @@ const usuarioActions = {
                 return usuario
             }else{
                 localStorage.setItem('token',usuario.data.response.token)
-                 dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre,fotoPerfil: usuario.data.response.fotoPerfil}})
+                 dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre,fotoPerfil: usuario.data.response.fotoPerfil,email:usuario.data.response.email}})
                 return usuario
             }
         }
@@ -43,7 +43,7 @@ const usuarioActions = {
                         'Authorization':'Bearer '+token 
                     }
                 })
-                usuario.data.success && dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre, fotoPerfil: usuario.data.response.fotoPerfil}})
+                usuario.data.success && dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre, fotoPerfil: usuario.data.response.fotoPerfil, rol: usuario.data.response.rol,email:usuario.data.response.email}})
                 return usuario.data.success ? usuario.data : null
             }catch(err){console.log(err)}
         }
@@ -58,6 +58,18 @@ const usuarioActions = {
                 })
                 console.log(usuario);
             }catch(err){console.log(err)}
+        }
+    },
+    obtenerTodosLosUsuarios:()=>{
+        return async(dispatch,getState) =>{
+            console.log('llegue aca');
+            try{
+                const usuarios = await axios.get('http://localhost:4000/api/usuarios')
+                console.log(usuarios)
+                dispatch({type:'usuarios', payload: usuarios.data.response})
+            }catch(error){
+                console.error(error);
+            }
         }
     }
 }

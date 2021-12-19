@@ -72,6 +72,8 @@ const FormSignUp = (props) => {
           nuevoUsuario.data.response.nuevoUsuario.primerNombre
       );
     } else alertas.tostadas("front", validacion.errores);
+    
+    
   };
 
   const responseGoogle = (response) => {

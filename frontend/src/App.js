@@ -6,11 +6,14 @@ import Cities from "./pages/Cities";
 import City from './pages/City'
 import SignUp from "./pages/SignUp"
 import SignIn from "./pages/SignIn"
+import CreateItinerary from "./pages/CreateItinerary"
 import { BrowserRouter ,Routes, Route } from "react-router-dom";
 import {withRouter } from './utilities/withRouter'
-import { useSelector,useDispatch } from "react-redux";
 import usuarioActions from "./redux/actions/usuarioActions"
 import { ToastContainer } from "react-toastify";
+
+
+import { useSelector,useDispatch } from "react-redux";
 
 const CityD = withRouter(City)
 
@@ -20,6 +23,7 @@ function App() {
   const token = localStorage.getItem('token')
   const usuario = useSelector(store => store.usuariosReducer.usuario)
   useEffect(() => {
+    dispatch(usuarioActions.obtenerTodosLosUsuarios())
     if(!usuario && localStorage.getItem('token')){
       token &&  dispatch(usuarioActions.loggearDesdeStorage(token))}
     },[])
@@ -36,6 +40,7 @@ function App() {
         <Route path="/cities/:city" element={<CityD  />}></Route>
         {!usuario &&<Route path="/Signup" element={<SignUp />}></Route>}
         {!usuario &&<Route path="/Signin" element={<SignIn />}></Route>}
+        <Route path="/CreateItinerary" element={<CreateItinerary />}></Route>
         <Route path="*" element={<Home />}></Route>
       </Routes>
       <ToastContainer

@@ -25,6 +25,27 @@ $gris: #9d9d9d;
     flex-wrap: wrap;
     border: 1px solid $naranja;
   }
+  &_comentarios{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content:center;
+    width: 70%;
+    margin:auto;
+    background-color: $negro;
+    border-radius: 5px;
+    margin-top: 1rem;
+    padding:15px;
+
+    &_comentario{
+      width:90%;
+      background-color: $naranja;
+      margin: 5px;
+      border-radius: 3px;
+      color: $negro;
+      font-weight: bold;
+    }
+  }
   &_activities {
     width: 100%;
     display: flex;
@@ -118,6 +139,7 @@ $gris: #9d9d9d;
     justify-content: center;
     align-items: center;
   }
+  
 }
 
 .under {
@@ -269,3 +291,62 @@ $gris: #9d9d9d;
 .color-verde{
   color: rgb(12, 194, 12);
 }
+
+// crear itinerarios 
+
+.btn-crear-itinerario{
+  width: 100%;
+  display:flex;
+  justify-content:center;
+  background-color: $negro;
+
+  button{
+    margin-top:1rem;
+    background-color: $naranja;
+  }
+}
+
+.form-crearItinerario{
+  display:flex;
+  justify-content:center;
+  width: 100%;
+  height:71.5vh;
+  background-color:$negro;
+  margin-top: 3.5rem;
+  
+  form{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-evenly;
+    width: 90%;
+    background-color:$naranja;
+  }
+  input,
+  select {
+    background-color: $negro;
+    border: 1px solid $naranja;
+    border-radius: 5px 5px 5px 5px;
+    color: $naranja;
+    font-size: 1rem;
+    outline: 0 !important;
+    text-align: center;
+    width: 90%;
+    padding: 0.5rem;
+
+    option {
+      color: $naranja;
+    }
+    option::placeholder {
+      color: $naranja;
+    }
+  }
+  input::placeholder,
+  select::placeholder {
+    color: $naranja;
+    text-align: center;
+  }
+    input[type='submit']{
+      width: 40%;
+    }
+  }

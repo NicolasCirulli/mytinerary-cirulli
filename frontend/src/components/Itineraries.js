@@ -1,5 +1,6 @@
-import React from "react";
+import React,{useRef,useState} from "react";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
+import { FiDelete, FiEdit } from "react-icons/fi";
 import useDisplay from "../hooks/useDisplay"
 import {useSelector, useDispatch} from 'react-redux'
 import itinerariesActions from "../redux/actions/itinerariesActions";
@@ -12,20 +13,22 @@ const Itineraries = ({datos}) => {
     precio.push(<span>💵</span>);
   }  
 
-  const simularActualizacion = {
-    'titulo' : 'probando un titulo nuevo'
-  }
+  const [btnModificar, setBtnModificar] = useState(false);
+
+  const usuarios = useSelector(store => store.usuariosReducer.usuarios)
+  const email = useSelector(store => store.usuariosReducer.email)
 
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
+  const comentario = useRef()
 
-  const borrarItinerario = () => dispatch(itinerariesActions.borrarItinerario(token,datos._id))
-  const modificarItinerario = () => dispatch(itinerariesActions.modificarItinerario(token,datos._id,{...simularActualizacion}))
+  console.log(btnModificar);
 
+  const handleModificar = () => setBtnModificar(!btnModificar)
 
-  const agregarComentario = () => dispatch(comentariosActions.agregarComentarios(token,datos._id,'segundo comentario de prueba'))
-  const modificar = ()=> dispatch(comentariosActions.modificarComentario(token,datos._id,datos.comentarios[0]._id,'comentario actualizado'))
-  const borrar = ()=> dispatch(comentariosActions.borrarComentario(token,datos._id,datos.comentarios[3]._id))
+  const agregarComentario = () => dispatch(comentariosActions.agregarComentarios(token,datos._id,comentario.current.value))
+  
+  
 
   return (
     <>
@@ -34,7 +37,7 @@ const Itineraries = ({datos}) => {
         <div className="itinerary_body bg-oscuro">
           <div className="itinerary_item_uno">
           <div className="itinerary_item_dos mt-2">
-            <img src={`/assets/images/${datos.guiaImg}.jpg`} alt="img"  />
+            <img src={datos.guiaImg} alt="img"  />
             <h2 className="font-bold texto-negro"> {datos.guia} </h2>
           </div>
             <span> <span className="font-bold texto-negro">Price :</span> {precio.map( e =>  e)}</span>
@@ -48,39 +51,58 @@ const Itineraries = ({datos}) => {
               : <>  <FcLikePlaceholder/> <span className="font-bold">{datos.likes}</span></> }</div>
 
             <div className="itinerary_hastag">
-          { datos.hashtags.map( hastag => <span className="font-bold texto-negro mx-1">{hastag} </span> ) }
+          { datos.hashtags.map( hastag => <span className="font-bold texto-negro mx-1"># {hastag} </span> ) }
             </div>
           </div>
         </div>
 
         {boton.display && (
+          <>
           <div className="itinerary_activities">
+            <h2>Activities</h2>
             <img src="/assets/images/under.png" alt="" className="under"/>
-            <div className="d-flex flex-column text-center bg-oscuro ">
-          { datos.comentarios.length > 0 && datos.comentarios.map(e=> {
-            return (
-              <>
-              <div>
-                <p>{e}</p>
-                <button onClick={modificar} >Modificar</button>
-                <button onClick={borrar} >Borrar</button>
+          </div>
+          
+
+          <div className="itinerary_comentarios">
+            {datos.comentarios.length > 0 && datos.comentarios.map(comentario=>{
+              let datosUsuario = usuarios.find( e => e.id === comentario.idUsuario)
+              return <>
+              <div className="itinerary_comentarios_comentario">
+                <img src={datosUsuario.fotoPerfil} width='50' height='50' alt="usuario"/>
+                <span> {comentario.comentario} </span>
+               { datosUsuario.email === email &&
+               <>
+                  <button 
+                   className="btn-comentario text-danger" 
+                   onClick={()=> dispatch(comentariosActions.borrarComentario(token,datos._id,comentario._id))}
+                   >
+                    <FiDelete/>
+                  </button>
+                  {
+                    (<button className="btn-comentario text-primary" onClick={handleModificar}>
+                      <FiEdit/>
+                    </button>)
+                    
+                  }
+               </>
+               }
               </div>
               </>
-            )
-          } )}
-            </div>
+            })}
+              <div>
+                <input type="text" placeholder="Agregar comentario" className="itinerary_comentarios_input" ref={comentario}/>
+                <button onClick={agregarComentario}>Enviar</button>
+              </div>
           </div>
+            
+          </>
         )}
 
         <button onClick={boton.HandleDisplay} className="itinerary_btn" >
           {" "}
           {boton.display ? "view less" : "view more"}
         </button>
-        <button onClick={agregarComentario}>Agregar comentario</button>
-        <button onClick={borrar}>Borrar comentario</button>
-        <button onClick={modificar}>Modificar comentario</button>
-        <button onClick={borrarItinerario}>Borrar Itinerario</button>
-        <button onClick={modificarItinerario}>Modificar Itinerario</button>
       </div >
     </>
   );

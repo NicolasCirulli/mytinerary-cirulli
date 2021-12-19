@@ -57,12 +57,18 @@ const useValidacion = (inicial) =>{
         let reEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/
         let rePassword = /^[a-zA-Z0-9]{8,16}$/
         let reUrl = /^(ftp|http|https):\/\/[^ "]+$/
+        let reTitulo = /^[A-Za-z]$/
+        let rePrecio = /^[0-5]{1}$/
+        let reHashtag = /^[A-Za-z]{3,16}$/
         if(inputs.length > 0){
             if(tipo === "Name")return validar(tipo,reNombre,inputs)
             if(tipo === "LastName")return validar(tipo,reApellido,inputs)
             if(tipo === "Email")return validar(tipo,reEmail,inputs)
             if(tipo === "Password")return validar(tipo,rePassword,inputs)
             if(tipo === "UrlPicture")return validar(tipo,reUrl,inputs)
+            if(tipo === "Titulo")return validar(tipo,reTitulo,inputs)
+            if(tipo === "Precio")return validar(tipo,rePrecio,inputs)
+            if(tipo === "Hashtag")return validar(tipo,reHashtag,inputs)
         }
         setFormularioEstado({...formularioEstado, [tipo]:''})
         

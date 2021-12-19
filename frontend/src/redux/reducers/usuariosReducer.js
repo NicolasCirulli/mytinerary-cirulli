@@ -16,7 +16,11 @@ const usuariosReducer = (state = initialState, action)=>{
             return{
             ...initialState
             }
-        
+        case 'usuarios':
+            return{
+                ...initialState,
+                usuarios : action.payload
+            }
         default: 
             return state
     }

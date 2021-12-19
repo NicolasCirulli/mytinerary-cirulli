@@ -7,7 +7,7 @@ const usuariosControllers = require('../controllers/usuariosControllers')
 
 const {cargarUnaCiudad,obtenerTodas,obtenerUnaCiudad,modifarCiudad,borrarCiudad } = ciudadesControllers
 const {obtenerTodosIt,agregarItinerario,obtenerUnIt,borrarItinerario,modificarItinerario,obtenerItinerariosPorCiudad,borrarComentario,modificarComentario,agregarComentarios} = itinerariosControllers
-const {nuevoUsuario,iniciarSesion,iniciarConToken,borrarCuenta} = usuariosControllers;
+const {nuevoUsuario,iniciarSesion,iniciarConToken,borrarCuenta,obtenerTodosLosUsuarios} = usuariosControllers;
 
 
 // Ciudades
@@ -44,6 +44,10 @@ Router.route('/itinerarios/comentarios/:id')
 
 
 // Usuarios
+
+Router.route('/usuarios')
+.get(obtenerTodosLosUsuarios)
+
 Router.route('/usuario/registro')
 .post(validator, nuevoUsuario)
 

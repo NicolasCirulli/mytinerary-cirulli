@@ -2,6 +2,22 @@ const Usuario =  require('../models/Usuarios')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const usuarioControllers = {
+
+    obtenerTodosLosUsuarios:async (req, res) => {
+        let error = null
+        let respuesta = []
+        try{
+           const usuarios = await Usuario.find()
+           usuarios.map( e =>{
+              return respuesta.push({nombre: e.primerNombre, email: e.email, fotoPerfil:e.fotoPerfil, id : e._id})
+            })
+            res.json({success: true, response: respuesta})
+        }catch(error){
+            res.json({success: false, response: null})
+        }
+         
+    },
+
     nuevoUsuario: async (req, res) => {
         let {primerNombre,apellido,email, contraseña,fotoPerfil,pais,google,rol } = req.body
         console.log(google);
@@ -52,7 +68,7 @@ const usuarioControllers = {
                     console.log('entre al if de contraseña coincide');
                     
                     const token = jwt.sign({...usuarioEncontrado},process.env.SECRET_KEY)
-                    res.json({success: true, response:{token,email,fotoPerfil:usuarioEncontrado.fotoPerfil,primerNombre:usuarioEncontrado.primerNombre}, error: null})
+                    res.json({success: true, response:{token,email,fotoPerfil:usuarioEncontrado.fotoPerfil,primerNombre:usuarioEncontrado.primerNombre,email:usuarioEncontrado.email}, error: null})
                 }else{
                     console.log('entre al if de contraseña erronea');
                     res.json({success:false, response: [{message: "The email/password is incorrect"}],error:true})
@@ -67,8 +83,8 @@ const usuarioControllers = {
         }
     },
     iniciarConToken:(req, res)=>{
-        let {primerNombre,email,fotoPerfil} = req.user
-        res.json({success:true, response:{primerNombre ,email, fotoPerfil}})
+        let {primerNombre,email,fotoPerfil,rol} = req.user
+        res.json({success:true, response:{primerNombre ,email, fotoPerfil,rol}})
     },
     borrarCuenta:async(req,res)=>{
         let {_id : id } = req.user

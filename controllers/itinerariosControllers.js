@@ -209,21 +209,29 @@ const itinerariosControllers = {
     console.log(req.body);
     const idComentario = req.body.idComentario
     const actualizacion = req.body.actualizacion
-    const id = req.params.id
+    const idUsuario = req.user._id
+    console.log(idComentario);
     
     try{
       const itinerario = await Itinerario.findOneAndUpdate(
-        {_id : id},
 
-        { $set: { comentario: idComentario} },
-        { arrayFilters: [ { idComentario: { $gte: actualizacion } } ] }
+        {'comentarios._id' : idComentario},
+        { $set: { "comentarios.$.comentario": actualizacion} },
+        {new:true}
+
         
-        )
-      if(itinerario){
-        res.json({success:true, response:itinerario, error:false })
-      }else{
-        res.json({success:false, response:[{message:'No se pudo eliminar el comentario'}], error:true })
+      //   db.collection.updateMany(
+      //     { <query conditions> },
+      //     { <update operator>: { "<array>.$[<identifier>]" : value } },
+      //     { arrayFilters: [ { <identifier>: <condition> } ] }
+      //  )
 
+        )
+
+       if(itinerario){
+        res.json({success:true, response:itinerario, error:false })
+       }else{
+        res.json({success:false, response:[{message:'No se pudo eliminar el comentario'}], error:true })
       }
     }catch(err){
       console.log(err)}
