@@ -18,19 +18,19 @@ const itinerariesActions = {
             dispatch({type:'resetear', payload:{itinerariosCiudad: null }})
         }
     },
-    crearItinerario: (token,titulo,precio,duracion,hashtags,ciudadRelacionada)=>{
+    crearItinerario: (token,titulo,precio,duracion,hashtags,ciudadRelacionada,imagen)=>{
         return async (dispatch,getState)=>{
             try{
                 const usuario = await axios.post('http://localhost:4000/api/itinerarios',
 
-                {titulo,precio,duracion,hashtags,ciudadRelacionada}
+                {titulo,precio,duracion,hashtags,imagen,ciudadRelacionada}
                 ,
                 {
                     headers:{
                         'Authorization':'Bearer '+token 
                     }
                 })
-                console.log(usuario);
+                return usuario
             }catch(err){console.log(err)}
         }
     },

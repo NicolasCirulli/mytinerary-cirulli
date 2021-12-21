@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 import useModal from '../hooks/useModal'
 
-const Itineraries = ({datos}) => {
+const CardItineraries = ({datos}) => {
   const boton = useDisplay();
   let precio = []
   for (let i = 0; i < datos.precio; i++) {
@@ -19,8 +19,8 @@ const Itineraries = ({datos}) => {
   const modalModificar = useModal(datos);
   const modalBorrar = useModal(datos)
 
-  const [value, setValue] = React.useState('Controlled');
-
+  const [value, setValue] = React.useState('');
+  
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -30,19 +30,17 @@ const Itineraries = ({datos}) => {
   const email = useSelector(store => store.usuariosReducer.email)
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
-  const comentario = useRef()
+//   const comentario = useRef()
 
-  const agregarComentario = () => {
-    dispatch(comentariosActions.agregarComentarios(token,datos._id,comentario.current.value))
-    const falsoId = Math.random()
-    let datosUsuario = usuarios.find( e => e.email === email)
-    console.log(datosUsuario);
-    datos.comentarios.push({
-      '_id': falsoId,
-      'comentario' : comentario.current.value,
-      'idUsuario' : datosUsuario.id
-    })
-    boton.HandleDisplay()
+  const agregarComentario = async() => {
+      try{
+          const respuesta = await dispatch(comentariosActions.agregarComentarios(token,datos._id,value))
+          console.log(respuesta);
+          datos.comentarios = respuesta.data.response.comentarios
+          boton.HandleDisplay()
+          setValue('')
+
+      }catch(err){console.log(err);}
   }
   
   return (
@@ -51,16 +49,17 @@ const Itineraries = ({datos}) => {
         <h2 className="itinerary_title">{datos.titulo}</h2>
         <div className="itinerary_body bg-oscuro">
           <div className="itinerary_item_uno">
-          <div className="itinerary_item_dos mt-2">
+              <img src={datos.imagen} alt="image_itinerary" />
+          </div>
+          <div className="itinerary_item_dos">
             <img src={datos.guiaImg} alt="img"  />
             <h2 className="font-bold texto-negro"> {datos.guia} </h2>
-          </div>
-            <span> <span className="font-bold texto-negro">Price :</span> {precio.map( e =>  e)}</span>
-            <span className="font-bold texto-negro">Duration :  {datos.duracion} hs</span>
           </div>
 
           <div className="itinerary_item_tres">
             
+            <span> <span className="font-bold texto-negro">Price :</span> {precio.map( e =>  e)}</span>
+            <span className="font-bold texto-negro">Duration :  {datos.duracion} hs</span>
             <div >{datos.likes > 0 
               ? <>  <FcLike/> <span className="font-bold ">{datos.likes}</span></> 
               : <>  <FcLikePlaceholder/> <span className="font-bold">{datos.likes}</span></> }</div>
@@ -74,8 +73,19 @@ const Itineraries = ({datos}) => {
         {boton.display && (
           <>
           <div className="itinerary_activities">
-            <h2>Activities</h2>
+            <div className="itinerary_activities_cards">
+            <h3>Titulo de actividad</h3>
             <img src="/assets/images/under.png" alt="" className="under"/>
+            </div>
+            <div className="itinerary_activities_cards">
+            <h3>Titulo de actividad</h3>
+            <img src="/assets/images/under.png" alt="" className="under"/>
+            </div>
+            <div className="itinerary_activities_cards">
+            <h3>Titulo de actividad</h3>
+            <img src="/assets/images/under.png" alt="" className="under"/>
+            </div>
+         
           </div>
           
 
@@ -100,7 +110,7 @@ const Itineraries = ({datos}) => {
               </>
             })}
               <div className="agregarComentario">
-              {/* <TextField
+              <TextField
                   id="outlined-textarea"
                   label="Post a new comment"
                   placeholder=""
@@ -108,11 +118,11 @@ const Itineraries = ({datos}) => {
                   value={value}
                   onChange={handleChange}
                 />
-                <Button variant="contained" size="small">
+                <Button variant="contained" size="small" onClick={agregarComentario}>
                   Add comment
-                </Button> */}
-                <input type="text" placeholder="Agregar comentario" className="itinerary_comentarios_input" ref={comentario}/>
-                <button  onClick={agregarComentario}>Enviar</button>
+                </Button>
+                {/* <input type="text" placeholder="Agregar comentario" className="itinerary_comentarios_input" ref={comentario}/>
+                <button  onClick={agregarComentario}>Enviar</button> */}
               </div>
           </div>
             
@@ -128,4 +138,4 @@ const Itineraries = ({datos}) => {
   );
 };
 
-export default Itineraries;
+export default CardItineraries;

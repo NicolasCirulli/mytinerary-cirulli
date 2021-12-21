@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import HeaderCity from "../components/HeaderCity";
 import Itineraries from "../components/Itineraries";
+import CardItineraries from "../components/CardItineraries";
 import { connect } from "react-redux";
 import citiesActions from "../redux/actions/citiesActions";
 import itinerariesActions from "../redux/actions/itinerariesActions";
@@ -40,7 +41,7 @@ class City extends React.Component {
               {this.props.itinerarios ? (
                 this.props.itinerarios.length > 0 ? (
                   this.props.itinerarios.map((itinerario) => (
-                    <Itineraries key={itinerario.titulo} datos={itinerario} />
+                    <CardItineraries key={itinerario.titulo} datos={itinerario} />
                   ))
                 ) : (
                   <h2 className="text-center font-bold texto-naranja my-5 mx-auto">

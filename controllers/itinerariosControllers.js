@@ -25,8 +25,10 @@ const itinerariosControllers = {
       duracion,
       likes,
       hashtags,
+      imagen,
       ciudadRelacionada,
     } = req.body;
+    console.log(req.body);
     let { _id: id, primerNombre: guia, fotoPerfil: guiaImg } = req.user;
     if (req.user.rol === "guia") {
       new Itinerario({
@@ -37,6 +39,7 @@ const itinerariosControllers = {
         duracion,
         likes,
         hashtags,
+        imagen,
         ciudadRelacionada,
         idGuia: id,
       })
@@ -150,6 +153,8 @@ const itinerariosControllers = {
   },
 
   
+
+
   agregarComentarios:async (req, res) => {
     console.log(req.user);
     console.log(req.body);
@@ -236,7 +241,7 @@ const itinerariosControllers = {
     }catch(err){
       console.log(err)}
 
-  }
+  },
 };
 
 module.exports = itinerariosControllers;

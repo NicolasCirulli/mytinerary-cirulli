@@ -68,7 +68,7 @@ const usuarioControllers = {
                     console.log('entre al if de contraseña coincide');
                     
                     const token = jwt.sign({...usuarioEncontrado},process.env.SECRET_KEY)
-                    res.json({success: true, response:{token,email,fotoPerfil:usuarioEncontrado.fotoPerfil,primerNombre:usuarioEncontrado.primerNombre,email:usuarioEncontrado.email}, error: null})
+                    res.json({success: true, response:{token,email,fotoPerfil:usuarioEncontrado.fotoPerfil,primerNombre:usuarioEncontrado.primerNombre,email:usuarioEncontrado.email, _id : usuarioEncontrado._id}, error: null})
                 }else{
                     console.log('entre al if de contraseña erronea');
                     res.json({success:false, response: [{message: "The email/password is incorrect"}],error:true})
@@ -83,8 +83,8 @@ const usuarioControllers = {
         }
     },
     iniciarConToken:(req, res)=>{
-        let {primerNombre,email,fotoPerfil,rol} = req.user
-        res.json({success:true, response:{primerNombre ,email, fotoPerfil,rol}})
+        let {primerNombre,email,fotoPerfil,rol,_id} = req.user
+        res.json({success:true, response:{primerNombre ,email, fotoPerfil,rol,_id}})
     },
     borrarCuenta:async(req,res)=>{
         let {_id : id } = req.user

@@ -14,7 +14,7 @@ const comentariosActions = {
                         'Authorization':'Bearer '+token 
                     }
                 })
-                console.log(usuario);
+                return usuario
             }catch(err){console.log(err)}
         }
     },
@@ -32,7 +32,7 @@ const comentariosActions = {
                     }
                     
                 })
-                console.log(usuario.data);
+                return usuario
             }catch(err){console.log(err)}
         }
     },
@@ -48,7 +48,7 @@ const comentariosActions = {
                       
                     
                 })
-                console.log(usuario);
+                return usuario
             }catch(err){console.log(err)}
         }
     },

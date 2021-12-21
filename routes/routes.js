@@ -6,7 +6,7 @@ const itinerariosControllers = require('../controllers/itinerariosControllers')
 const usuariosControllers = require('../controllers/usuariosControllers')
 
 const {cargarUnaCiudad,obtenerTodas,obtenerUnaCiudad,modifarCiudad,borrarCiudad } = ciudadesControllers
-const {obtenerTodosIt,agregarItinerario,obtenerUnIt,borrarItinerario,modificarItinerario,obtenerItinerariosPorCiudad,borrarComentario,modificarComentario,agregarComentarios} = itinerariosControllers
+const {obtenerTodosIt,agregarItinerario,obtenerUnIt,borrarItinerario,modificarItinerario,obtenerItinerariosPorCiudad,borrarComentario,modificarComentario,agregarComentarios,obtenerComentariosItinerario} = itinerariosControllers
 const {nuevoUsuario,iniciarSesion,iniciarConToken,borrarCuenta,obtenerTodosLosUsuarios} = usuariosControllers;
 
 
@@ -37,6 +37,8 @@ Router.route('/itinerarios/:id')
 
 
 // Comentarios en los itinerarios
+
+
 Router.route('/itinerarios/comentarios/:id')
 .post(passport.authenticate('jwt',{session:false}),agregarComentarios)
 .delete(passport.authenticate('jwt',{session:false}),borrarComentario)

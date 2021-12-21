@@ -25,6 +25,7 @@ const CreateItinerary = () =>{
   const hashtagUno = useRef()
   const hashtagDos = useRef()
   const hashtagTres = useRef()
+  const imagen = useRef()
 
   // funciones 
   const CrearItinerario = e =>{
@@ -36,7 +37,8 @@ const CreateItinerary = () =>{
           Price.current.value,
           Duration.current.value,
           [hashtagUno.current.value,hashtagDos.current.value, hashtagTres.current.value],
-          ciudadSeleccionada
+          ciudadSeleccionada,
+          imagen.current.value
         ))
     }else{
         alert('Seleccione una ciudad')
@@ -59,6 +61,7 @@ const CreateItinerary = () =>{
             <input type="text" placeholder="hashtag 1" ref={hashtagUno} required />
             <input type="text" placeholder="hashtag 2" ref={hashtagDos} required />
             <input type="text" placeholder="hashtag 3" ref={hashtagTres} required />
+            <input type="text" placeholder="Imagen" ref={imagen} required />
             
             {ciudades.length > 0 ? (
           <div className="input_form">
