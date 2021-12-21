@@ -14,6 +14,7 @@ const comentariosActions = {
                         'Authorization':'Bearer '+token 
                     }
                 })
+                dispatch({type:'obtenerItinerariosPorCiudad', payload:usuario.data.response})
                 return usuario
             }catch(err){console.log(err)}
         }
@@ -32,6 +33,7 @@ const comentariosActions = {
                     }
                     
                 })
+                console.log(usuario);
                 return usuario
             }catch(err){console.log(err)}
         }
@@ -48,6 +50,7 @@ const comentariosActions = {
                       
                     
                 })
+                console.log(usuario);
                 return usuario
             }catch(err){console.log(err)}
         }

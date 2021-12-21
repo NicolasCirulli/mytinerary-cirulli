@@ -164,7 +164,6 @@ const itinerariosControllers = {
         {_id:id}, // id del itinerario
         {
           $push:{comentarios:{ // Propiedad a la que voy a pushear dentro del itinerario
-
             comentario : req.body.comentario, // Comentario que me llega en el body
             idUsuario : req.user._id // Id del usuario
           }
@@ -181,21 +180,21 @@ const itinerariosControllers = {
       console.log(err)}
   },
   borrarComentario:async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const idComentario = req.body.idComentario
     const id = req.params.id
-    
+    console.log(idComentario);
     try{
       const itinerario = await Itinerario.findOneAndUpdate(
         {_id : id},
         {
           $pull: {
              comentarios:{
-               idUsuario : req.user._id,
+              //  idUsuario : req.user._id,
               _id: idComentario
              }
           }
-        },(err, data)=> console.log(err, data)
+        },{new:true}
         
         )
       if(itinerario){

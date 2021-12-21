@@ -1,116 +1,183 @@
-import React,{useRef} from "react";
+import React, { useState } from "react";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
-import useDisplay from "../hooks/useDisplay"
-import {useSelector, useDispatch} from 'react-redux'
+import useDisplay from "../hooks/useDisplay";
+import { useSelector, useDispatch } from "react-redux";
 import comentariosActions from "../redux/actions/comentariosActions";
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { MdSend } from "react-icons/md";
+import Swal from "sweetalert2";
+import Comment from "./Comment";
 
-
-import useModal from '../hooks/useModal'
-
-const CardItineraries = ({datos}) => {
+const CardItineraries = ({ datos }) => {
   const boton = useDisplay();
-  let precio = []
+  let precio = [];
   for (let i = 0; i < datos.precio; i++) {
     precio.push(<span>💵</span>);
-  }  
+  }
 
-  const modalModificar = useModal(datos);
-  const modalBorrar = useModal(datos)
+  let itineraries = useSelector(
+    (store) => store.itinerariesReducer.itinerariosCiudad
+  );
+  let itinerarioFind = itineraries.find((e) => e._id === datos._id);
+  const [value, setValue] = useState("");
+  const [itinerario, setItinerario] = useState(itinerarioFind);
 
-  const [value, setValue] = React.useState('');
-  
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
-  
-  const usuarios = useSelector(store => store.usuariosReducer.usuarios)
-  const email = useSelector(store => store.usuariosReducer.email)
-  const dispatch = useDispatch()
-  const token = localStorage.getItem('token')
-//   const comentario = useRef()
+  const usuarios = useSelector((store) => store.usuariosReducer.usuarios);
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
 
-  const agregarComentario = async() => {
-      try{
-          const respuesta = await dispatch(comentariosActions.agregarComentarios(token,datos._id,value))
-          console.log(respuesta);
-          datos.comentarios = respuesta.data.response.comentarios
-          boton.HandleDisplay()
-          setValue('')
+  const agregarComentario = async () => {
+    try {
+      const respuesta = await dispatch(
+        comentariosActions.agregarComentarios(token, datos._id, value)
+      );
+      console.log(respuesta);
+      setItinerario(respuesta.data.response);
+      setValue("");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const borrarComentario = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Eliminar",
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Eliminado", "", "success");
+        dispatch(
+          comentariosActions.borrarComentario(token, datos._id, id)
+        ).then((result) => {
+          setItinerario(result.data.response);
+          console.log(result.data.response);
+        });
+        setValue("");
+      } else if (result.isDenied) {
+        Swal.fire("Cancel", "", "info");
+      }
+    });
+  };
+  const modificarComentario = async (comentarioId, comentario) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Update",
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Actualizado", "", "success");
+        dispatch(
+          comentariosActions.modificarComentario(
+            token,
+            datos._id,
+            comentarioId,
+            comentario
+          )
+        ).then((result) => {
+          setItinerario(result.data.response);
+          console.log(result.data.response);
+        });
+        setValue("");
+      } else if (result.isDenied) {
+        Swal.fire("Cancel", "", "info");
+      }
+    });
+  };
 
-      }catch(err){console.log(err);}
-  }
-  
   return (
     <>
-      <div key={datos.titulo} className="itinerary">
-        <h2 className="itinerary_title">{datos.titulo}</h2>
+      <div key={itinerario.titulo} className="itinerary">
+        <h2 className="itinerary_title">{itinerario.titulo}</h2>
         <div className="itinerary_body bg-oscuro">
           <div className="itinerary_item_uno">
-              <img src={datos.imagen} alt="image_itinerary" />
+            <img src={itinerario.imagen} alt="image_itinerary" />
           </div>
           <div className="itinerary_item_dos">
-            <img src={datos.guiaImg} alt="img"  />
-            <h2 className="font-bold texto-negro"> {datos.guia} </h2>
+            <img src={itinerario.guiaImg} alt="img" />
+            <h2 className="font-bold texto-negro"> {itinerario.guia} </h2>
           </div>
 
           <div className="itinerary_item_tres">
-            
-            <span> <span className="font-bold texto-negro">Price :</span> {precio.map( e =>  e)}</span>
-            <span className="font-bold texto-negro">Duration :  {datos.duracion} hs</span>
-            <div >{datos.likes > 0 
-              ? <>  <FcLike/> <span className="font-bold ">{datos.likes}</span></> 
-              : <>  <FcLikePlaceholder/> <span className="font-bold">{datos.likes}</span></> }</div>
+            <span>
+              {" "}
+              <span className="font-bold texto-negro">Price :</span>{" "}
+              {precio.map((e) => e)}
+            </span>
+            <span className="font-bold texto-negro">
+              Duration : {itinerario.duracion} hs
+            </span>
+            <div>
+              {itinerario.likes > 0 ? (
+                <>
+                  {" "}
+                  <FcLike />{" "}
+                  <span className="font-bold ">{itinerario.likes}</span>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <FcLikePlaceholder />{" "}
+                  <span className="font-bold">{itinerario.likes}</span>
+                </>
+              )}
+            </div>
 
             <div className="itinerary_hastag">
-          { datos.hashtags.map( hastag => <span className="font-bold texto-negro mx-1"># {hastag} </span> ) }
+              {itinerario.hashtags.map((hastag) => (
+                <span className="font-bold texto-negro mx-1"># {hastag} </span>
+              ))}
             </div>
           </div>
         </div>
 
         {boton.display && (
           <>
-          <div className="itinerary_activities">
-            <div className="itinerary_activities_cards">
-            <h3>Titulo de actividad</h3>
-            <img src="/assets/images/under.png" alt="" className="under"/>
-            </div>
-            <div className="itinerary_activities_cards">
-            <h3>Titulo de actividad</h3>
-            <img src="/assets/images/under.png" alt="" className="under"/>
-            </div>
-            <div className="itinerary_activities_cards">
-            <h3>Titulo de actividad</h3>
-            <img src="/assets/images/under.png" alt="" className="under"/>
-            </div>
-         
-          </div>
-          
-
-          <div className="itinerary_comentarios">
-            {datos.comentarios.length > 0 && datos.comentarios.map(comentario=>{
-              let datosUsuario = usuarios.find( e => e.id === comentario.idUsuario)
-              return <>
-              <div className="itinerary_comentarios_comentario">
-                <img src={datosUsuario.fotoPerfil} width='50' height='50' alt="usuario"/>
-                <span className="itinerary_comentario"> {comentario.comentario} </span>
-               { datosUsuario.email === email &&
-               <>
-               <div className="itinerary_comentarios_iconos">
-
-                  {modalBorrar.crearModalBorrar(comentario._id)}
-                  
-                  {modalModificar.crearModalModificar(comentario._id)}
-               </div>
-               </>
-               }
+            <div className="itinerary_activities">
+              <div className="itinerary_activities_cards">
+                <h3>Titulo de actividad</h3>
+                <img src="/assets/images/under.png" alt="" className="under" />
               </div>
-              </>
-            })}
+              <div className="itinerary_activities_cards">
+                <h3>Titulo de actividad</h3>
+                <img src="/assets/images/under.png" alt="" className="under" />
+              </div>
+              <div className="itinerary_activities_cards">
+                <h3>Titulo de actividad</h3>
+                <img src="/assets/images/under.png" alt="" className="under" />
+              </div>
+            </div>
+
+            <div className="itinerary_comentarios">
+              {itinerario.comentarios.length > 0 &&
+                itinerario.comentarios.map((comentario) => {
+                  let datosUsuario = usuarios.find(
+                    (e) => e.id === comentario.idUsuario
+                  );
+                  return (
+                    <Comment
+                      datos={datos}
+                      datosUsuario={datosUsuario}
+                      comentario={comentario}
+                      borrarComentario={borrarComentario}
+                      modificarComentario={modificarComentario}
+                    />
+                  );
+                })}
               <div className="agregarComentario">
-              <TextField
+                <TextField
                   id="outlined-textarea"
                   label="Post a new comment"
                   placeholder=""
@@ -118,22 +185,23 @@ const CardItineraries = ({datos}) => {
                   value={value}
                   onChange={handleChange}
                 />
-                <Button variant="contained" size="small" onClick={agregarComentario}>
-                  Add comment
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={agregarComentario}
+                >
+                  <MdSend />
                 </Button>
-                {/* <input type="text" placeholder="Agregar comentario" className="itinerary_comentarios_input" ref={comentario}/>
-                <button  onClick={agregarComentario}>Enviar</button> */}
               </div>
-          </div>
-            
+            </div>
           </>
         )}
 
-        <button onClick={boton.HandleDisplay} className="itinerary_btn" >
+        <button onClick={boton.HandleDisplay} className="itinerary_btn">
           {" "}
           {boton.display ? "view less" : "view more"}
         </button>
-      </div >
+      </div>
     </>
   );
 };
