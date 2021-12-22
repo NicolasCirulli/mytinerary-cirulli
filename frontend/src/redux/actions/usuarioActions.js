@@ -62,7 +62,6 @@ const usuarioActions = {
     },
     obtenerTodosLosUsuarios:()=>{
         return async(dispatch,getState) =>{
-            console.log('llegue aca');
             try{
                 const usuarios = await axios.get('http://localhost:4000/api/usuarios')
                 console.log(usuarios)

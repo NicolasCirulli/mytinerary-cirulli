@@ -9,7 +9,6 @@ const itinerariosControllers = {
       itinerario = await Itinerario.find().populate("ciudadRelacionada");
     } catch (err) {
       error = err;
-      console.log(error);
     }
 
     res.json({
@@ -241,6 +240,23 @@ const itinerariosControllers = {
       console.log(err)}
 
   },
-};
+  likearItinerario: async(req, res)=> {
+    console.log('llegue aca');
+    // const {idItinerario, bool } = req.body;
+    // const idUsuario = req.user._id
+    // try {
+    //   const itinerario = await Itinerario.findOneAndUpdate(
+    //     { _id: idItinerario },
+    //     bool 
+    //     ? { $addToSet: { likes: idUsuario } } 
+    //     : { $pull: { likes: idUsuario } },
+    //     { new: true }
+    //   );
+    //   res.json({ success: true, response: itinerario, error: null });
+    // } catch (e) {
+    //   console.log('entre en el catch');
+    // }
+  },    
+}
 
 module.exports = itinerariosControllers;

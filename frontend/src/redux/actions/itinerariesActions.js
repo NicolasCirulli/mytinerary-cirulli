@@ -62,6 +62,39 @@ const itinerariesActions = {
             }catch(err){console.log(err)}
         }
     },
+    likearItinerario:(token,idItinerario,bool)=>{
+        return async(dispatch,getState)=>{
+            try{
+                const usuario = await axios.put('http://localhost:4000/api/itinerarios/comentarios/like',{idItinerario,bool},
+                {
+                    headers:{
+                        'Authorization':'Bearer '+token
+                    }
+                })
+                console.log(usuario);
+                return usuario
+            }catch(err){console.log(err)}
+        }
+    },
+
+    obtenerActividadesItinerario: (id)=>{
+        return async (dispatch,getState)=>{
+            try{
+                const usuario = await axios.get('http://localhost:4000/api/actividades/'+id,)
+                console.log(usuario);
+                return usuario
+            }catch(err){console.log(err)}
+        }
+    },
+    crearActividades : (body)=>{
+        return async (dispatch,getState)=>{
+            try{
+                const usuario = await axios.post('http://localhost:4000/api/actividades',{body})
+                console.log(usuario);
+                return usuario
+            }catch(err){console.log(err)}
+        }
+    },
 
 }
 

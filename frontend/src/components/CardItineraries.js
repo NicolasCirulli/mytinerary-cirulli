@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import useDisplay from "../hooks/useDisplay";
 import { useSelector, useDispatch } from "react-redux";
 import comentariosActions from "../redux/actions/comentariosActions";
+import itinerariesActions from "../redux/actions/itinerariesActions";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { MdSend } from "react-icons/md";
@@ -22,6 +23,7 @@ const CardItineraries = ({ datos }) => {
   let itinerarioFind = itineraries.find((e) => e._id === datos._id);
   const [value, setValue] = useState("");
   const [itinerario, setItinerario] = useState(itinerarioFind);
+  const [actividades, setActividades] = useState(null);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -30,6 +32,22 @@ const CardItineraries = ({ datos }) => {
   const usuarios = useSelector((store) => store.usuariosReducer.usuarios);
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
+
+
+  useEffect(() => {
+    dispatch(itinerariesActions.obtenerActividadesItinerario(datos._id))
+    .then((result) => {
+      setActividades(result.data.response);
+    })
+    
+  },[])
+  useEffect(() => {
+    dispatch(itinerariesActions.likearItinerario(token,datos._id,false))
+    .then((result) => {
+      console.log(result);
+    })
+  }, [boton.display])
+
 
   const agregarComentario = async () => {
     try {
@@ -146,18 +164,17 @@ const CardItineraries = ({ datos }) => {
         {boton.display && (
           <>
             <div className="itinerary_activities">
-              <div className="itinerary_activities_cards">
-                <h3>Titulo de actividad</h3>
-                <img src="/assets/images/under.png" alt="" className="under" />
-              </div>
-              <div className="itinerary_activities_cards">
-                <h3>Titulo de actividad</h3>
-                <img src="/assets/images/under.png" alt="" className="under" />
-              </div>
-              <div className="itinerary_activities_cards">
-                <h3>Titulo de actividad</h3>
-                <img src="/assets/images/under.png" alt="" className="under" />
-              </div>
+              {actividades && actividades.map(e=>{
+                return (
+                  <>
+                  <div className="itinerary_activities_cards">
+                    <h3>{e.titulo}</h3>
+                    <img src={e.imagen} alt="img" className="under"/>
+                  </div>
+                  </>
+                )
+              })}
+              
             </div>
 
             <div className="itinerary_comentarios">

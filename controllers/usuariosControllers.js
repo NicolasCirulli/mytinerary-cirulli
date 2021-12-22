@@ -20,7 +20,7 @@ const usuarioControllers = {
 
     nuevoUsuario: async (req, res) => {
         let {primerNombre,apellido,email, contraseña,fotoPerfil,pais,google,rol } = req.body
-        console.log(google);
+        
         try{
             const emailExiste = await Usuario.findOne({email})
             if(emailExiste){
@@ -47,12 +47,10 @@ const usuarioControllers = {
     },
     iniciarSesion: async(req, res)=>{
         let {email, contraseña, google} = req.body
-        console.log(req.body);
+        
         
         try{
             const usuarioEncontrado = await Usuario.findOne({email})
-            console.log('busqueda de usuario');
-            console.log(usuarioEncontrado.fotoPerfil)
 
             
             if(usuarioEncontrado){
@@ -60,21 +58,19 @@ const usuarioControllers = {
                 if(usuarioEncontrado.google && !google){
                     res.json({success:true, response:[{message:"The email/password is incorrect"}],error:null})
                 }
-                console.log('entre al if de usuario encontrado');
+                
 
                 let contraseñaCoincide = bcryptjs.compareSync(contraseña, usuarioEncontrado.contraseña)
                 if(contraseñaCoincide){
 
-                    console.log('entre al if de contraseña coincide');
+                    
                     
                     const token = jwt.sign({...usuarioEncontrado},process.env.SECRET_KEY)
                     res.json({success: true, response:{token,email,fotoPerfil:usuarioEncontrado.fotoPerfil,primerNombre:usuarioEncontrado.primerNombre,email:usuarioEncontrado.email, _id : usuarioEncontrado._id}, error: null})
                 }else{
-                    console.log('entre al if de contraseña erronea');
                     res.json({success:false, response: [{message: "The email/password is incorrect"}],error:true})
                 }
             }else{
-                console.log('entre en el ultimo else');
                 return res.json({success:true, response: [{message: "The email/password is incorrect"}],error:true})
             }
             

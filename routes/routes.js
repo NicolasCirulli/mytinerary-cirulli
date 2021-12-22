@@ -4,10 +4,12 @@ const passport = require('../config/passport')
 const ciudadesControllers = require('../controllers/ciudadesControllers')
 const itinerariosControllers = require('../controllers/itinerariosControllers')
 const usuariosControllers = require('../controllers/usuariosControllers')
+const actividadesControllers = require('../controllers/actividadesControllers')
 
 const {cargarUnaCiudad,obtenerTodas,obtenerUnaCiudad,modifarCiudad,borrarCiudad } = ciudadesControllers
-const {obtenerTodosIt,agregarItinerario,obtenerUnIt,borrarItinerario,modificarItinerario,obtenerItinerariosPorCiudad,borrarComentario,modificarComentario,agregarComentarios,obtenerComentariosItinerario} = itinerariosControllers
+const {obtenerTodosIt,agregarItinerario,obtenerUnIt,borrarItinerario,modificarItinerario,obtenerItinerariosPorCiudad,borrarComentario,modificarComentario,agregarComentarios,likearItinerario} = itinerariosControllers
 const {nuevoUsuario,iniciarSesion,iniciarConToken,borrarCuenta,obtenerTodosLosUsuarios} = usuariosControllers;
+const {crearActividad,obtenerActividad} = actividadesControllers;
 
 
 // Ciudades
@@ -44,6 +46,16 @@ Router.route('/itinerarios/comentarios/:id')
 .delete(passport.authenticate('jwt',{session:false}),borrarComentario)
 .put(passport.authenticate('jwt',{session:false}),modificarComentario)
 
+Router.route('/itinerarios/comentarios/like')
+.put(passport.authenticate('jwt',{session:false}),likearItinerario)
+
+
+// ACtividades de itinerarios
+
+Router.route('/actividades')
+.post(crearActividad)
+Router.route('/actividades/:id')
+.get(obtenerActividad)
 
 // Usuarios
 

@@ -9,7 +9,7 @@ const ciudadesControllers = {
           ciudades = await Ciudad.find()
       }catch(error){
         error = error
-        console.log(error)
+        
       }
        res.json({
          respuesta: error ? 'ERROR' : ciudades,
@@ -24,7 +24,7 @@ const ciudadesControllers = {
       try{
         ciudad = await Ciudad.findOne({_id:id})
       }catch(error){
-        console.log(error);
+        
       }
 
         res.json({respuesta:ciudad,success:true})
@@ -38,7 +38,7 @@ const ciudadesControllers = {
         await Ciudad.findOneAndDelete({_id:id})
         ciudades = await Ciudad.find()
       } catch (error) {
-        console.log(error);
+        
       }
       res.json({respuesta:ciudades,success:true})
     },
@@ -52,7 +52,7 @@ const ciudadesControllers = {
       try {
           actualizado = await Ciudad.findOneAndUpdate({_id:id},ciudad)
       } catch (error) {
-        console.log(error)
+      
       }
       res.json({success:actualizado ? true : false})
     },
