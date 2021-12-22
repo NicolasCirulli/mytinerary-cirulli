@@ -14,7 +14,6 @@ const ButtonLike = ({data,itinerario})=> {
   const user = useSelector(state=> state.usuariosReducer._id)
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
-
   const likear = async() =>{
     console.log('me ejecute');
       try{
@@ -24,6 +23,10 @@ const ButtonLike = ({data,itinerario})=> {
       }catch(e){console.log(e)}
 
   }
+
+  useEffect(() => {
+
+  },[])
 
   return (
     <Box
@@ -47,7 +50,10 @@ const ButtonLike = ({data,itinerario})=> {
           }
         </Badge>
         <ButtonGroup>
-          { !like 
+          { 
+          
+          user && 
+          (!like 
           ?<BiLike className="fs-2 contenedor-likes_like"
             aria-label="reduce"
             onClick={likear}
@@ -56,7 +62,7 @@ const ButtonLike = ({data,itinerario})=> {
           : <BiLike className="fs-2 contenedor-likes_dislike"
           aria-label="reduce"
           onClick={likear}
-        />
+        />)
           }
           
         </ButtonGroup>

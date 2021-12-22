@@ -66,12 +66,12 @@ const usuarioControllers = {
                     
                     
                     const token = jwt.sign({...usuarioEncontrado},process.env.SECRET_KEY)
-                    res.json({success: true, response:{token,email,fotoPerfil:usuarioEncontrado.fotoPerfil,primerNombre:usuarioEncontrado.primerNombre,email:usuarioEncontrado.email, _id : usuarioEncontrado._id}, error: null})
+                    res.json({success: true, response:{token,email,fotoPerfil:usuarioEncontrado.fotoPerfil,primerNombre:usuarioEncontrado.primerNombre,email:usuarioEncontrado.email, _id : usuarioEncontrado._id,rol:usuarioEncontrado.rol}, error: null})
                 }else{
                     res.json({success:false, response: [{message: "The email/password is incorrect"}],error:true})
                 }
             }else{
-                return res.json({success:true, response: [{message: "The email/password is incorrect"}],error:true})
+                return res.json({success:false, response: [{message: "The email/password is incorrect"}],error:true})
             }
             
         }catch(error){

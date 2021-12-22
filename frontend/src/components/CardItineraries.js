@@ -10,6 +10,7 @@ import { MdSend } from "react-icons/md";
 import Swal from "sweetalert2";
 import Comment from "./Comment";
 import ButtonLike from './ButtonLike'
+import Loader from "../components/Loader";
 const CardItineraries = ({ datos }) => {
   const boton = useDisplay();
   let precio = [];
@@ -22,8 +23,8 @@ const CardItineraries = ({ datos }) => {
     (store) => store.itinerariesReducer.itinerariosCiudad
   );
 
-
-  let itinerarioFind = itineraries.find((e) => e._id === datos._id);
+  let itinerarioFind;
+  itineraries && (itinerarioFind = itineraries.find((e) => e._id === datos._id))
   const [value, setValue] = useState("");
   const [itinerario, setItinerario] = useState(itinerarioFind);
   const [actividades, setActividades] = useState(null);
@@ -44,12 +45,6 @@ const CardItineraries = ({ datos }) => {
     })
     
   },[])
-  // useEffect(() => {
-  //   dispatch(itinerariesActions.likearItinerario(token,'61baa7404ddb00c1ebf5535e',true))
-  //   .then((result) => {
-  //     console.log(result);
-  //   })
-  // }, [boton.display])
 
 
   const agregarComentario = async () => {
@@ -71,11 +66,11 @@ const CardItineraries = ({ datos }) => {
       icon: "warning",
       showDenyButton: true,
       showCancelButton: false,
-      confirmButtonText: "Eliminar",
-      denyButtonText: `Cancelar`,
+      confirmButtonText: "Delete",
+      denyButtonText: `Cancel`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Eliminado", "", "success");
+        Swal.fire("Deleted", "", "success");
         dispatch(
           comentariosActions.borrarComentario(token, datos._id, id)
         ).then((result) => {
@@ -99,7 +94,7 @@ const CardItineraries = ({ datos }) => {
       denyButtonText: `Cancel`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Actualizado", "", "success");
+        Swal.fire("Updated", "", "success");
         dispatch(
           comentariosActions.modificarComentario(
             token,
@@ -120,7 +115,8 @@ const CardItineraries = ({ datos }) => {
 
   return (
     <>
-      <div key={itinerario.titulo} className="itinerary">
+      {itinerario 
+      ?<div key={itinerario.titulo} className="itinerary">
         <h2 className="itinerary_title">{itinerario.titulo}</h2>
         <div className="itinerary_body bg-oscuro">
           <div className="itinerary_item_uno">
@@ -169,7 +165,9 @@ const CardItineraries = ({ datos }) => {
             </div>
 
             <div className="itinerary_comentarios">
-              {itinerario.comentarios.length > 0 &&
+
+              {
+              usuarios && (itinerario.comentarios.length > 0 &&
                 itinerario.comentarios.map((comentario) => {
                   let datosUsuario = usuarios.find(
                     (e) => e.id === comentario.idUsuario
@@ -183,7 +181,7 @@ const CardItineraries = ({ datos }) => {
                       modificarComentario={modificarComentario}
                     />
                   );
-                })}
+                }))}
               <div className="agregarComentario">
                 <TextField
                   id="outlined-textarea"
@@ -210,6 +208,8 @@ const CardItineraries = ({ datos }) => {
           {boton.display ? "view less" : "view more"}
         </button>
       </div>
+      : <Loader/>  
+    }
     </>
   );
 };

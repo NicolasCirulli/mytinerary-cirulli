@@ -19,18 +19,18 @@ const Comment =( {datosUsuario,comentario,modificarComentario,borrarComentario} 
                 <img src={datosUsuario.fotoPerfil} width='50' height='50' alt="usuario"/>
                 {
                   inputOn 
-                  ?<span className="itinerary_comentario"> {comentario.comentario} </span>
+                  ?<span> {comentario.comentario} </span>
                   :<div className="d-flex">
-                      <input type='text' className="itinerary_comentario" ref={input} onChange={()=> setValue(input.current.value)}/> 
-                      <button onClick={()=>modificar(comentario._id,value)}><MdSend/></button>
+                      <input type='text' ref={input} onChange={()=> setValue(input.current.value)}/> 
+                      <button className="text-primary" onClick={()=>modificar(comentario._id,value)}><MdSend/></button>
                   </div>
                 }
                { datosUsuario.email === email &&
                <>
                <div className="itinerary_comentarios_iconos">
                  
-                <button type='button' onClick={()=>borrarComentario(comentario._id)}><FiDelete/></button>
-                <button onClick={()=>setInputOn(!inputOn)}><FiEdit3/></button>
+                <button className="text-danger" type='button' onClick={()=>borrarComentario(comentario._id)}><FiDelete/></button>
+                <button className="text-primary" onClick={()=>setInputOn(!inputOn)}><FiEdit3/></button>
                   
                </div>
                </>

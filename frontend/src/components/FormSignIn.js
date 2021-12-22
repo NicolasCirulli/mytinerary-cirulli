@@ -22,26 +22,28 @@ const FormSignIn = (props) => {
 
   const submitForm = async (e) => {
     e.preventDefault();
+    try{
 
-    const loguearUsuario = await props.iniciarSesion({
-      email: email.current.value,
-      contraseña: password.current.value,
-      google: false,
-    });
-    console.log(loguearUsuario);
+      const loguearUsuario = await props.iniciarSesion({
+        email: email.current.value,
+        contraseña: password.current.value,
+        google: false,
+      });
+      console.log(loguearUsuario);
+      
+      if (loguearUsuario.data.error) {
+        return alertas.alerta("errores", null, loguearUsuario.data.response);
+      }
 
-    if (loguearUsuario.data.error) {
-      return alertas.alerta("errores", null, loguearUsuario.data.response);
-    }
-    if(loguearUsuario.success && loguearUsuario.error){
-      return alertas.alerta(
-        "success",
-        "Successful sign in " + loguearUsuario.data.response.email
-      );
-    }else{
-      return alertas.alerta("errores", null, loguearUsuario.data.response);
-    }
-  };
+      if(loguearUsuario.data.success && !loguearUsuario.data.error){
+        return alertas.alerta(
+          "success",
+          "Successful sign in " + loguearUsuario.data.response.email
+          );
+      }else{return alertas.alerta("errores", null, loguearUsuario.data.response);}
+
+    }catch(e){console.log(e);}
+    };
 
   const responseGoogle = (response) => {
     let googleUser = {

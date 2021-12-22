@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import HeaderCity from "../components/HeaderCity";
-import Itineraries from "../components/Itineraries";
 import CardItineraries from "../components/CardItineraries";
 import { connect } from "react-redux";
 import citiesActions from "../redux/actions/citiesActions";
@@ -36,7 +35,7 @@ class City extends React.Component {
         {this.props.ciudad ? (
           <div>
             <HeaderCity datos={this.props.ciudad} />
-            <BotonCrearItinerario ciudad={this.props.ciudad}/>
+            { this.props.user === 'guia' && <BotonCrearItinerario ciudad={this.props.ciudad}/>}
             <div className="contenedor-city">
               {this.props.itinerarios ? (
                 this.props.itinerarios.length > 0 ? (
@@ -73,6 +72,7 @@ const mapStateToProps = (state) => {
     ciudad: state.citiesReducer.ciudad,
     ciudades: state.citiesReducer.ciudades,
     itinerarios: state.itinerariesReducer.itinerariosCiudad,
+    user: state.usuariosReducer.rol
   };
 };
 

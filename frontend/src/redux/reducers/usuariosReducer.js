@@ -1,6 +1,6 @@
 const initialState = {
     usuario: false,
-    // fotoPerfil: false
+    rol: false,
 }
 
 const usuariosReducer = (state = initialState, action)=>{

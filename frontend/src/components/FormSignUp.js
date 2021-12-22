@@ -19,6 +19,7 @@ const FormSignUp = (props) => {
   const [paises, setPaises] = useState([]);
   const validacion = useValidacion(formulario);
   const [paisSeleccionado, setPaisSeleccionado] = useState("null");
+  const [rolSeleccionado, setRolSeleccionado] = useState("null");
 
   // Trae los paises de la api cuando monta el componente
   useEffect(() => {
@@ -36,11 +37,16 @@ const FormSignUp = (props) => {
   const password = useRef();
   const urlFoto = useRef();
   const pais = useRef();
+  const rol = useRef();
 
   const HandleSelect = (e) =>
     e.target.value !== "null"
       ? setPaisSeleccionado(e.target.value)
       : setPaisSeleccionado("null");
+  const HandleSelectRol = (e) =>
+    e.target.value !== "null"
+      ? setRolSeleccionado(e.target.value)
+      : setRolSeleccionado("null");
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -60,6 +66,7 @@ const FormSignUp = (props) => {
         contraseña: password.current.value,
         fotoPerfil: urlFoto.current.value,
         pais: paisSeleccionado,
+        rol: rolSeleccionado
       });
 
       if (!nuevoUsuario.data.success) {
@@ -150,6 +157,19 @@ const FormSignUp = (props) => {
           "Valid url",
           "Invalid url"
         )}
+        <div className="input_form">
+          <select
+          onChange={HandleSelectRol}
+          ref={rol}
+          defaultValue="-"
+          required
+          >
+            <option value="user">user</option>
+            <option value="guia">guide</option>
+          </select>
+        </div>
+        
+
         {paises.length > 0 ? (
           <div className="input_form">
             <select

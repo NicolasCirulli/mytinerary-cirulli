@@ -1,13 +1,13 @@
 import axios from "axios"
 
 const usuarioActions = {
-    nuevoUsuario: ( {primerNombre, apellido,email,contraseña,fotoPerfil,pais,google})=>{
+    nuevoUsuario: ( {primerNombre, apellido,email,contraseña,fotoPerfil,pais,google,rol})=>{
         return async(dispatch,getState)=>{
-           const usuario = await axios.post('http://localhost:4000/api/usuario/registro',{primerNombre, apellido,  email, contraseña, fotoPerfil, pais,google})
+           const usuario = await axios.post('http://localhost:4000/api/usuario/registro',{primerNombre, apellido,  email, contraseña, fotoPerfil, pais,google,rol})
            if(usuario.data.success){
                console.log(usuario.data)
                 localStorage.setItem('token',usuario.data.response.token)
-                dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.nuevoUsuario.primerNombre,fotoPerfil: usuario.data.response.nuevoUsuario.fotoPerfil,email:usuario.data.response.nuevoUsuario.email, _id: usuario.data.response._id}})
+                dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.nuevoUsuario.primerNombre,fotoPerfil: usuario.data.response.nuevoUsuario.fotoPerfil,email:usuario.data.response.nuevoUsuario.email, _id: usuario.data.response._id,rol: usuario.data.response.rol}})
                 return usuario
            }else{
             
@@ -24,7 +24,7 @@ const usuarioActions = {
                 return usuario
             }else{
                 localStorage.setItem('token',usuario.data.response.token)
-                 dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre,fotoPerfil: usuario.data.response.fotoPerfil,email:usuario.data.response.email, _id: usuario.data.response._id}})
+                 dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre,fotoPerfil: usuario.data.response.fotoPerfil,email:usuario.data.response.email, _id: usuario.data.response._id, rol: usuario.data.response.rol}})
                 return usuario
             }
         }
@@ -43,7 +43,7 @@ const usuarioActions = {
                         'Authorization':'Bearer '+token 
                     }
                 })
-                usuario.data.success && dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre, fotoPerfil: usuario.data.response.fotoPerfil, rol: usuario.data.response.rol,email:usuario.data.response.email, _id : usuario.data.response._id}})
+                usuario.data.success && dispatch({type:'iniciarSesion', payload:{usuario:usuario.data.response.primerNombre, fotoPerfil: usuario.data.response.fotoPerfil, rol: usuario.data.response.rol,email:usuario.data.response.email, _id : usuario.data.response._id,}})
                 return usuario.data.success ? usuario.data : null
             }catch(err){console.log(err)}
         }
