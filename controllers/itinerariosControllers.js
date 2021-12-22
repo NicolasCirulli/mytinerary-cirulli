@@ -242,6 +242,8 @@ const itinerariosControllers = {
   likearItinerario: async(req, res)=> {
     const {idItinerario, bool } = req.body;
     const idUsuario = req.user._id
+    console.log(idItinerario, bool);
+    console.log(idUsuario);
     try {
       const itinerario = await Itinerario.findOneAndUpdate(
         { _id: idItinerario },
@@ -250,6 +252,7 @@ const itinerariosControllers = {
         : { $pull: { likes: idUsuario } },
         { new: true }
       );
+      console.log(itinerario);
       res.json({ success: true, response: itinerario, error: null });
     } catch (e) {
       console.log(e);

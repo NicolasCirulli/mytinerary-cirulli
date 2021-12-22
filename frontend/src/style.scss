@@ -435,3 +435,16 @@ $gris: #9d9d9d;
     margin-left: 5px;
   }
 }
+
+.contenedor-likes{
+  margin: 7px;
+  display:flex;
+  border : 1px solid green;
+
+  &_like{
+    color: #454cd8;
+  }
+  &_dislike{
+    color: #a6a9e3;
+  }
+}

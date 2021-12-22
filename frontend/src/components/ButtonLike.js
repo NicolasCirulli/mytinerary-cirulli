@@ -1,71 +1,66 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import MailIcon from '@mui/icons-material/Mail';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { MdFavorite } from "react-icons/md";
 import { BiLike } from "react-icons/bi";
+import itinerariesActions from "../redux/actions/itinerariesActions";
+import { useSelector, useDispatch } from 'react-redux';
 
-const ButtonLike = ()=> {
-  const [count, setCount] = useState(1);
-  const [invisible, setInvisible] = useState(false);
+const ButtonLike = ({data,itinerario})=> {
+  const [count, setCount] = useState(data.length);
+  const [like, setLike] = useState(false)
 
-  const handleBadgeVisibility = () => {
-    setInvisible(!invisible);
-  };
+  const user = useSelector(state=> state.usuariosReducer._id)
+  const dispatch = useDispatch()
+  const token = localStorage.getItem('token')
+
+  const likear = async() =>{
+    console.log('me ejecute');
+      try{
+        const respuesta = await dispatch(itinerariesActions.likearItinerario(token,itinerario._id,like))
+        setCount(respuesta.data.response.likes.length)
+        setLike(!respuesta.data.response.likes.includes(user))
+      }catch(e){console.log(e)}
+
+  }
 
   return (
     <Box
       sx={{
-        color: 'action.active',
+        color: '#699BF5',
         display: 'flex',
         flexDirection: 'column',
         '& > *': {
-          marginBottom: 2,
+          marginBottom: 1,
         },
         '& .MuiBadge-root': {
-          marginRight: 4,
+          marginRight: 2,
         },
       }}
     >
-      <div>
-        <Badge color="secondary" badgeContent={count}>
-          <MdFavorite className="fs-3 text-danger" />
+      <div className="contenedor-likes">
+        <Badge color="primary" badgeContent={count}>
+          { count > 0 
+           ? <MdFavorite className="fs-3 text-danger" />
+           : <MdFavorite className="fs-3 text-warning" />
+          }
         </Badge>
         <ButtonGroup>
-          <BiLike className="fs-2"
+          { !like 
+          ?<BiLike className="fs-2 contenedor-likes_like"
             aria-label="reduce"
-            onClick={() => {
-              setCount(Math.max(count - 1, 0));
-            }}
-          >
-            <RemoveIcon fontSize="small" />
-          </BiLike>
-          <Button
-            aria-label="increase"
-            onClick={() => {
-              setCount(count + 1);
-            }}
-          >
-            <AddIcon fontSize="small" />
-          </Button>
+            onClick={likear}
+            />
+            
+          : <BiLike className="fs-2 contenedor-likes_dislike"
+          aria-label="reduce"
+          onClick={likear}
+        />
+          }
+          
         </ButtonGroup>
       </div>
-      {/* <div>
-        <Badge color="secondary" variant="dot" invisible={invisible}>
-          <MailIcon />
-        </Badge>
-        <FormControlLabel
-          sx={{ color: 'text.primary' }}
-          control={<Switch checked={!invisible} onChange={handleBadgeVisibility} />}
-          label="Show Badge"
-        />
-      </div> */}
     </Box>
   );
 }

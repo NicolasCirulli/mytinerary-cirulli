@@ -44,12 +44,12 @@ const CardItineraries = ({ datos }) => {
     })
     
   },[])
-  useEffect(() => {
-    dispatch(itinerariesActions.likearItinerario(token,'61c12ddeada6975855323410',false))
-    .then((result) => {
-      console.log(result);
-    })
-  }, [boton.display])
+  // useEffect(() => {
+  //   dispatch(itinerariesActions.likearItinerario(token,'61baa7404ddb00c1ebf5535e',true))
+  //   .then((result) => {
+  //     console.log(result);
+  //   })
+  // }, [boton.display])
 
 
   const agregarComentario = async () => {
@@ -141,7 +141,7 @@ const CardItineraries = ({ datos }) => {
               Duration : {itinerario.duracion} hs
             </span>
             <div>
-              {/* <ButtonLike/>  */}
+              <ButtonLike data={itinerario.likes} itinerario={itinerario}/> 
             </div>
 
             <div className="itinerary_hastag">

@@ -7,47 +7,47 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 
-import useModal from '../hooks/useModal'
+// import useModal from '../hooks/useModal'
 
 const Itineraries = ({datos}) => {
-  const boton = useDisplay();
-  let precio = []
-  for (let i = 0; i < datos.precio; i++) {
-    precio.push(<span>💵</span>);
-  }  
+  // const boton = useDisplay();
+  // let precio = []
+  // for (let i = 0; i < datos.precio; i++) {
+  //   precio.push(<span>💵</span>);
+  // }  
 
-  const modalModificar = useModal(datos);
-  const modalBorrar = useModal(datos)
+  // const modalModificar = useModal(datos);
+  // const modalBorrar = useModal(datos)
 
-  const [value, setValue] = React.useState('Controlled');
+  // const [value, setValue] = React.useState('Controlled');
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setValue(event.target.value);
+  // };
 
   
-  const usuarios = useSelector(store => store.usuariosReducer.usuarios)
-  const email = useSelector(store => store.usuariosReducer.email)
-  const dispatch = useDispatch()
-  const token = localStorage.getItem('token')
-  const comentario = useRef()
+  // const usuarios = useSelector(store => store.usuariosReducer.usuarios)
+  // const email = useSelector(store => store.usuariosReducer.email)
+  // const dispatch = useDispatch()
+  // const token = localStorage.getItem('token')
+  // const comentario = useRef()
 
-  const agregarComentario = () => {
-    dispatch(comentariosActions.agregarComentarios(token,datos._id,comentario.current.value))
-    const falsoId = Math.random()
-    let datosUsuario = usuarios.find( e => e.email === email)
-    console.log(datosUsuario);
-    datos.comentarios.push({
-      '_id': falsoId,
-      'comentario' : comentario.current.value,
-      'idUsuario' : datosUsuario.id
-    })
-    boton.HandleDisplay()
-  }
+  // const agregarComentario = () => {
+  //   dispatch(comentariosActions.agregarComentarios(token,datos._id,comentario.current.value))
+  //   const falsoId = Math.random()
+  //   let datosUsuario = usuarios.find( e => e.email === email)
+  //   console.log(datosUsuario);
+  //   datos.comentarios.push({
+  //     '_id': falsoId,
+  //     'comentario' : comentario.current.value,
+  //     'idUsuario' : datosUsuario.id
+  //   })
+  //   boton.HandleDisplay()
+  // }
   
   return (
     <>
-      <div key={datos.titulo} className="itinerary">
+      {/* <div key={datos.titulo} className="itinerary">
         <h2 className="itinerary_title">{datos.titulo}</h2>
         <div className="itinerary_body bg-oscuro">
           <div className="itinerary_item_uno">
@@ -111,7 +111,7 @@ const Itineraries = ({datos}) => {
                 <Button variant="contained" size="small">
                   Add comment
                 </Button> */}
-                <input type="text" placeholder="Agregar comentario" className="itinerary_comentarios_input" ref={comentario}/>
+                {/* <input type="text" placeholder="Agregar comentario" className="itinerary_comentarios_input" ref={comentario}/>
                 <button  onClick={agregarComentario}>Enviar</button>
               </div>
           </div>
@@ -123,7 +123,7 @@ const Itineraries = ({datos}) => {
           {" "}
           {boton.display ? "view less" : "view more"}
         </button>
-      </div >
+      </div > */}
     </>
   );
 };
