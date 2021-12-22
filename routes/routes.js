@@ -46,7 +46,7 @@ Router.route('/itinerarios/comentarios/:id')
 .delete(passport.authenticate('jwt',{session:false}),borrarComentario)
 .put(passport.authenticate('jwt',{session:false}),modificarComentario)
 
-Router.route('/itinerarios/comentarios/like')
+Router.route('/like')
 .put(passport.authenticate('jwt',{session:false}),likearItinerario)
 
 

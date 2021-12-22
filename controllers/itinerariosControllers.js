@@ -241,21 +241,20 @@ const itinerariosControllers = {
 
   },
   likearItinerario: async(req, res)=> {
-    console.log('llegue aca');
-    // const {idItinerario, bool } = req.body;
-    // const idUsuario = req.user._id
-    // try {
-    //   const itinerario = await Itinerario.findOneAndUpdate(
-    //     { _id: idItinerario },
-    //     bool 
-    //     ? { $addToSet: { likes: idUsuario } } 
-    //     : { $pull: { likes: idUsuario } },
-    //     { new: true }
-    //   );
-    //   res.json({ success: true, response: itinerario, error: null });
-    // } catch (e) {
-    //   console.log('entre en el catch');
-    // }
+    const {idItinerario, bool } = req.body;
+    const idUsuario = req.user._id
+    try {
+      const itinerario = await Itinerario.findOneAndUpdate(
+        { _id: idItinerario },
+        bool 
+        ? { $addToSet: { likes: idUsuario } } 
+        : { $pull: { likes: idUsuario } },
+        { new: true }
+      );
+      res.json({ success: true, response: itinerario, error: null });
+    } catch (e) {
+      console.log(e);
+    }
   },    
 }
 

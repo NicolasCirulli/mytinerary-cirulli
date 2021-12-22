@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import { MdSend } from "react-icons/md";
 import Swal from "sweetalert2";
 import Comment from "./Comment";
-
+import ButtonLike from './ButtonLike'
 const CardItineraries = ({ datos }) => {
   const boton = useDisplay();
   let precio = [];
@@ -17,9 +17,12 @@ const CardItineraries = ({ datos }) => {
     precio.push(<span>💵</span>);
   }
 
+
   let itineraries = useSelector(
     (store) => store.itinerariesReducer.itinerariosCiudad
   );
+
+
   let itinerarioFind = itineraries.find((e) => e._id === datos._id);
   const [value, setValue] = useState("");
   const [itinerario, setItinerario] = useState(itinerarioFind);
@@ -42,7 +45,7 @@ const CardItineraries = ({ datos }) => {
     
   },[])
   useEffect(() => {
-    dispatch(itinerariesActions.likearItinerario(token,datos._id,false))
+    dispatch(itinerariesActions.likearItinerario(token,'61c12ddeada6975855323410',false))
     .then((result) => {
       console.log(result);
     })
@@ -138,19 +141,7 @@ const CardItineraries = ({ datos }) => {
               Duration : {itinerario.duracion} hs
             </span>
             <div>
-              {itinerario.likes > 0 ? (
-                <>
-                  {" "}
-                  <FcLike />{" "}
-                  <span className="font-bold ">{itinerario.likes}</span>
-                </>
-              ) : (
-                <>
-                  {" "}
-                  <FcLikePlaceholder />{" "}
-                  <span className="font-bold">{itinerario.likes}</span>
-                </>
-              )}
+              {/* <ButtonLike/>  */}
             </div>
 
             <div className="itinerary_hastag">

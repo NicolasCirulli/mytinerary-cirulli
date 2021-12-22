@@ -56,7 +56,6 @@ const usuarioActions = {
                         'Authorization':'Bearer '+token 
                     }
                 })
-                console.log(usuario);
             }catch(err){console.log(err)}
         }
     },
@@ -64,7 +63,6 @@ const usuarioActions = {
         return async(dispatch,getState) =>{
             try{
                 const usuarios = await axios.get('http://localhost:4000/api/usuarios')
-                console.log(usuarios)
                 dispatch({type:'usuarios', payload: usuarios.data.response})
             }catch(error){
                 console.error(error);

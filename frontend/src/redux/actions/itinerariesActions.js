@@ -65,14 +65,14 @@ const itinerariesActions = {
     likearItinerario:(token,idItinerario,bool)=>{
         return async(dispatch,getState)=>{
             try{
-                const usuario = await axios.put('http://localhost:4000/api/itinerarios/comentarios/like',{idItinerario,bool},
+                const usuario = await axios.put('http://localhost:4000/api/like',{idItinerario,bool},
                 {
                     headers:{
                         'Authorization':'Bearer '+token
                     }
                 })
                 console.log(usuario);
-                return usuario
+                // return usuario
             }catch(err){console.log(err)}
         }
     },
