@@ -173,7 +173,7 @@ const itinerariosControllers = {
       if(agregarComentario){
         res.json({success:true, response: agregarComentario, error:false })
       }else{
-        res.json({success:false, response: [{message:'Itinerario no encontrado'}], error:true })
+        res.json({success:false, response: [{message:'No se pudo agregar'}], error:true })
       }
     }catch(err){
       console.log(err)}
@@ -189,7 +189,6 @@ const itinerariosControllers = {
         {
           $pull: {
              comentarios:{
-              //  idUsuario : req.user._id,
               _id: idComentario
              }
           }
