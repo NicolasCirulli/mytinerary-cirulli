@@ -15,15 +15,12 @@ const ButtonLike = ({data,itinerario})=> {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
   const likear = async() =>{
-    console.log('me ejecute');
       try{
         const respuesta = await dispatch(itinerariesActions.likearItinerario(token,itinerario._id,like))
         setCount(respuesta.data.response.likes.length)
         setLike(!respuesta.data.response.likes.includes(user))
       }catch(e){console.log(e)}
-
   }
-
   useEffect(() => {
 
   },[])

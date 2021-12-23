@@ -86,9 +86,18 @@ const useAlerts = () => {
         progress: undefined,
       }))
     }
-
-  };
-
+    if(error === 'postComentario'){
+      toast.error('You need to be logged in to comment this itinerary',{
+        theme:'dark',
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+      })
+    };
+  }
   return { alerta,tostadas };
 };
 export default useAlerts;

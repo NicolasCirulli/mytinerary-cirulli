@@ -4,6 +4,8 @@ const actividadesControllers = {
 
   crearActividad : async(req, res) => {
     let { titulo, imagen, itinerarioRelacionado} = req.body
+    console.log(req.body);
+    console.log(titulo, imagen, itinerarioRelacionado);
     let nuevaActividad = await Actividades ({titulo, imagen, itinerarioRelacionado})
     try{
       await nuevaActividad.save()

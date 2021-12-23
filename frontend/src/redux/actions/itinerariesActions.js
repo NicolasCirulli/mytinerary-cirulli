@@ -71,7 +71,6 @@ const itinerariesActions = {
                         'Authorization':'Bearer '+token
                     }
                 })
-                // console.log(usuario);
                 return usuario
             }catch(err){console.log(err)}
         }
@@ -81,15 +80,14 @@ const itinerariesActions = {
         return async (dispatch,getState)=>{
             try{
                 const usuario = await axios.get('http://localhost:4000/api/actividades/'+id,)
-                console.log(usuario);
                 return usuario
             }catch(err){console.log(err)}
         }
     },
-    crearActividades : (body)=>{
+    crearActividades : ({titulo, imagen, itinerarioRelacionado})=>{
         return async (dispatch,getState)=>{
             try{
-                const usuario = await axios.post('http://localhost:4000/api/actividades',{body})
+                const usuario = await axios.post('http://localhost:4000/api/actividades',{titulo, imagen, itinerarioRelacionado})
                 console.log(usuario);
                 return usuario
             }catch(err){console.log(err)}

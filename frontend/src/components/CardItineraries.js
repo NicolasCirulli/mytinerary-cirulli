@@ -11,13 +11,14 @@ import Swal from "sweetalert2";
 import Comment from "./Comment";
 import ButtonLike from './ButtonLike'
 import Loader from "../components/Loader";
+import useAlerts from "../hooks/useAlerts"
 const CardItineraries = ({ datos }) => {
   const boton = useDisplay();
   let precio = [];
   for (let i = 0; i < datos.precio; i++) {
     precio.push(<span>💵</span>);
   }
-
+  const alertas = useAlerts()
 
   let itineraries = useSelector(
     (store) => store.itinerariesReducer.itinerariosCiudad
@@ -34,6 +35,7 @@ const CardItineraries = ({ datos }) => {
   };
 
   const usuarios = useSelector((store) => store.usuariosReducer.usuarios);
+  const usuario = useSelector((store) => store.usuariosReducer.usuario);
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
 
@@ -59,6 +61,9 @@ const CardItineraries = ({ datos }) => {
       console.log(err);
     }
   };
+
+  const alertaLoguear = () => alertas.tostadas('postComentario',null)
+
   const borrarComentario = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -191,13 +196,22 @@ const CardItineraries = ({ datos }) => {
                   value={value}
                   onChange={handleChange}
                 />
-                <Button
+               { usuario 
+                 ? <Button
                   variant="contained"
                   size="small"
                   onClick={agregarComentario}
                 >
                   <MdSend />
                 </Button>
+                :  <Button
+                variant="contained"
+                size="small"
+                onClick={alertaLoguear}
+              >
+                <MdSend />
+              </Button>  
+              }
               </div>
             </div>
           </>
