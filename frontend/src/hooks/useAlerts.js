@@ -87,7 +87,7 @@ const useAlerts = () => {
       }))
     }
     if(error === 'postComentario'){
-      toast.error('You need to be logged in to comment this itinerary',{
+      toast.error('You need to be logged',{
         theme:'dark',
         position: "top-right",
         autoClose: 1500,

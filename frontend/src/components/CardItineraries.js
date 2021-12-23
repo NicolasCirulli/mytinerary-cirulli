@@ -23,7 +23,7 @@ const CardItineraries = ({ datos }) => {
   let itineraries = useSelector(
     (store) => store.itinerariesReducer.itinerariosCiudad
   );
-
+  const user = useSelector(state=> state.usuariosReducer._id)
   let itinerarioFind;
   itineraries && (itinerarioFind = itineraries.find((e) => e._id === datos._id))
   const [value, setValue] = useState("");
@@ -142,7 +142,8 @@ const CardItineraries = ({ datos }) => {
               Duration : {itinerario.duracion} hs
             </span>
             <div>
-              <ButtonLike data={itinerario.likes} itinerario={itinerario}/> 
+              
+              <ButtonLike data={itinerario.likes} itinerario={itinerario} alerta={alertaLoguear}/> 
             </div>
 
             <div className="itinerary_hastag">

@@ -166,13 +166,13 @@ const CreateItinerary = () => {
 
           <input
             type="text"
-            placeholder="Activity 2"
+            placeholder="Activity 3"
             ref={actividadTres}
             required
           />
           <input
             type="text"
-            placeholder="Image activity 2"
+            placeholder="Image activity 3"
             ref={imagenATres}
             required
           />

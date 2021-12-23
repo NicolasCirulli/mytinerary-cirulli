@@ -55,7 +55,7 @@ const NavbarHome = () => {
               </Navbar.Brand>
               {usuario &&<Navbar.Brand><span className="texto-naranja">{usuario}</span></Navbar.Brand>}
               {usuario && <Navbar.Brand onClick={() => dispatch(usuarioActions.cerrarSesion()) }>
-                  <span className="texto-naranja"> Log out </span>
+                  <button className="texto-naranja logout"> Log out </button>
               </Navbar.Brand>}
             </Nav>
             

@@ -14,11 +14,16 @@ const usuariosReducer = (state = initialState, action)=>{
 
         case 'cerrar':
             return{
-            ...initialState
+                ...state,
+                usuario: false,
+                rol: false,
+                fotoPerfil: null,
+                email: null,
+                _id: null,
             }
         case 'usuarios':
             return{
-                ...initialState,
+                ...state,
                 usuarios : action.payload
             }
         default: 
